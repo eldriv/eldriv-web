@@ -7,11 +7,10 @@ First, run the development server:
 ```bash
 make dev
 ```
-> **NOTE:** The `Makefile` has the ability to detect the available package manager installed in your system.  
+> **NOTE:** The `Makefile` has the ability to detect the available package manager.  
 > It checks for `bun`, `pnpm`, or `yarn`, and falls back to `npm` if none of the others are found.
 
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the developer mode.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
