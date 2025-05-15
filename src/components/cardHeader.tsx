@@ -38,12 +38,12 @@ export const CardHeader = ({
           {subtitle}
         </h3>
       )}
-      <p className="text-sm sm:pt-5 leading-relaxed flex-grow lg:mt-5 lg:text-lg gap-3 md:text-lg sm:text-lg text-white">
+      <p className="text-sm sm:pt-5 leading-relaxed flex-grow lg:mt-2 lg:text-lg gap-3 md:text-lg sm:text-lg text-white">
         {description}
         {researchLink && (
           <Link 
             href={researchLink}
-            className=" lg:mt-10 sm:pt-5 text-emerald-300 hover:text-[#FD8128] transition-colors inline-flex items-center"
+            className=" lg:mt-1 sm:pt-5 text-emerald-300 hover:text-[#FD8128] transition-colors inline-flex items-center"
           >
             View Research
             <ArrowUpRightIcon className="ml-1 w-4 h-4" />
