@@ -15,7 +15,7 @@ export const CardHeader = ({
   subtitle?: string;
   description: string;
   href?: string; 
-  researchLink?: string; // Add optional researchLink prop
+  researchLink?: string; 
   className?: string;
 }) => {
   return (

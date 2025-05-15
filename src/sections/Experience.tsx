@@ -382,7 +382,6 @@ export const ExperienceSection = () => {
     // Initialize visibility on mount
     handleScroll();
     
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
