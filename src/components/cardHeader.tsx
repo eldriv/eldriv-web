@@ -43,7 +43,7 @@ export const CardHeader = ({
         {researchLink && (
           <Link 
             href={researchLink}
-            className="mt-5 text-emerald-300 hover:text-[#FD8128] transition-colors inline-flex items-center"
+            className="sm:-mt-5 mt-5 text-emerald-300 hover:text-[#FD8128] transition-colors inline-flex items-center"
           >
             View Research
             <ArrowUpRightIcon className="ml-1 w-4 h-4" />
