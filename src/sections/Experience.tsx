@@ -555,7 +555,7 @@ export const ExperienceSection = () => {
                             </motion.button>
                           )}
                         </div>
-                        <div className="relative mt-8 lg:mt-0 lg:h-full overflow-hidden rounded-t-lg md:rounded-lg">
+                        <div className="relative">
                           <motion.div
                             variants={imageVariants}
                             initial="hidden"
@@ -566,7 +566,7 @@ export const ExperienceSection = () => {
                             <Image 
                               src={project.image} 
                               alt={project.title} 
-                              className="w-full rounded-t-lg md:rounded-lg lg:h-full lg:w-auto lg:max-w-none object-cover transform transition-transform"
+                              className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none transform transition-transform"
                               priority={index < 2} // Prioritize loading the first two images
                             />
                           </motion.div>
@@ -595,4 +595,4 @@ export const ExperienceSection = () => {
       />
     </section>
   );
-};  
+};
