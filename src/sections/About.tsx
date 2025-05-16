@@ -197,7 +197,7 @@ const contributions: Contribution[] = [
   title: "Philippine Dental Association Newsletter",
   left: "10%",
   top: "0%",
-  href: "https://drive.google.com/drive/folders/17X-wVS-3VHOLzYYXJDn6HzxzBiT9JxZh",
+  href: "https://drive.google.com/file/d/1K4NdJ0O1m3VYn_wjIXSDxGhZNHNpThCu/view",
 },
 ];
 
@@ -344,8 +344,8 @@ return (
 
               {showOpenSourceOptions && (
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-4 rounded-lg shadow-lg z-10">
-                  <div className="flex flex-col gap-2">
-                    <h4 className="text-emerald-300 font-medium mb-2">Select a project:</h4>
+                  <div className="flex flex-col gap-2 mb-10">
+                    <h4 className="text-emerald-300 font-medium">Select a Project</h4>
                     {openSourceProjects.map((project) => (
                       <a
                         key={project.name}
