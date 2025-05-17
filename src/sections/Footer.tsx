@@ -3,15 +3,18 @@ import ArrowUpRightIcon from '@/assets/icons/arrow-up-right.svg'
 const footerLinks = [
   {
     title: 'X',
-    href: '#',
+    href: 'https://x.com/eldrivi',
+    target: "_blank",
   },
   {
     title: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/eldrivi/',
+    target: "_blank",
   },
   {
-    title: 'Discord',
-    href: '#',
+    title: 'Facebook',
+    href: 'https://www.facebook.com/eldriv/',
+    target: "_blank",
   },
 ]
 

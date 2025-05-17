@@ -2,7 +2,7 @@
 
 // Components
 import { SectionHeader } from '@/components/SectionHeader';
-import { useState, useEffect, MouseEvent } from 'react'; 
+import { useState, useEffect, MouseEvent, useRef } from 'react'; 
 import { motion } from 'framer-motion'; // Import framer-motion
 
 // SVGs
@@ -360,11 +360,26 @@ export const ExperienceSection = () => {
   // Track which sections are in view for triggering animations
   const [visibleSections, setVisibleSections] = useState<{[key: number]: boolean}>({});
   
+  // Track the currently focused card (0, 1, or 2)
+  const [focusedCardIndex, setFocusedCardIndex] = useState<number>(0);
+  
+  // Refs for each card to track their positions
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  
+  // Set up card refs
+  useEffect(() => {
+    // Initialize with correct number of null refs
+    cardRefs.current = Array(portfolioExperience.length).fill(null);
+  }, []);
+  
+  // Handle scroll to determine which card is most in focus
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('.project-card');
       const viewportHeight = window.innerHeight;
+      const viewportCenter = window.innerHeight / 2;
       
+      // Track which sections are visible for animations
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
         // Consider a section visible when it's in the viewport
@@ -377,9 +392,28 @@ export const ExperienceSection = () => {
           return prev;
         });
       });
+      
+      // Calculate which card is most centered in the viewport
+      let closestCard = 0;
+      let minDistance = Infinity;
+      
+      cardRefs.current.forEach((cardRef, index) => {
+        if (cardRef) {
+          const rect = cardRef.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const distanceFromViewportCenter = Math.abs(cardCenter - viewportCenter);
+          
+          if (distanceFromViewportCenter < minDistance) {
+            minDistance = distanceFromViewportCenter;
+            closestCard = index;
+          }
+        }
+      });
+      
+      setFocusedCardIndex(closestCard);
     };
     
-    // Initialize visibility on mount
+    // Initialize visibility and focus on mount
     handleScroll();
     
     window.addEventListener('scroll', handleScroll);
@@ -440,6 +474,23 @@ export const ExperienceSection = () => {
     });
   };
   
+  // Helper function to calculate opacity based on focus
+  const getCardOpacity = (index: number) => {
+    if (index === focusedCardIndex) return 1;
+    return 0.2; // Reduced opacity for non-focused cards
+  };
+  
+  // Helper function to calculate transition properties
+  const getCardTransition = (index: number) => {
+    // Smooth transition for opacity changes
+    return {
+      opacity: {
+        duration: 1,
+        ease: "easeInOut"
+      }
+    };
+  };
+  
   const HeaderComponent = SectionHeader();
 
   return (
@@ -461,21 +512,21 @@ export const ExperienceSection = () => {
             {/* Sticky cards container */}
             <div className="space-y-10">
               {portfolioExperience.map((project, index) => (
-                <div key={project.title} className="sticky project-card" style={{ top: `${100 + index * 35}px` }}>
+                <div 
+                  key={project.title} 
+                  className="sticky project-card" 
+                  style={{ top: `${100 + index * 35}px` }}
+                  ref={(el) => { cardRefs.current[index] = el; }}
+                >
                   <motion.div
                     initial="hidden"
-                    animate={visibleSections[index] ? "visible" : "hidden"}
+                    animate={visibleSections[index] ? {
+                      opacity: getCardOpacity(index),
+                      y: 0
+                    } : "hidden"}
+                    transition={getCardTransition(index)}
                     variants={{
                       hidden: { opacity: 0, y: 70 },
-                      visible: { 
-                        opacity: 1, 
-                        y: 0,
-                        transition: {
-                          duration: 0.5,
-                          delay: index * 0.2,
-                          ease: "easeOut"
-                        }
-                      }
                     }}
                   >
                     <Card className="px-8 pt-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20">
