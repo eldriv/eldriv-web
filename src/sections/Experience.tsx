@@ -327,7 +327,6 @@ const portfolioExperience: PortfolioExperienceItem[] = [
   },
 ];
 
-// Animation variants for the image container
 const imageVariants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: { 
@@ -357,22 +356,32 @@ export const ExperienceSection = () => {
     currentIndex: 0
   });
   
-  // Track which sections are in view for triggering animations
   const [visibleSections, setVisibleSections] = useState<{[key: number]: boolean}>({});
   
-  // Track the currently focused card (0, 1, or 2)
-  const [focusedCardIndex, setFocusedCardIndex] = useState<number>(0);
+  const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null);
   
-  // Refs for each card to track their positions
+  const [isMobile, setIsMobile] = useState(false);
+  
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  
+  // Check if on mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Set up card refs
   useEffect(() => {
-    // Initialize with correct number of null refs
     cardRefs.current = Array(portfolioExperience.length).fill(null);
   }, []);
   
-  // Handle scroll to determine which card is most in focus
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('.project-card');
@@ -382,8 +391,8 @@ export const ExperienceSection = () => {
       // Track which sections are visible for animations
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
-        // Consider a section visible when it's in the viewport
-        const isVisible = rect.top < viewportHeight * 0.75 && rect.bottom > 0;
+        // Consider a section visible when at least partially in the viewport
+        const isVisible = rect.top < viewportHeight && rect.bottom > 0;
         
         setVisibleSections(prev => {
           if (prev[index] !== isVisible) {
@@ -391,26 +400,37 @@ export const ExperienceSection = () => {
           }
           return prev;
         });
-      });
-      
-      // Calculate which card is most centered in the viewport
-      let closestCard = 0;
-      let minDistance = Infinity;
-      
-      cardRefs.current.forEach((cardRef, index) => {
-        if (cardRef) {
-          const rect = cardRef.getBoundingClientRect();
-          const cardCenter = rect.top + rect.height / 2;
-          const distanceFromViewportCenter = Math.abs(cardCenter - viewportCenter);
+        
+        // On mobile, don't dim any cards - keep them all fully visible
+        if (isMobile) {
+          setFocusedCardIndex(null);
+          return;
+        }
+        
+        // Calculate which card is most centered in the viewport
+        // We do this separately to determine focused card for desktop
+        const cards = cardRefs.current.filter(Boolean);
+        
+        if (cards.length) {
+          let closestCard = 0;
+          let minDistance = Infinity;
           
-          if (distanceFromViewportCenter < minDistance) {
-            minDistance = distanceFromViewportCenter;
-            closestCard = index;
-          }
+          cards.forEach((cardRef, idx) => {
+            if (cardRef) {
+              const cardRect = cardRef.getBoundingClientRect();
+              const cardCenter = cardRect.top + cardRect.height / 2;
+              const distanceFromViewportCenter = Math.abs(cardCenter - viewportCenter);
+              
+              if (distanceFromViewportCenter < minDistance) {
+                minDistance = distanceFromViewportCenter;
+                closestCard = idx;
+              }
+            }
+          });
+          
+          setFocusedCardIndex(closestCard);
         }
       });
-      
-      setFocusedCardIndex(closestCard);
     };
     
     // Initialize visibility and focus on mount
@@ -418,7 +438,7 @@ export const ExperienceSection = () => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobile]);
   
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -476,8 +496,11 @@ export const ExperienceSection = () => {
   
   // Helper function to calculate opacity based on focus
   const getCardOpacity = (index: number) => {
-    if (index === focusedCardIndex) return 1;
-    return 0.2; // Reduced opacity for non-focused cards
+    // On mobile, all cards remain at full opacity
+    if (isMobile || focusedCardIndex === null) return 1;
+    
+    // On desktop, focus-based opacity
+    return index === focusedCardIndex ? 1 : 0.2;
   };
   
   // Helper function to calculate transition properties
@@ -485,7 +508,7 @@ export const ExperienceSection = () => {
     // Smooth transition for opacity changes
     return {
       opacity: {
-        duration: 1,
+        duration: 0.5,
         ease: "easeInOut"
       }
     };
@@ -494,7 +517,7 @@ export const ExperienceSection = () => {
   const HeaderComponent = SectionHeader();
 
   return (
-    <section className="pb-16 lg:py-24" id="experience"> 
+    <section className="pb-16 lg:py-24" id="experience" ref={sectionRef}> 
       <div className="container" style={{ maxWidth: "1230px" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
