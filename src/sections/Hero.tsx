@@ -133,21 +133,6 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <motion.a
-                href="https://drive.google.com/file/d/1Y7OLw8QeqOgxLL5HBoml3jeBV0H2gu-t/view?usp=sharing"
-                target="_blank"
-                className="inline-flex items-center justify-center gap-2 border border-white/15 px-6 h-12 rounded-xl bg-gray-900/50 backdrop-blur-sm hover:bg-gray-800/50 transition-all text-white w-full md:w-auto"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="font-semibold">View my CV</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 16L12 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 13L12 16L15 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M20 16V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18L4 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </motion.a>
-
-              <motion.a
                 href="https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/"
                 target="_blank"
                 className="inline-flex items-center justify-center gap-2 text-white/90 bg-[#FD8128] h-12 px-6 rounded-xl transition-all hover:bg-[#E87320] relative w-full md:w-auto"
