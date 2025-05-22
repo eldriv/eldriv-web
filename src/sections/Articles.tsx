@@ -175,8 +175,8 @@ export const ArticlesSection = () => {
   }, [isScrolling]); // Re-bind if scrolling state changes
 
   return ( 
-    <div className="py-20 lg:py-24 relative">
-      <div className="container" style={{ maxWidth: "1500px" }} id="blogs">
+    <div className="py-20 lg:py-24 relative" id="blogs">
+      <div className="container" style={{ maxWidth: "1500px" }}>
         <HeaderComponent 
           eyebrow="Eldriv's" 
           title="Life and Tech Blogs" 

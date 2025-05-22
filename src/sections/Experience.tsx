@@ -118,8 +118,8 @@ const LeftArrowIcon = ({ className }: { className?: string }) => (
     strokeLinejoin="round" 
     className={className}
   >
-    <path d="M19 12H5"></path>
     <path d="M12 19l-7-7 7-7"></path>
+    <path d="M5 12h14"></path>
   </svg>
 );
 
@@ -364,6 +364,7 @@ export const ExperienceSection = () => {
   
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const firstCardRef = useRef<HTMLDivElement | null>(null);
   
   // Check if on mobile
   useEffect(() => {
@@ -382,8 +383,28 @@ export const ExperienceSection = () => {
     cardRefs.current = Array(portfolioExperience.length).fill(null);
   }, []);
   
+  // Handle scroll behavior for mobile expanded state
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (e: Event) => {
+      // Only prevent scroll on mobile when first card is expanded
+      if (isMobile && expanded && firstCardRef.current) {
+        const firstCardRect = firstCardRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Check if we're scrolling past the first card
+        if (firstCardRect.bottom <= window.innerHeight && scrollTop > 0) {
+          // Allow scrolling within the first card area
+          const firstCardBottom = firstCardRef.current.offsetTop + firstCardRef.current.offsetHeight;
+          
+          if (scrollTop + window.innerHeight > firstCardBottom) {
+            // Prevent scrolling to next cards by limiting scroll position
+            window.scrollTo(0, firstCardBottom - window.innerHeight);
+          }
+        }
+      }
+    };
+
+    const handleScrollTracking = () => {
       const sections = document.querySelectorAll('.project-card');
       const viewportHeight = window.innerHeight;
       const viewportCenter = window.innerHeight / 2;
@@ -434,14 +455,31 @@ export const ExperienceSection = () => {
     };
     
     // Initialize visibility and focus on mount
-    handleScroll();
+    handleScrollTracking();
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
+    // Add both scroll handlers
+    window.addEventListener('scroll', handleScrollTracking);
+    if (isMobile && expanded) {
+      window.addEventListener('scroll', handleScroll, { passive: false });
+    }
+    
+    return () => {
+      window.removeEventListener('scroll', handleScrollTracking);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile, expanded]);
   
   const toggleExpand = () => {
     setExpanded(!expanded);
+    
+    // If collapsing on mobile, ensure we can scroll normally again
+    if (expanded && isMobile) {
+      // Small delay to ensure state is updated
+      setTimeout(() => {
+        // Remove any scroll restrictions
+        document.body.style.overflow = 'auto';
+      }, 100);
+    }
   };
   
   // Open lightbox
@@ -539,7 +577,10 @@ export const ExperienceSection = () => {
                   key={project.title} 
                   className="sticky project-card" 
                   style={{ top: `${100 + index * 35}px` }}
-                  ref={(el) => { cardRefs.current[index] = el; }}
+                  ref={(el) => { 
+                    cardRefs.current[index] = el; 
+                    if (index === 0) firstCardRef.current = el;
+                  }}
                 >
                   <motion.div
                     initial="hidden"
