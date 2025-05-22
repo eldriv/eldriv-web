@@ -118,8 +118,8 @@ const LeftArrowIcon = ({ className }: { className?: string }) => (
     strokeLinejoin="round" 
     className={className}
   >
+    <path d="M19 12H5"></path>
     <path d="M12 19l-7-7 7-7"></path>
-    <path d="M5 12h14"></path>
   </svg>
 );
 
@@ -364,7 +364,6 @@ export const ExperienceSection = () => {
   
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const firstCardRef = useRef<HTMLDivElement | null>(null);
   
   // Check if on mobile
   useEffect(() => {
@@ -383,28 +382,8 @@ export const ExperienceSection = () => {
     cardRefs.current = Array(portfolioExperience.length).fill(null);
   }, []);
   
-  // Handle scroll behavior for mobile expanded state
   useEffect(() => {
-    const handleScroll = (e: Event) => {
-      // Only prevent scroll on mobile when first card is expanded
-      if (isMobile && expanded && firstCardRef.current) {
-        const firstCardRect = firstCardRef.current.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Check if we're scrolling past the first card
-        if (firstCardRect.bottom <= window.innerHeight && scrollTop > 0) {
-          // Allow scrolling within the first card area
-          const firstCardBottom = firstCardRef.current.offsetTop + firstCardRef.current.offsetHeight;
-          
-          if (scrollTop + window.innerHeight > firstCardBottom) {
-            // Prevent scrolling to next cards by limiting scroll position
-            window.scrollTo(0, firstCardBottom - window.innerHeight);
-          }
-        }
-      }
-    };
-
-    const handleScrollTracking = () => {
+    const handleScroll = () => {
       const sections = document.querySelectorAll('.project-card');
       const viewportHeight = window.innerHeight;
       const viewportCenter = window.innerHeight / 2;
@@ -455,31 +434,14 @@ export const ExperienceSection = () => {
     };
     
     // Initialize visibility and focus on mount
-    handleScrollTracking();
+    handleScroll();
     
-    // Add both scroll handlers
-    window.addEventListener('scroll', handleScrollTracking);
-    if (isMobile && expanded) {
-      window.addEventListener('scroll', handleScroll, { passive: false });
-    }
-    
-    return () => {
-      window.removeEventListener('scroll', handleScrollTracking);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isMobile, expanded]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
   
   const toggleExpand = () => {
     setExpanded(!expanded);
-    
-    // If collapsing on mobile, ensure we can scroll normally again
-    if (expanded && isMobile) {
-      // Small delay to ensure state is updated
-      setTimeout(() => {
-        // Remove any scroll restrictions
-        document.body.style.overflow = 'auto';
-      }, 100);
-    }
   };
   
   // Open lightbox
@@ -577,10 +539,7 @@ export const ExperienceSection = () => {
                   key={project.title} 
                   className="sticky project-card" 
                   style={{ top: `${100 + index * 35}px` }}
-                  ref={(el) => { 
-                    cardRefs.current[index] = el; 
-                    if (index === 0) firstCardRef.current = el;
-                  }}
+                  ref={(el) => { cardRefs.current[index] = el; }}
                 >
                   <motion.div
                     initial="hidden"
@@ -605,26 +564,34 @@ export const ExperienceSection = () => {
                           </div>
                           <h3 className="font-sans text-2xl mt-2 md:mt-5 md:text-4xl">{project.title}</h3>
                           <hr className="border-t-2 border-white/5 mt-4 md:mt-5" />
-                          <ul className="flex flex-col gap-4 mt-4 md:mt-5">
-                            {project.results
-                              // For first card only: show all items when expanded, or first 2 when collapsed
-                              .filter((_, resultIndex) => index !== 0 || expanded || resultIndex < 2)
-                              .map((result, resultIndex) => (
-                                <motion.li 
-                                  key={result.title} 
-                                  className="flex gap-2 text-sm text-white/100 md:text-base"
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.3 + resultIndex * 0.1 }}
-                                >
-                                  <CheckIcon className="w-5 h-5 flex-shrink-0" />
-                                  <span>
-                                    {result.title}
-                                  </span>
-                                </motion.li>
-                              ))
-                            }
-                          </ul>
+                          
+                          {/* Enhanced results container with mobile scroll */}
+                          <div className={`mt-4 md:mt-5 ${
+                            index === 0 && expanded && isMobile 
+                              ? 'max-h-[40vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent' 
+                              : ''
+                          }`}>
+                            <ul className="flex flex-col gap-4">
+                              {project.results
+                                // For first card only: show all items when expanded, or first 2 when collapsed
+                                .filter((_, resultIndex) => index !== 0 || expanded || resultIndex < 2)
+                                .map((result, resultIndex) => (
+                                  <motion.li 
+                                    key={result.title} 
+                                    className="flex gap-2 text-sm text-white/100 md:text-base"
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.3 + resultIndex * 0.1 }}
+                                  >
+                                    <CheckIcon className="w-5 h-5 flex-shrink-0" />
+                                    <span>
+                                      {result.title}
+                                    </span>
+                                  </motion.li>
+                                ))
+                              }
+                            </ul>
+                          </div>
                           
                           {/* Show View More/Less button only for the first project */}
                           {index === 0 && project.results.length > 2 && (
