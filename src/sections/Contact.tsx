@@ -2,13 +2,7 @@
 
 import { useState } from 'react';
 import { Send, CheckCircle, Mail, User, MessageSquare, Hash } from 'lucide-react';
-
-// Simple Card component since we don't have access to the imported one
-const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div className={`bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl ${className}`}>
-    {children}
-  </div>
-);
+import { Card } from '@/components/card'; // Import your custom Card component
 
 interface FormData {
   name: string;
@@ -161,7 +155,7 @@ function UltraModernContactForm() {
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       
-      // Get the Formspree endpoint from environment variables
+      // API
       const formspreeEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
       
       if (!formspreeEndpoint) {
@@ -214,7 +208,7 @@ function UltraModernContactForm() {
   return (
     <div className="min-h-screen mb-40" id="contact">
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-        <div className="w-full max-w-[1450px]">
+        <div className="w-full max-w-[1400px]">
           {/* Status indicator */}
           <div className="flex items-center justify-center mb-8">
             <Card className="px-6 py-3 border-green-400/30">
@@ -254,10 +248,7 @@ function UltraModernContactForm() {
               </div>
             ) : (
               <div className="space-y-8">
-                <h2 className="text-3xl font-bold text-white text-center mb-8">
-                  Send a Message
-                </h2>
-                
+         
                 {/* Form Grid */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <InputField
@@ -311,37 +302,37 @@ function UltraModernContactForm() {
                       {errors.submit}
                     </p>
                   </Card>
-                )}
-
-                {/* Submit Button */}
+                )}     
+                <div className="flex items-center justify-between">
+                <div className="flex items-center text-gray-400 text-sm space-x-2">
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Typically responds within 24 hours</span>
+                </div>
                 <button
-                  onClick={handleSubmit}
-                  disabled={isLoading}
-                  className="relative w-full group"
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                    className="relative group"
                 >
-                  <div className="absolute -inset-1 bg-orange-500 rounded-2xl blur opacity-50 transition-opacity duration-300" />
-                  <div className="relative bg-orange-500 text-white font-bold py-5 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center hover:bg-orange-600">
+                    <div className="absolute -inset-1 bg-orange-500 rounded-2xl transition-opacity duration-300" />
+                    <div className="relative text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex hover:bg-orange-600">
                     {isLoading ? (
-                      <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         <span>Sending...</span>
-                      </div>
+                        </div>
                     ) : (
-                      <div className="flex items-center space-x-3 group">
-                        <Send className="w-6 h-6 transition-transform duration-300" />
-                        <span className="text-lg">Send Message</span>
-                      </div>
+                        <div className="flex items-center space-x-3 group">
+                        <Send className="w-5 h-5 transition-transform duration-300" />
+                        <span>Send Message</span>
+                        </div>
                     )}
-                  </div>
+                    </div>
                 </button>
+                </div>
 
-                {/* Footer note */}
-                <p className="text-center text-gray-400 text-sm">
-                  Typically responds within 24 hours
-                </p>
               </div>
             )}
-          </Card>
+          </Card>  
         </div>
       </div>
     </div>

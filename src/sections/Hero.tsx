@@ -91,8 +91,8 @@ export function HeroSection() {
   }, [lispExamples, terminalVisible, minimized]);
 
   return (
-    <section className="relative py-32 md:py-48 overflow-hidden w-full" id="home">
-      <div className="container relative z-10 mx-auto px-4 mt-10" style={{ maxWidth: "1500px" }}>
+    <section className="relative py-8 md:py-48 overflow-hidden w-full" id="home">
+      <div className="container relative z-10 mx-auto px-4 mt-4 md:mt-10" style={{ maxWidth: "1500px" }}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           {/* Left Side: Name, Title, Bio and Buttons */}
           <div className="w-full md:w-1/2 flex flex-col">
