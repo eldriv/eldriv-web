@@ -5,7 +5,7 @@ export const Header = () => {
   const [activeLink, setActiveLink] = useState('Home');
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const navRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
-  const navLinks = ['Home', 'Experience', 'Blogs', 'About'];
+  const navLinks = ['Home', 'Experience', 'Blogs', 'About', 'Contact'];
   
   // Improved animation effect with proper timing
   useEffect(() => {
