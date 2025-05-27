@@ -36,7 +36,7 @@ const websites: Website[] = [
     title: "Krei.Systems",
     description: "Emphasize clean, readable pages with consistent sections, prioritizing content clarity over decorative styling.",
     image: KreiImage,
-    liveUrl: "https://krei.systems.com",
+    liveUrl: "https://krei.systems/",
     githubUrl: "https://github.com/krei-systems",
     technologies: ["Wordpress"]
   },
