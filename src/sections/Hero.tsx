@@ -107,7 +107,7 @@ export function HeroSection() {
               Michael Adrian Villareal
               </h1>
               <p className="md:text-3xl text-xl font-medium mt-3 silver-gradient">
-                Software Engineer
+                Software Engineer and Web Developer
               </p>
             </motion.div>
 
