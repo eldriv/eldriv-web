@@ -18,9 +18,9 @@ export default function Home() {
       <ExperienceSection />
       <TapeSection1 />
       <ArticlesSection />
-      <TapeSection />
-      <WebsitesSection /> 
+      <TapeSection /> 
       <AboutSection />
+      <WebsitesSection />
       <ContactSection />
       <Footer />
     </div>

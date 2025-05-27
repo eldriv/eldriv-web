@@ -90,8 +90,7 @@ export const WebsitesSection = () => {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-    >
+      transition={{ duration: 0.6, delay: index * 0.1 }}>
       <Card className={`h-[400px] p-0 flex flex-col group hover:scale-[1.02] transition-all duration-300 ${
         website.featured ? 'md:col-span-2 lg:col-span-2' : ''
       }`}>
@@ -166,11 +165,11 @@ export const WebsitesSection = () => {
   );
 
   return (
-    <section id="websites">
+    <section id="about">
       <div className="py-16 lg:py-28 relative" ref={sectionRef}>
         <div className="container" style={{ maxWidth: "1500px" }}>
           <HeaderComponent
-            eyebrow="My Works"
+            eyebrow=""
             title="Website Development"
             description="Here are some of the websites I've built, showcasing modern technologies, responsive design, and SEO-optimized. Each project reflects my commitment to clean architecture, accessibility, and user-centric interfaces."
           />
