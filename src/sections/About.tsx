@@ -273,7 +273,7 @@ const handleContributionClick = (contribution: Contribution, e: React.MouseEvent
 };
 
 return (
-  <section>
+  <section id="about">
   <div className="py-16 lg:py-28 relative" ref={sectionRef}>
     <div className="container" style={{ maxWidth: "1500px"}}>
       <HeaderComponent
