@@ -44,126 +44,112 @@ import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg"
 import { motion } from 'framer-motion' 
 
 
-const tool= [
-{
-  title: "React",
-  iconType: ReactIcon,
-},
-
-{
-  title: "CSS",
-  iconType: CssIcon,
-},
-
-{
-  title: "HTML",
-  iconType: HtmlIcon,
-},
-
-{
-  title: "GitHub",
-  iconType: GithubIcon,
-},
-
-{
-  title: "JavaScript",
-  iconType: JavaScriptIcon,
-},
-{
-  title: "Nix",
-  iconType: NixIcon,
-},
-{
-  title: "Common Lisp",
-  iconType: CommonLispIcon,
-},
-{
-  title: "Shell",
-  iconType: ShellIcon,
-
-},
-{
-  title: "Java",
-  iconType: JavaIcon,
-},
-{
-  title: "Python",
-  iconType: PythonIcon,
-},
-{
-  title: "C#",
-  iconType: CSharpIcon,
-},
-{
-  title: "VB.net",
-  iconType: VBIcon,
-},
-{
-  title: "Parenscript",
-},
-
-{
-  title: "Emacs",
-  iconType: EmacsIcon,
-},
-
-{
-  title: "Vim",
-  iconType: VimIcon,
-},
-
-{
-  title: "VSCode",
-  iconType: VSIcon,
-},
-{
-  title: "WordPress",
-  iconType: WPIcon,
-},
-{
-  title: "Hugo",
-  iconType: HugoIcon,
-},
-{
-  title: "Docker",
-  iconType: DockerIcon,
-},
-{
-  title: "Oracle",
-  iconType: OracleIcon,
-},
-{
-  title: "LaTeX",
-
-  iconType: LatexIcon,
-},
-{
-  title: "Markdown",
-
-  iconType: MarkdownIcon,
-},
-{
-  title: "Org",
-
-  iconType: OrgIcon,
-},
-{
-  title: "Pandoc",
-
-  iconType: PandocIcon,
-},
-{
-  title: "CLOG",
-
-  iconType: ClogIcon,
-},
-
-{
-  title: "FlameGraph",
-
-  iconType: FlameGraphIcon,
-},
-]
+const tool = [
+  {
+    title: "React",
+    iconType: ReactIcon,
+  },
+  {
+    title: "CSS",
+    iconType: CssIcon,
+  },
+  {
+    title: "HTML",
+    iconType: HtmlIcon,
+  },
+  {
+    title: "GitHub",
+    iconType: GithubIcon,
+  },
+  {
+    title: "JavaScript",
+    iconType: JavaScriptIcon,
+  },
+  {
+    title: "Nix",
+    iconType: NixIcon,
+  },
+  {
+    title: "Common Lisp",
+    iconType: CommonLispIcon,
+  },
+  {
+    title: "Shell",
+    iconType: ShellIcon,
+  },
+  {
+    title: "Java",
+    iconType: JavaIcon,
+  },
+  {
+    title: "Python",
+    iconType: PythonIcon,
+  },
+  {
+    title: "C#",
+    iconType: CSharpIcon,
+  },
+  {
+    title: "VB.net",
+    iconType: VBIcon,
+  },
+  {
+    title: "Parenscript",
+    // No icon provided in original code
+  },
+  {
+    title: "Emacs",
+    iconType: EmacsIcon,
+  },
+  {
+    title: "Vim",
+    iconType: VimIcon,
+  },
+  {
+    title: "VSCode",
+    iconType: VSIcon,
+  },
+  {
+    title: "WordPress",
+    iconType: WPIcon,
+  },
+  {
+    title: "Hugo",
+    iconType: HugoIcon,
+  },
+  {
+    title: "Docker",
+    iconType: DockerIcon,
+  },
+  {
+    title: "Oracle",
+    iconType: OracleIcon,
+  },
+  {
+    title: "LaTeX",
+    iconType: LatexIcon,
+  },
+  {
+    title: "Markdown",
+    iconType: MarkdownIcon,
+  },
+  {
+    title: "Org",
+    iconType: OrgIcon,
+  },
+  {
+    title: "Pandoc",
+    iconType: PandocIcon,
+  },
+  {
+    title: "CLOG",
+    iconType: ClogIcon,
+  },
+  {
+    title: "FlameGraph",
+    iconType: FlameGraphIcon,
+  },
+];
 
 // Define contribution and project types
 interface Contribution {

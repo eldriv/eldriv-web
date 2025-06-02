@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Image
-import profileImage from '@/assets/images/image.png'; 
+import profileImage from '@/assets/images/adi.jpg'; 
 import Image from 'next/image';
 
 // Define the type for our Lisp command examples

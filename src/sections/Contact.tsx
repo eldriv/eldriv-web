@@ -206,7 +206,7 @@ function UltraModernContactForm() {
   };
 
   return (
-    <div className="min-h-screen mb-40" id="contact">
+    <div className="min-h-screen" id="contact">
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
         <div className="w-full max-w-[1400px]">
           {/* Status indicator */}
