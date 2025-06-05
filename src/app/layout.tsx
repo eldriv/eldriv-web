@@ -14,12 +14,95 @@ const calistoga = {
   style: "font-family: 'Times New Roman', Times, serif;",
 };
 
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "Eldriv's Portfolio",
-  description:
-    "This website contains eldriv's portfolio with regards to his career in tech industry.",
-};
+  description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
+  
+  openGraph: {
+    title: "Eldriv's Portfolio",
+    description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
+    url: "https://portfolio.eldriv.com",
+    siteName: "Eldriv's Portfolio",
+    images: [
+      {
+        url: "https://https://portfolio.eldriv.com/assets/images/og-image.jpg", 
+        width: 1200,
+        height: 630,
+        alt: "Eldriv's Portfolio - Software Engineer showcasing technical skills and projects",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  
+  // Twitter Cards
+  twitter: {
+    card: "summary_large_image",
+    title: "Eldriv's Portfolio",
+    description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
+    images: ["https://https://portfolio.eldriv.com/assets/images/og-image.jpg"], 
+    creator: "@eldrivi", 
+  },
+
+  // Additional SEO tags
+  keywords: [
+    "software engineer",
+    "portfolio",
+    "web developer",
+    "technical skills",
+    "side projects",
+    "programming",
+    "full stack developer",
+    "eldriv"
+  ],
+  
+  // Canonical URL
+  alternates: {
+    canonical: "https://portfolio.eldriv.com",
+  },
+  
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+export const aboutMetadata = {
+  title: "About Eldriv | Software Engineer Portfolio",
+  description: "Learn about my journey as a Software Engineer, technical background, and what drives my passion for creating innovative solutions.",
+  openGraph: {
+    title: "About Eldriv | Software Engineer",
+    description: "Learn about my journey as a Software Engineer, technical background, and what drives my passion for creating innovative solutions.",
+    images: ["/assets/images/og-image.jpg"],
+  },
+}
+
+export const projectsMetadata = {
+  title: "Projects | Eldriv's Portfolio",
+  description: "Explore my side-projects and technical work",
+  openGraph: {
+    title: "Projects | Eldriv's Portfolio",
+    description: "Explore my side-projects and technical work",
+    images: ["/assets/images/og-image.jpg"],
+  },
+}
+
+export const experienceMetadata = {
+  title: "Experience | Eldriv's Portfolio",
+  description: "Discover my professional experience, technical proficiencies, and career journey as a Software Engineer.",
+  openGraph: {
+    title: "Experience | Eldriv's Portfolio", 
+    description: "Discover my professional experience, technical proficiencies, and career journey as a Software Engineer.",
+    images: ["/assets/images/og-image.jpg"],
+  },
+}
 
 export default function RootLayout({
   children,
