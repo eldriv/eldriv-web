@@ -88,4 +88,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;s
+export default nextConfig;
