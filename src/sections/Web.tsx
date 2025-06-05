@@ -51,7 +51,7 @@ const websites: Website[] = [
     title: "CR8 Agency",
     description: "The website showcases a portfolio of creative design and development projects. This project is still under development and not deployed yet on the real domain.",
     image: Cr8Image,
-    liveUrl: "https://cr8-nine.vercel.app/",
+    liveUrl: "https://cr8-agency-production.up.railway.app/",
     technologies: ["GSAP", "Tailwind CSS", "ReactJS",]
   },
 
