@@ -14,7 +14,7 @@ const calistoga = {
   style: "font-family: 'Times New Roman', Times, serif;",
 };
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Eldriv's Portfolio",
   description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
   
@@ -25,7 +25,7 @@ export const metadata = {
     siteName: "Eldriv's Portfolio",
     images: [
       {
-        url: "https://https://portfolio.eldriv.com/assets/images/og-image.jpg", 
+        url: "https://portfolio.eldriv.com/assets/images/og-image.jpg", // Fixed duplicate https://
         width: 1200,
         height: 630,
         alt: "Eldriv's Portfolio - Software Engineer showcasing technical skills and projects",
@@ -40,7 +40,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Eldriv's Portfolio",
     description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
-    images: ["https://https://portfolio.eldriv.com/assets/images/og-image.jpg"], 
+    images: ["https://portfolio.eldriv.com/assets/images/og-image.jpg"], // Fixed duplicate https://
     creator: "@eldrivi", 
   },
 
@@ -72,37 +72,7 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-}
-
-export const aboutMetadata = {
-  title: "About Eldriv | Software Engineer Portfolio",
-  description: "Learn about my journey as a Software Engineer, technical background, and what drives my passion for creating innovative solutions.",
-  openGraph: {
-    title: "About Eldriv | Software Engineer",
-    description: "Learn about my journey as a Software Engineer, technical background, and what drives my passion for creating innovative solutions.",
-    images: ["/assets/images/og-image.jpg"],
-  },
-}
-
-export const projectsMetadata = {
-  title: "Projects | Eldriv's Portfolio",
-  description: "Explore my side-projects and technical work",
-  openGraph: {
-    title: "Projects | Eldriv's Portfolio",
-    description: "Explore my side-projects and technical work",
-    images: ["/assets/images/og-image.jpg"],
-  },
-}
-
-export const experienceMetadata = {
-  title: "Experience | Eldriv's Portfolio",
-  description: "Discover my professional experience, technical proficiencies, and career journey as a Software Engineer.",
-  openGraph: {
-    title: "Experience | Eldriv's Portfolio", 
-    description: "Discover my professional experience, technical proficiencies, and career journey as a Software Engineer.",
-    images: ["/assets/images/og-image.jpg"],
-  },
-}
+};
 
 export default function RootLayout({
   children,
