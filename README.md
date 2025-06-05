@@ -20,8 +20,10 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 - Deployment used — [Vercel](https://vercel.app)
 
 ## Live
-- See the [Live Result](https://eldriv-web.netlify.app)
-
+- See the [Live Result]
+```
+eldriv-web.netlify.app
+```
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e41d4dd6-500a-4698-b57f-3c220f537e3f/deploy-status)](https://app.netlify.com/projects/eldriv-web/deploys)
 
 To learn more about Next.js, take a look at the following resources:
