@@ -151,26 +151,26 @@ export const ToolboxItems = ({
             </Fragment>
           ))}
         </div>
-        
-        {/* View All Button */}
-        <motion.button
-          onClick={() => setShowModal(true)}
-          className="absolute top-2 md:top-3 right-2 md:right-3 group"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <div className="bg-gradient-to-r from-emerald-400 to-cyan-400 p-1.5 md:p-2 rounded-full shadow-lg hover:shadow-emerald-400/25 transition-all duration-300">
-            <svg 
-              className="w-4 h-4 md:w-5 md:h-5 text-gray-900 group-hover:rotate-180 transition-transform duration-300" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </div>
-        </motion.button>
       </div>
+      
+      {/* View All Button - Top Right Corner */}
+      <motion.button
+        onClick={() => setShowModal(true)}
+        className="absolute top-2 md:top-3 right-2 md:right-3 group z-10"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <div className="bg-gradient-to-r from-emerald-400 to-cyan-400 p-1.5 md:p-2 rounded-full shadow-lg hover:shadow-emerald-400/25 transition-all duration-300">
+          <svg 
+            className="w-4 h-4 md:w-5 md:h-5 text-gray-900 group-hover:rotate-180 transition-transform duration-300" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+        </div>
+      </motion.button>
 
       {/* Modal - Rendered as Portal */}
       {modalRoot && createPortal(
