@@ -192,6 +192,7 @@ const openSourceProjects: OpenSourceProject[] = [
 { name: "Vix", href: "https://github.com/krei-systems/vix" },
 { name: "Marie", href: "https://github.com/krei-systems/marie" },
 { name: "Meria", href: "https://github.com/krei-systems/meria" },
+{ name: "cl-skel", href: "https://github.com/eldriv/cl-skel" },
 ];
 
 export const AboutSection = () => {
