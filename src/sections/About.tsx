@@ -331,7 +331,7 @@ return (
 
               {showOpenSourceOptions && (
                 <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-4 rounded-lg shadow-lg z-10">
-                  <div className="flex flex-col gap-2 mb-10">
+                  <div className="flex flex-col gap-2 mb-20">
                     <h4 className="text-emerald-300 font-medium">Select a Project</h4>
                     {openSourceProjects.map((project) => (
                       <a
