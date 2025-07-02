@@ -280,7 +280,7 @@ const Lightbox = ({
 
 const portfolioExperience: PortfolioExperienceItem[] = [
   {
-    company: "Krei.Systems",
+    company: "Krei.Systems (current Veda-Systems)",
     Date: "May 2024–May 2025",
     title: "Junior Software Engineer",
     results: [
@@ -294,10 +294,10 @@ const portfolioExperience: PortfolioExperienceItem[] = [
       { title: "Successfully ported the codebase from SBCL to LispWorks." },
       { title: "Ported the deployment tool from Shell script to Common Lisp." }, 
     ],
-    link: "https://krei.systems",
+    link: "https://www.linkedin.com/company/veda-systems/",
     target: "_blank",
     image: KreiLandingPage,
-    buttonText: "Visit Live Site",
+    buttonText: "Visit LinkedIn",
     buttonType: "link"
   },
   {
