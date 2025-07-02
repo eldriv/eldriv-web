@@ -189,7 +189,7 @@ const contributions: Contribution[] = [
 
 // Open-source project options
 const openSourceProjects: OpenSourceProject[] = [
-{ name: "Vix", href: "https://github.com/veda/vix" },
+{ name: "Vix", href: "https://github.com/veda-systems/vix" },
 { name: "Marie", href: "https://github.com/veda-systems/marie" },
 { name: "Meria", href: "https://github.com/veda-systems/meria" },
 { name: "cl-skel", href: "https://github.com/eldriv/cl-skel" },
