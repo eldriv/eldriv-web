@@ -15,17 +15,17 @@ const calistoga = {
 };
 
 export const metadata: Metadata = {
-  title: "Eldriv's Portfolio",
+  title: "Eldriv",
   description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
   
   openGraph: {
     title: "Eldriv's Portfolio",
     description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
-    url: "https://portfolio.eldriv.com",
-    siteName: "Eldriv's Portfolio",
+    url: "https://eldriv-portfolio.netlify.app",
+    siteName: "Eldriv",
     images: [
       {
-        url: "https://portfolio.eldriv.com/assets/images/og-image.png",
+        url: "https://eldriv-portfolio.netlify.app/assets/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "Eldriv's Portfolio - Software Engineer showcasing technical skills and projects",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   // Twitter Cards
   twitter: {
     card: "summary_large_image",
-    title: "Eldriv's Portfolio",
+    title: "Eldriv",
     description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
     images: ["https://portfolio.eldriv.com/assets/images/og-image.png"],
     creator: "@eldrivi", 
