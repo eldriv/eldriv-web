@@ -31,7 +31,7 @@ interface InputFieldProps {
   error?: string;
 }
 
-// Move InputField outside to prevent recreation on each render
+// InputField component
 const InputField: React.FC<InputFieldProps> = ({ 
   icon: Icon, 
   label, 
@@ -59,7 +59,7 @@ const InputField: React.FC<InputFieldProps> = ({
           <Icon size={20} />
         </div>
 
-        {/* Input - Fixed: Use explicit input/textarea instead of dynamic Component */}
+        {/* Input or textarea */}
         {isTextarea ? (
           <textarea
             name={name}
@@ -155,7 +155,6 @@ function UltraModernContactForm() {
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       
-      // API
       const formspreeEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
       
       if (!formspreeEndpoint) {
@@ -206,8 +205,8 @@ function UltraModernContactForm() {
   };
 
   return (
-    <div className="min-h-screen" id="contact">
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+    <div className="w-full" id="contact">
+      <div className="relative z-10 flex justify-center">
         <div className="w-full max-w-[1400px]">
           {/* Status indicator */}
           <div className="flex items-center justify-center mb-8">
@@ -230,7 +229,7 @@ function UltraModernContactForm() {
           </div>
 
           {/* Form Container */}
-          <Card className="p-8 md:p-12 shadow-2xl animate-in zoom-in-95 duration-1000 delay-400">
+          <Card className="p-8 md:p-12 shadow-2xl animate-in zoom-in-95 duration-1000 delay-400 rounded-t-2xl rounded-b-none">
             {isSubmitted ? (
               <div className="text-center py-16 animate-in zoom-in-95 duration-500">
                 <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
@@ -248,7 +247,6 @@ function UltraModernContactForm() {
               </div>
             ) : (
               <div className="space-y-8">
-         
                 {/* Form Grid */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <InputField
@@ -303,33 +301,33 @@ function UltraModernContactForm() {
                     </p>
                   </Card>
                 )}     
-                <div className="flex items-center justify-between">
-                <div className="flex items-center text-gray-400 text-sm space-x-2">
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Typically responds within 24 hours</span>
-                </div>
-                <button
-                    onClick={handleSubmit}
-                    disabled={isLoading}
-                    className="relative group"
-                >
-                    <div className="absolute -inset-1 bg-orange-500 rounded-2xl transition-opacity duration-300" />
-                    <div className="relative text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex hover:bg-orange-600">
-                    {isLoading ? (
-                        <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        <span>Sending...</span>
-                        </div>
-                    ) : (
-                        <div className="flex items-center space-x-3 group">
-                        <Send className="w-5 h-5 transition-transform duration-300" />
-                        <span>Send Message</span>
-                        </div>
-                    )}
-                    </div>
-                </button>
-                </div>
 
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center text-gray-400 text-sm space-x-2">
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Typically responds within 24 hours</span>
+                  </div>
+                  <button
+                      onClick={handleSubmit}
+                      disabled={isLoading}
+                      className="relative group"
+                  >
+                      <div className="absolute -inset-1 bg-orange-500 rounded-2xl transition-opacity duration-300" />
+                      <div className="relative text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex hover:bg-orange-600">
+                      {isLoading ? (
+                          <div className="flex items-center space-x-3">
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <span>Sending...</span>
+                          </div>
+                      ) : (
+                          <div className="flex items-center space-x-3 group">
+                          <Send className="w-5 h-5 transition-transform duration-300" />
+                          <span>Send Message</span>
+                          </div>
+                      )}
+                      </div>
+                  </button>
+                </div>
               </div>
             )}
           </Card>  
@@ -342,5 +340,5 @@ function UltraModernContactForm() {
 // Default export
 export default UltraModernContactForm;
 
-// Named export for compatibility with your page.tsx import
+// Named export
 export { UltraModernContactForm as ContactSection };
