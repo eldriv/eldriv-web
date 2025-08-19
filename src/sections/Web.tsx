@@ -13,7 +13,7 @@ import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg"
 import GithubIcon from "@/assets/icons/github.svg"
 
 // Image imports
-import KreiImage from "@/assets/images/krei.png"
+import CrownImage from "@/assets/images/crown.png"
 import MaeviImage from "@/assets/images/maevi.png"
 import Cr8Image from "@/assets/images/cr8.png"
 
@@ -33,12 +33,11 @@ interface Website {
 // Sample website data - replace with your actual projects
 const websites: Website[] = [
   {
-    title: "Krei.Systems",
-    description: "Emphasize clean, readable pages with consistent sections, prioritizing content clarity over decorative styling.",
-    image: KreiImage,
-    liveUrl: "https://krei.systems/",
-    githubUrl: "https://github.com/krei-systems",
-    technologies: ["Wordpress"]
+    title: "Crown Catering",
+    description: "The Crown Catering website presents a luxurious and elegant visual identity highlighted by a strong crown motif.",
+    image: CrownImage,
+    liveUrl: "https://crownuaecatering.com",
+    technologies: ["Wix Studio"]
   },
   {
     title: "Maevi Creative Studio",
@@ -51,7 +50,7 @@ const websites: Website[] = [
     title: "CR8 Agency",
     description: "The website showcases a portfolio of creative design and development projects. This project is still under development and not deployed yet on the real domain.",
     image: Cr8Image,
-    liveUrl: "https://cr8-agency.netlify.app",
+    liveUrl: "https://cr8-agency.netlify.app/",
     technologies: ["GSAP", "Tailwind CSS", "ReactJS",]
   },
 
