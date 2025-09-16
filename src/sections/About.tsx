@@ -167,10 +167,10 @@ href: string;
 
 const contributions: Contribution[] = [
 {
-  title: "Information Mapping",
+  title: "Information Mapping System",
   left: "5%",
   top: "35%",
-  href: "https://raw.githubusercontent.com/krei-systems/white-paper/main/white-paper.pdf",
+  href: "https://github.com/vedatechnologiesinc/white-paper/blob/main/white-paper.pdf",
 },
 {
   title: "Open-source Libraries",
@@ -371,7 +371,7 @@ return (
             />
             <div className="flex-1 flex flex-col justify-between px-6 pb-10">
               <p className="text-sm md:text-base mb-4">
-                If you're passionate about technology and want to contribute to open-source, I'd be thrilled to connect with you.
+                If you're passionate about technology—websites, AI, and Software engineering—and want to contribute to open-source, I'd be thrilled to connect with you.
               </p>
               <div className="flex items-center gap-1">
                 <span className="font-medium">Email:</span>

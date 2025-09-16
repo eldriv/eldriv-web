@@ -37,14 +37,14 @@ const websites: Website[] = [
     description: "The Crown Catering website presents a luxurious and elegant visual identity highlighted by a strong crown motif.",
     image: CrownImage,
     liveUrl: "https://crownuaecatering.com",
-    technologies: ["Wix Studio"]
+    technologies: ["Wix Studio", "Velo", "Wix eCommerce", "React", "GSAP", "RequireJS", "HTML", "CSS"]
   },
   {
     title: "Maevi Creative Studio",
     description: "The website was built to make it bold, playful, and creative, with a strong emphasis on Gen Z and millennial aesthetics.",
     image: MaeviImage,
     liveUrl: "https://maevistudio.com",
-    technologies: ["Wordpress"]
+    technologies: ["Wordpress", "PHP", "WooCommerce", "HTML", "CSS", "React", "GSAP"]
   },
   {
     title: "CR8 Agency",

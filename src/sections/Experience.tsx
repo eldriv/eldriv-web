@@ -17,7 +17,7 @@ import portfolioImage4 from '@/assets/images/4.png';
 import portfolioImage5 from '@/assets/images/5.png';
 import portfolioImage6 from '@/assets/images/6.png';
 import portfolioImage7 from '@/assets/images/valmiz-front.png';
-import KreiLandingPage from "@/assets/images/krei.png";
+import VedaLandingPage from "@/assets/images/veda.png";
 import certificateImage from "@/assets/images/coc.png";
 import Image, { StaticImageData } from "next/image"; 
 import { Card } from '@/components/card';
@@ -280,7 +280,7 @@ const Lightbox = ({
 
 const portfolioExperience: PortfolioExperienceItem[] = [
   {
-    company: "Krei.Systems (current Veda-Systems)",
+    company: "Veda Technologies, Inc.",
     Date: "May 2024–May 2025",
     title: "Junior Software Engineer",
     results: [
@@ -288,7 +288,7 @@ const portfolioExperience: PortfolioExperienceItem[] = [
       { title: "Independently developed and maintained the company website." },
       { title: "Wrote a technical documentation on every tool and systems." },
       { title: "Collaborated with AI scientist on Artificial General Intelligence (AGI)." },
-      { title: "Enhanced Knoweldge Base, a Wiki.js fork, by integrating it with Vik." }, 
+      { title: "Enhanced Knowledge Base, a Wiki.js fork, by integrating it with Vik." }, 
       { title: "Enhanced PMS, a Redmine fork for project management system." },
       { title: "Managed internal tooling—Common Lisp, Shell, and Nix." },
       { title: "Successfully ported the codebase from SBCL to LispWorks." },
@@ -296,7 +296,7 @@ const portfolioExperience: PortfolioExperienceItem[] = [
     ],
     link: "https://www.linkedin.com/company/veda-systems/",
     target: "_blank",
-    image: KreiLandingPage,
+    image: VedaLandingPage,
     buttonText: "Visit LinkedIn",
     buttonType: "link"
   },
