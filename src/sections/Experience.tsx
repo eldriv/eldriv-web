@@ -294,10 +294,10 @@ const portfolioExperience: PortfolioExperienceItem[] = [
       { title: "Successfully ported the codebase from SBCL to LispWorks." },
       { title: "Ported the deployment tool from Shell script to Common Lisp." }, 
     ],
-    link: "https://www.linkedin.com/company/veda-systems/",
+    link: "https://veda-tech.com",
     target: "_blank",
     image: VedaLandingPage,
-    buttonText: "Visit LinkedIn",
+    buttonText: "Visit Website",
     buttonType: "link"
   },
   {
@@ -306,7 +306,7 @@ const portfolioExperience: PortfolioExperienceItem[] = [
     title: "Intern",
     results: [
       { title: "Successfully finished 2 books—Practical Common Lisp and CLAGTISC."},
-      { title: "Developed a CLOG web based application for Valmiz Search Interface using Common Lisp." },
+      { title: "Developed a CLOG web based application for Valmiz Search Interface and a portfolio website journey using CLOG, Javascript and Common Lisp." },
     ],
     certificateImage: certificateImage, // Certificate image
     image: portfolioImage7,
