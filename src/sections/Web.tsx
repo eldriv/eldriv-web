@@ -15,6 +15,7 @@ import GithubIcon from "@/assets/icons/github.svg";
 import CrownImage from "@/assets/images/crown.png";
 import MaeviImage from "@/assets/images/maevi.png";
 import Cr8Image from "@/assets/images/cr8.png";
+import EvaImage from "@/assets/images/eva-hooft.png";
 
 // motion
 import { motion } from "framer-motion";
@@ -39,10 +40,7 @@ const websites: Website[] = [
     technologies: [
       "Wix Studio",
       "Velo",
-      "Wix eCommerce",
-      "React",
-      "GSAP",
-      "RequireJS",
+      "JavaScript",
       "HTML",
       "CSS",
     ],
@@ -69,7 +67,15 @@ const websites: Website[] = [
       "The website showcases a portfolio of creative design and development projects. This project is still under development and not deployed yet on the real domain.",
     image: Cr8Image,
     liveUrl: "https://cr8-agency.netlify.app/",
-    technologies: ["GSAP", "Tailwind CSS", "ReactJS"],
+    technologies: ["GSAP", "Tailwind CSS", "ReactJS",],
+  },
+  {
+    title: "Eva Hooft",
+    description:
+      "A holistic health and detox coaching website that combines functional detox with emotional release and spiritual guidance. Features programs for physical detoxification, quantum healing, and nervous system support.",
+    image: EvaImage,
+    liveUrl: "https://evahooft.com",
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
   },
 ];
 
@@ -150,7 +156,7 @@ export const WebsitesSection = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-full bg-gray-800 hover:bg-emerald-300/20 transition-colors group/link"
-                    onClick={(e) => e.stopPropagation()} // prevent bubbling to card
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <ArrowUpRightIcon className="w-4 h-4 text-emerald-300 group-hover/link:text-white" />
                   </a>
@@ -217,7 +223,7 @@ export const WebsitesSection = () => {
           <div className="mt-20">
             {/* Other Projects */}
             <div>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {websites
                   .filter((website) => !website.featured)
                   .map((website, index) => (
@@ -245,12 +251,30 @@ export const WebsitesSection = () => {
         <style jsx>{`
           .container {
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
+          }
+
+          @media (min-width: 640px) {
+            .container {
+              padding: 0 2rem;
+            }
           }
 
           @media (min-width: 768px) {
             .container {
-              padding: 0 2rem;
+              padding: 0 2.5rem;
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .container {
+              padding: 0 3rem;
+            }
+          }
+
+          @media (min-width: 1280px) {
+            .container {
+              padding: 0 4rem;
             }
           }
         `}</style>
