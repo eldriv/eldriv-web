@@ -9,8 +9,12 @@ PKG_MGR := $(shell \
 
 # ───────────────────────────────────────────────────────────────────────────────
 # BODY: Development commands
-.PHONY: dev
+.PHONY: dev install
 
 dev:
 	@echo "Using package manager: $(PKG_MGR)"
 	$(PKG_MGR) dev
+
+install: 
+	@echo "Installing packages"
+	npm install 
