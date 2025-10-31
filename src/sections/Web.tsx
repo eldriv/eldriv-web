@@ -16,6 +16,8 @@ import CrownImage from "@/assets/images/crown.png";
 import MaeviImage from "@/assets/images/maevi.png";
 import Cr8Image from "@/assets/images/cr8.png";
 import EvaImage from "@/assets/images/eva-hooft.png";
+import CassandraImage from "@/assets/images/cassandra.png";
+import ProservImage from "@/assets/images/proserv.png";
 
 // motion
 import { motion } from "framer-motion";
@@ -75,6 +77,20 @@ const websites: Website[] = [
       "A holistic health and detox coaching website that combines functional detox with emotional release and spiritual guidance. Features programs for physical detoxification, quantum healing, and nervous system support.",
     image: EvaImage,
     liveUrl: "https://evahooft.com",
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
+  },
+  {
+    title: "Proserv Hospitality Services (On-Development)",
+    description: "Proserv is a pioneer for its Hospitality Support services, with its inception from a team of most professional hospitality personnel with 12 years of experience in the industry.",
+    image: ProservImage,
+    liveUrl: "https://abisadivillareal.wixstudio.com/proserve",
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
+  },
+  {
+    title: "CassandraDaher",
+    description: "Cassandra Daher is a passionate practitioner and guide in the field of Emotional Release, specializing in helping others reconnect with their bodies, release stored emotions, and return to a state of inner safety and wholeness.",
+    image: CassandraImage,
+    liveUrl: "https://www.cassandradaher.com",
     technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
   },
 ];
@@ -223,7 +239,7 @@ export const WebsitesSection = () => {
           <div className="mt-20">
             {/* Other Projects */}
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
                 {websites
                   .filter((website) => !website.featured)
                   .map((website, index) => (
