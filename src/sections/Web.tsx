@@ -1,11 +1,13 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
+import { useEffect, useRef, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoScroll from "embla-carousel-auto-scroll";
 
 // Components
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/card";
-import { useEffect, useRef, useState } from "react";
 
 // SVG Icons
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
@@ -17,7 +19,6 @@ import MaeviImage from "@/assets/images/maevi.png";
 import Cr8Image from "@/assets/images/cr8.png";
 import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra.png";
-import ProservImage from "@/assets/images/proserv.png";
 
 // motion
 import { motion } from "framer-motion";
@@ -36,7 +37,7 @@ const websites: Website[] = [
   {
     title: "Crown Catering",
     description:
-      "The Crown Catering website presents a luxurious and elegant visual identity highlighted by a strong crown motif.",
+      "The Crown Catering website presents a luxurious and elegant visual identity highlighted by a strong crown motif. It delivers a full spectrum of high-quality catering in UAE.",
     image: CrownImage,
     liveUrl: "https://crownuaecatering.com",
     technologies: [
@@ -45,6 +46,7 @@ const websites: Website[] = [
       "JavaScript",
       "HTML",
       "CSS",
+      "GSAP"
     ],
   },
   {
@@ -66,10 +68,10 @@ const websites: Website[] = [
   {
     title: "CR8 Agency",
     description:
-      "The website showcases a portfolio of creative design and development projects. This project is still under development and not deployed yet on the real domain.",
+      "The website showcases a portfolio of creative design and development projects. This project is still under development and the agency wish to rebrand and not deployed on the real domain yet, But has been for private-use.",
     image: Cr8Image,
     liveUrl: "https://cr8-agency.netlify.app/",
-    technologies: ["GSAP", "Tailwind CSS", "ReactJS",],
+    technologies: ["GSAP", "Tailwind CSS", "ReactJS"],
   },
   {
     title: "Eva Hooft",
@@ -77,21 +79,15 @@ const websites: Website[] = [
       "A holistic health and detox coaching website that combines functional detox with emotional release and spiritual guidance. Features programs for physical detoxification, quantum healing, and nervous system support.",
     image: EvaImage,
     liveUrl: "https://evahooft.com",
-    technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
-  },
-  {
-    title: "Proserv Hospitality Services (On-Development)",
-    description: "Proserv is a pioneer for its Hospitality Support services, with its inception from a team of most professional hospitality personnel with 12 years of experience in the industry.",
-    image: ProservImage,
-    liveUrl: "https://abisadivillareal.wixstudio.com/proserve",
-    technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
   },
   {
     title: "CassandraDaher",
-    description: "Cassandra Daher is a passionate practitioner and guide in the field of Emotional Release, specializing in helping others reconnect with their bodies, release stored emotions, and return to a state of inner safety and wholeness.",
+    description:
+      "Cassandra Daher is a passionate practitioner and guide in the field of Emotional Release, specializing in helping others reconnect with their bodies, release stored emotions, and return to a state of inner safety and wholeness.",
     image: CassandraImage,
     liveUrl: "https://www.cassandradaher.com",
-    technologies: ["Wix Studio", "Velo", "HTML", "CSS",],
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
   },
 ];
 
@@ -99,6 +95,21 @@ export const WebsitesSection = () => {
   const HeaderComponent = SectionHeader();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Embla Carousel setup with continuous auto-scroll
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { 
+      loop: true,
+      align: "start",
+      skipSnaps: false,
+      dragFree: true,
+    },
+    [AutoScroll({ 
+      speed: 1,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+    })]
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -135,6 +146,7 @@ export const WebsitesSection = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.6, delay: index * 0.1 }}
+        className="h-full"
       >
         <Card
           className={`h-[400px] p-0 flex flex-col group hover:scale-[1.02] transition-all duration-300 cursor-pointer ${
@@ -211,13 +223,12 @@ export const WebsitesSection = () => {
       </motion.div>
     );
 
-    // Wrap card in <a> if liveUrl exists
     return website.liveUrl ? (
       <a
         href={website.liveUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="block"
+        className="block h-full"
       >
         {cardContent}
       </a>
@@ -231,34 +242,63 @@ export const WebsitesSection = () => {
       <div className="py-16 lg:py-28 relative" ref={sectionRef}>
         <div className="container" style={{ maxWidth: "1500px" }}>
           <HeaderComponent
-            eyebrow=""
-            title="Website Development"
+            eyebrow="Web Design & Development"
+            title="Eldriv's Website Portfolio"
             description="Here are some of the websites I've built from the ground up, showcasing modern technologies, responsive design, and SEO-optimized. Each project reflects my commitment to clean architecture, accessibility, and user-centric interfaces."
           />
 
-          <div className="mt-20">
-            {/* Other Projects */}
-            <div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-                {websites
-                  .filter((website) => !website.featured)
-                  .map((website, index) => (
-                    <WebsiteCard
-                      key={website.title}
-                      website={website}
-                      index={index + 1}
-                    />
-                  ))}
+          <div className="mt-20 relative">
+            {/* Embla Carousel - Continuous Scroll */}
+            <div className="relative">
+              {/* Left Gradient Overlay */}
+              <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+              
+              {/* Right Gradient Overlay */}
+              <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+              
+              <div className="overflow-hidden" ref={emblaRef}>
+                <div className="flex">
+                  {/* Duplicate websites array for seamless loop */}
+                  {[...websites, ...websites]
+                    .filter((website) => !website.featured)
+                    .map((website, index) => (
+                      <div
+                        key={`${website.title}-${index}`}
+                        className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4 md:px-5"
+                      >
+                        <WebsiteCard website={website} index={index % websites.length} />
+                      </div>
+                    ))}
+                </div>
               </div>
+            </div>
+
+            {/* Hover hint with icons */}
+            <div className="flex items-center justify-center gap-3 mt-8 text-white/50 text-sm">
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                Hover to pause
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                </svg>
+                Drag to explore
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
             </div>
           </div>
 
           {/* Call to Action */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={
-              isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-            }
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-16 text-center"
           ></motion.div>
