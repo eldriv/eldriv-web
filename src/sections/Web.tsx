@@ -19,6 +19,7 @@ import MaeviImage from "@/assets/images/maevi.png";
 import Cr8Image from "@/assets/images/cr8.png";
 import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra.png";
+import ProservImage from "@/assets/images/proserv.png";
 
 // motion
 import { motion } from "framer-motion";
@@ -47,6 +48,20 @@ const websites: Website[] = [
       "HTML",
       "CSS",
       "GSAP"
+    ],
+  },
+  {
+    title: "Proserv Hospitality Services",
+    description:
+      "ProServ Hospitality Services takes pride in delivering a complete range of manpower and facility support solutions designed to meet the needs of hotels, events, resorts, corporate establishments, and industrial operations.",
+    image: ProservImage,
+    liveUrl: "https://www.proservhospitalityuae.com",
+    technologies: [
+      "Wix Studio",
+      "Velo",
+      "JavaScript",
+      "HTML",
+      "CSS"
     ],
   },
   {
