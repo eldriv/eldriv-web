@@ -24,6 +24,8 @@ import ProservImage from "@/assets/images/proserv.png";
 // motion
 import { motion } from "framer-motion";
 
+type ClientLocation = "US" | "UAE" | "PH";
+
 interface Website {
   title: string;
   description: string;
@@ -32,6 +34,7 @@ interface Website {
   githubUrl?: string;
   technologies: string[];
   featured?: boolean;
+  clientLocation: ClientLocation;
 }
 
 const websites: Website[] = [
@@ -49,6 +52,7 @@ const websites: Website[] = [
       "CSS",
       "GSAP"
     ],
+    clientLocation: "UAE",
   },
   {
     title: "Proserv Hospitality Services",
@@ -63,6 +67,7 @@ const websites: Website[] = [
       "HTML",
       "CSS"
     ],
+    clientLocation: "UAE",
   },
   {
     title: "Maevi Creative Studio",
@@ -79,6 +84,7 @@ const websites: Website[] = [
       "React",
       "GSAP",
     ],
+    clientLocation: "PH",
   },
   {
     title: "CR8 Agency",
@@ -87,6 +93,7 @@ const websites: Website[] = [
     image: Cr8Image,
     liveUrl: "https://cr8-agency.netlify.app/",
     technologies: ["GSAP", "Tailwind CSS", "ReactJS"],
+    clientLocation: "PH",
   },
   {
     title: "Eva Hooft",
@@ -95,6 +102,7 @@ const websites: Website[] = [
     image: EvaImage,
     liveUrl: "https://evahooft.com",
     technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
+    clientLocation: "US",
   },
   {
     title: "CassandraDaher",
@@ -103,8 +111,35 @@ const websites: Website[] = [
     image: CassandraImage,
     liveUrl: "https://www.cassandradaher.com",
     technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
+    clientLocation: "US",
   },
 ];
+
+const getLocationBadgeColors = (location: ClientLocation) => {
+  switch (location) {
+    case "US":
+      return "bg-blue-500/20 text-blue-300 border-blue-400/30";
+    case "UAE":
+      return "bg-amber-500/20 text-amber-300 border-amber-400/30";
+    case "PH":
+      return "bg-red-500/20 text-red-300 border-red-400/30";
+    default:
+      return "bg-gray-500/20 text-gray-300 border-gray-400/30";
+  }
+};
+
+const getLocationFlag = (location: ClientLocation) => {
+  switch (location) {
+    case "US":
+      return "🇺🇸";
+    case "UAE":
+      return "🇦🇪";
+    case "PH":
+      return "🇵🇭";
+    default:
+      return "🌐";
+  }
+};
 
 export const WebsitesSection = () => {
   const HeaderComponent = SectionHeader();
@@ -184,6 +219,14 @@ export const WebsitesSection = () => {
               </div>
             )}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+            
+            {/* Client Location Badge */}
+            <div className="absolute top-3 left-3 z-10">
+              <span className={`flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-sm ${getLocationBadgeColors(website.clientLocation)}`}>
+                <span className="text-base">{getLocationFlag(website.clientLocation)}</span>
+                {website.clientLocation} CLIENT
+              </span>
+            </div>
           </div>
 
           {/* Project Content */}
