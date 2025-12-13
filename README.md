@@ -4,7 +4,7 @@ This repository contains my personal website portfolio, built with [Next.js](htt
 
 Install the dependencies:
 ```bash
-npm install
+make install
 ``` 
 
 then, run the development server:
