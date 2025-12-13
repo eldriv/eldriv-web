@@ -1,17 +1,12 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 
 // Components
 import { SectionHeader } from "@/components/SectionHeader";
-import { Card } from "@/components/card";
-
-// SVG Icons
-import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
-import GithubIcon from "@/assets/icons/github.svg";
+import { WebsiteCard, type Website } from "@/components/WebsiteCard";
 
 // Image imports
 import CrownImage from "@/assets/images/crown.png";
@@ -23,19 +18,6 @@ import ProservImage from "@/assets/images/proserv.png";
 
 // motion
 import { motion } from "framer-motion";
-
-type ClientLocation = "US" | "UAE" | "PH";
-
-interface Website {
-  title: string;
-  description: string;
-  image: StaticImageData | string;
-  liveUrl?: string;
-  githubUrl?: string;
-  technologies: string[];
-  featured?: boolean;
-  clientLocation: ClientLocation;
-}
 
 const websites: Website[] = [
   {
@@ -115,32 +97,6 @@ const websites: Website[] = [
   },
 ];
 
-const getLocationBadgeColors = (location: ClientLocation) => {
-  switch (location) {
-    case "US":
-      return "bg-blue-500/20 text-blue-300 border-blue-400/30";
-    case "UAE":
-      return "bg-amber-500/20 text-amber-300 border-amber-400/30";
-    case "PH":
-      return "bg-red-500/20 text-red-300 border-red-400/30";
-    default:
-      return "bg-gray-500/20 text-gray-300 border-gray-400/30";
-  }
-};
-
-const getLocationFlag = (location: ClientLocation) => {
-  switch (location) {
-    case "US":
-      return "🇺🇸";
-    case "UAE":
-      return "🇦🇪";
-    case "PH":
-      return "🇵🇭";
-    default:
-      return "🌐";
-  }
-};
-
 export const WebsitesSection = () => {
   const HeaderComponent = SectionHeader();
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -184,135 +140,39 @@ export const WebsitesSection = () => {
     };
   }, []);
 
-  const WebsiteCard = ({
-    website,
-    index,
-  }: {
-    website: Website;
-    index: number;
-  }) => {
-    const cardContent = (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-        className="h-full"
-      >
-        <Card
-          className={`h-[400px] p-0 flex flex-col group hover:scale-[1.02] transition-all duration-300 cursor-pointer ${
-            website.featured ? "md:col-span-2 lg:col-span-2" : ""
-          }`}
-        >
-          {/* Project Image */}
-          <div className="relative h-48 overflow-hidden rounded-t-3xl bg-gradient-to-br from-emerald-300/20 to-[#FD8128]/20">
-            {website.image ? (
-              <Image
-                src={website.image}
-                alt={website.title}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-300/10 to-[#FD8128]/10">
-                <span className="text-6xl opacity-20">🌐</span>
-              </div>
-            )}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-            
-            {/* Client Location Badge */}
-            <div className="absolute top-3 left-3 z-10">
-              <span className={`flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border backdrop-blur-sm ${getLocationBadgeColors(website.clientLocation)}`}>
-                <span className="text-base">{getLocationFlag(website.clientLocation)}</span>
-                {website.clientLocation} CLIENT
-              </span>
-            </div>
-          </div>
-
-          {/* Project Content */}
-          <div className="flex-1 flex flex-col p-6">
-            <div className="flex items-start justify-between mb-3">
-              <h3 className="font-bold text-lg text-white group-hover:text-emerald-300 transition-colors">
-                {website.title}
-              </h3>
-              <div className="flex gap-2">
-                {website.liveUrl && (
-                  <a
-                    href={website.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-gray-800 hover:bg-emerald-300/20 transition-colors group/link"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <ArrowUpRightIcon className="w-4 h-4 text-emerald-300 group-hover/link:text-white" />
-                  </a>
-                )}
-                {website.githubUrl && (
-                  <a
-                    href={website.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-gray-800 hover:bg-emerald-300/20 transition-colors group/github"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <GithubIcon className="w-4 h-4 text-emerald-300 group-hover/github:text-white" />
-                  </a>
-                )}
-              </div>
-            </div>
-
-            <p className="text-white/70 text-sm mb-4 flex-1">
-              {website.description}
-            </p>
-
-            {/* Technologies */}
-            <div className="flex flex-wrap gap-2">
-              {website.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-emerald-300/20 to-[#FD8128]/20 text-emerald-300 border border-emerald-300/20"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Card>
-      </motion.div>
-    );
-
-    return website.liveUrl ? (
-      <a
-        href={website.liveUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block h-full"
-      >
-        {cardContent}
-      </a>
-    ) : (
-      cardContent
-    );
-  };
 
   return (
-    <section>
-      <div className="py-16 lg:py-28 relative" ref={sectionRef}>
-        <div className="container" style={{ maxWidth: "1500px" }}>
+    <section id="web">
+      <div className="py-12 sm:py-16 lg:py-28 relative" ref={sectionRef}>
+        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
           <HeaderComponent
             eyebrow="Web Design & Development"
             title="Eldriv's Website Portfolio"
             description="Here are some of the websites I've built from the ground up, showcasing modern technologies, responsive design, and SEO-optimized. Each project reflects my commitment to clean architecture, accessibility, and user-centric interfaces."
           />
 
-          <div className="mt-20 relative">
-            {/* Embla Carousel - Continuous Scroll */}
-            <div className="relative">
-              {/* Left Gradient Overlay */}
-              <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+          <div className="mt-12 sm:mt-16 md:mt-20 relative">
+            {/* Mobile: Vertical Stack */}
+            <div className="block sm:hidden space-y-4">
+              {websites
+                .filter((website) => !website.featured)
+                .map((website, index) => (
+                  <WebsiteCard 
+                    key={website.title}
+                    website={website} 
+                    index={index} 
+                    isVisible={isVisible}
+                  />
+                ))}
+            </div>
+
+            {/* Desktop: Embla Carousel - Continuous Scroll */}
+            <div className="hidden sm:block relative">
+              {/* Left Gradient Overlay - Desktop only */}
+              <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 lg:w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
               
-              {/* Right Gradient Overlay */}
-              <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+              {/* Right Gradient Overlay - Desktop only */}
+              <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 lg:w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
               
               <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex">
@@ -322,17 +182,21 @@ export const WebsitesSection = () => {
                     .map((website, index) => (
                       <div
                         key={`${website.title}-${index}`}
-                        className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-4 md:px-5"
+                        className="flex-[0_0_85%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3 md:px-4 lg:px-5"
                       >
-                        <WebsiteCard website={website} index={index % websites.length} />
+                        <WebsiteCard 
+                          website={website} 
+                          index={index % websites.length} 
+                          isVisible={isVisible}
+                        />
                       </div>
                     ))}
                 </div>
               </div>
             </div>
 
-            {/* Hover hint with icons */}
-            <div className="flex items-center justify-center gap-3 mt-8 text-white/50 text-sm">
+            {/* Hover hint with icons - Only show on desktop */}
+            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 text-white/50 text-xs sm:text-sm px-4">
               <span className="flex items-center gap-1.5">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -361,37 +225,6 @@ export const WebsitesSection = () => {
             className="mt-16 text-center"
           ></motion.div>
         </div>
-
-        <style jsx>{`
-          .container {
-            margin: 0 auto;
-            padding: 0 1.5rem;
-          }
-
-          @media (min-width: 640px) {
-            .container {
-              padding: 0 2rem;
-            }
-          }
-
-          @media (min-width: 768px) {
-            .container {
-              padding: 0 2.5rem;
-            }
-          }
-
-          @media (min-width: 1024px) {
-            .container {
-              padding: 0 3rem;
-            }
-          }
-
-          @media (min-width: 1280px) {
-            .container {
-              padding: 0 4rem;
-            }
-          }
-        `}</style>
       </div>
     </section>
   );

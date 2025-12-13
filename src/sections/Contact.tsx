@@ -219,24 +219,24 @@ function UltraModernContactForm() {
           </div>
 
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          <div className="text-center mb-8 sm:mb-12 px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               Get In Touch
             </h1>
-            <p className="text-gray-300 text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Ready to bring your ideas to life? Let's start a conversation.
             </p>
           </div>
 
           {/* Form Container */}
-          <Card className="p-8 md:p-12 shadow-2xl animate-in zoom-in-95 duration-1000 delay-400 rounded-t-2xl rounded-b-none">
+          <Card className="p-5 sm:p-6 md:p-8 lg:p-12 shadow-2xl animate-in zoom-in-95 duration-1000 delay-400 rounded-t-2xl rounded-b-none mx-4 sm:mx-6 md:mx-0">
             {isSubmitted ? (
               <div className="text-center py-16 animate-in zoom-in-95 duration-500">
                 <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
                   <CheckCircle className="w-12 h-12 text-white" />
                 </div>
-                <h2 className="text-4xl font-bold text-white mb-6">Message Sent!</h2>
-                <p className="text-gray-300 text-lg leading-relaxed max-w-md mx-auto">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">Message Sent!</h2>
+                <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto px-4">
                   Thanks for reaching out! I'll get back to you within 24 hours.
                 </p>
                 <div className="mt-8 flex justify-center">
@@ -248,7 +248,7 @@ function UltraModernContactForm() {
             ) : (
               <div className="space-y-8">
                 {/* Form Grid */}
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <InputField
                     icon={User}
                     label="Your Name"
@@ -305,7 +305,7 @@ function UltraModernContactForm() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center text-gray-400 text-sm space-x-2">
                       <MessageSquare className="w-4 h-4" />
-                      <span>Typically responds within 24 hours</span>
+                      <span>eldriv@proton.me</span>
                   </div>
                   <button
                       onClick={handleSubmit}
@@ -322,7 +322,7 @@ function UltraModernContactForm() {
                       ) : (
                           <div className="flex items-center space-x-3 group">
                           <Send className="w-5 h-5 transition-transform duration-300" />
-                          <span>Send Message</span>
+                          <span>Submit</span>
                           </div>
                       )}
                       </div>

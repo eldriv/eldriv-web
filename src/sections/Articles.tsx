@@ -175,8 +175,8 @@ export const ArticlesSection = () => {
   }, [isScrolling]); // Re-bind if scrolling state changes
 
   return ( 
-    <div className="py-20 lg:py-24 relative" id="blogs">
-      <div className="container" style={{ maxWidth: "1500px" }}>
+    <div className="py-12 sm:py-16 lg:py-24 relative" id="blogs">
+      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1500px" }}>
         <HeaderComponent 
           eyebrow="Eldriv's" 
           title="Life and Tech Blogs" 
@@ -187,8 +187,8 @@ export const ArticlesSection = () => {
         <div className="relative">
           <div 
             ref={scrollContainerRef}
-            className="mt-16 lg:mt-20 flex overflow-x-auto hide-scrollbar 
-            [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-4 -my-4"
+            className="mt-12 sm:mt-16 lg:mt-20 flex overflow-x-auto hide-scrollbar 
+            [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-4 -my-4 -mx-4 sm:-mx-6 px-4 sm:px-6"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             onMouseEnter={() => setIsAnimationPaused(true)}
             onMouseLeave={() => setIsAnimationPaused(false)}
@@ -200,7 +200,7 @@ export const ArticlesSection = () => {
                 <Fragment key={index}>
                   {Articles.map(article => (
                     <Link key={`${article.name}-${index}`} href={article.href} target={article.target}>
-                      <Card className="max-w-xs md:max-w-md p-6 md:p-8 hover:-rotate-3 transition duration-300">
+                      <Card className="w-[280px] sm:w-[320px] md:max-w-md h-full p-5 sm:p-6 md:p-8 hover:-rotate-3 transition duration-300 flex-shrink-0 flex flex-col">
                         <div className="flex gap-4 items-center">
                           <div className="size-14 inline-flex items-center justify-center flex-shrink-0">
                             <Image 
@@ -214,7 +214,7 @@ export const ArticlesSection = () => {
                             <div className="text-sm text-white/80 mt-1">{article.topic}</div>
                           </div>
                         </div>
-                        <p className="mt-4 md:mt-6 text-sm md:text-base">{article.text}</p>
+                        <p className="mt-4 md:mt-6 text-sm md:text-base flex-1">{article.text}</p>
                       </Card>
                     </Link>
                   ))}

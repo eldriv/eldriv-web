@@ -19,7 +19,7 @@ export const CardHeader = ({
   className?: string;
 }) => {
   return (
-    <div className={twMerge("flex flex-col p-6", className)}>
+    <div className={twMerge("flex flex-col p-3", className)}>
       <div className="inline-flex items-center gap-2">
         <StarIcon className="size-9 text-emerald-300" />
         {href ? (

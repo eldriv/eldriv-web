@@ -173,17 +173,28 @@ const contributions: Contribution[] = [
   href: "https://github.com/vedatechnologiesinc/white-paper/blob/main/white-paper.pdf",
 },
 {
-  title: "Open-source Libraries",
-  left: "35%",
-  top: "65%",
-  href: "#",
-  isOpenSource: true,
+  title: "Vix",
+  left: "25%",
+  top: "15%",
+  href: "https://github.com/veda-systems/vix",
 },
 {
-  title: "Philippine Dental Association Newsletter",
+  title: "Marie",
+  left: "50%",
+  top: "45%",
+  href: "https://github.com/veda-systems/marie",
+},
+{
+  title: "Meria",
   left: "10%",
-  top: "0%",
-  href: "https://drive.google.com/file/d/1K4NdJ0O1m3VYn_wjIXSDxGhZNHNpThCu/view",
+  top: "70%",
+  href: "https://github.com/veda-systems/meria",
+},
+{
+  title: "cl-skel",
+  left: "60%",
+  top: "20%",
+  href: "https://github.com/eldriv/cl-skel",
 },
 ];
 
@@ -261,52 +272,55 @@ const handleContributionClick = (contribution: Contribution, e: React.MouseEvent
 
 return (
   <section id="about">
-  <div className="py-16 lg:py-28 relative" ref={sectionRef}>
-    <div className="container" style={{ maxWidth: "1500px"}}>
+  <div className="pt-12 sm:pt-16 lg:pt-28 pb-12 sm:pb-16 lg:pb-24 relative" ref={sectionRef}>
+    <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1500px"}}>
       <HeaderComponent
         eyebrow="About Me"
         title="More about Eldriv's"
         description="Learn more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer and Web Developer."
       />
-      <div className="mt-20 flex flex-col gap-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="h-[320px] md:col-span-1 lg:col-span-1 overflow-hidden">
+      <div className="mt-12 sm:mt-16 md:mt-20 flex flex-col gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="h-[280px] sm:h-[300px] md:h-[320px] md:col-span-1 lg:col-span-1 overflow-hidden flex flex-col p-0">
             <CardHeader
               title="Books In Queue"
               description="The books that I'm currently reading."
+              className="px-4 sm:px-6 pt-6"
             />
             <div 
               ref={bookRef}
-              className={`w-50 mx-auto md:-mt-1 -mt-10 lg:-mt-10 px-8 transition-all duration-2000 ease-in-out ${
+              className={`flex-1 w-50 mx-auto -mt-8 sm:-mt-6 md:-mt-1 lg:-mt-10 px-4 sm:px-8 pb-0 mb-0 transition-all duration-2000 ease-in-out ${
                 isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
               }`}
             >
-              <Image src={bookImage} alt="Book cover" />
+              <Image src={bookImage} alt="Book cover" className="object-contain h-full w-full" />
             </div>
           </Card>
-          <Card className="h-[320px] md:col-span-1 lg:col-span-2">
+          <Card className="h-[280px] sm:h-[300px] md:h-[320px] md:col-span-1 lg:col-span-2 flex flex-col">
             <CardHeader
               title="Toolbox"
               description="Explore the technologies that I am proficient with."
-              className=""
+              className="px-4 sm:px-6"
             />
-            <ToolboxItems 
-            tools={tool} 
-            className="mt-3" 
-            itemsWrapperClassName="animate-move-left [animation-duration:80s]"/>
-            <ToolboxItems
-              tools={tool}
-              className="mt-6"
-              itemsWrapperClassName="-translate-x-1/2 animate-move-right [animation-duration:80s]"
-            />
+            <div className="flex-1 flex flex-col justify-end pb-6 sm:pb-8 md:pb-10">
+              <ToolboxItems 
+              tools={tool} 
+              className="mt-3" 
+              itemsWrapperClassName="animate-move-left [animation-duration:80s]"/>
+              <ToolboxItems
+                tools={tool}
+                className="mt-6"
+                itemsWrapperClassName="-translate-x-1/2 animate-move-right [animation-duration:80s]"
+              />
+            </div>
           </Card>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="h-[320px] p-0 flex flex-col md:col-span-1 lg:col-span-1">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="h-[280px] sm:h-[300px] md:h-[320px] p-0 flex flex-col md:col-span-1 lg:col-span-1">
             <CardHeader
               title="Collaborations"
               description="Tap to explore my tech contributions and my side-projects."
-              className="px-6 py-6"
+              className="px-4 sm:px-6 py-4 sm:py-6"
             />
             <div className="relative flex-1" ref={constrainRef}>
               {contributions.map((contribution) => (
@@ -316,7 +330,7 @@ return (
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => handleContributionClick(contribution, e)}
-                  className="inline-flex items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-[#FD8128] rounded-full py-1.5 absolute cursor-pointer"
+                  className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 md:px-6 bg-gradient-to-r from-emerald-300 to-[#FD8128] rounded-full py-0.5 sm:py-1 md:py-1.5 absolute cursor-pointer text-[10px] sm:text-xs md:text-sm"
                   style={{
                     left: contribution.left,
                     top: contribution.top,
@@ -324,29 +338,29 @@ return (
                   drag
                   dragConstraints={constrainRef}
                 >
-                  <span className="font-medium text-gray-950">{contribution.title}</span>
-                  <ArrowUpRightIcon className="w-4 h-4 text-gray-950" />
+                  <span className="font-medium text-gray-950 whitespace-nowrap">{contribution.title}</span>
+                  <ArrowUpRightIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-950 flex-shrink-0" />
                 </motion.a>
               ))}
 
               {showOpenSourceOptions && (
-                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-4 rounded-lg shadow-lg z-10">
-                  <div className="flex flex-col gap-2 mb-20">
-                    <h4 className="text-emerald-300 font-medium">Select a Project</h4>
+                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-3 sm:p-4 rounded-lg shadow-lg z-10 max-w-[90%] sm:max-w-none">
+                  <div className="flex flex-col gap-1.5 sm:gap-2 mb-16 sm:mb-20">
+                    <h4 className="text-emerald-300 font-medium text-sm sm:text-base">Select a Project</h4>
                     {openSourceProjects.map((project) => (
                       <a
                         key={project.name}
                         href={project.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors"
+                        className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors text-sm sm:text-base"
                         onClick={(e) => {
                           // Don't close the popup when clicking a project link
                           e.stopPropagation();
                         }}
                       >
                         <span>{project.name}</span>
-                        <ArrowUpRightIcon className="w-4 h-4 text-emerald-300" />
+                        <ArrowUpRightIcon className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" />
                       </a>
                     ))}
                   </div>
@@ -354,37 +368,37 @@ return (
               )}
             </div>
           </Card>
-          <Card className="h-[320px] p-0 relative md:col-span-1 lg:col-span-1">
+          <Card className="h-[320px] sm:h-[340px] md:h-[320px] p-0 relative md:col-span-1 lg:col-span-1">
             <CardHeader
               title="Research"
               subtitle="➤ Evaluating the Efficacy of ARIMA in Forecasting Rootcrops Prices in NCR."
               researchLink="https://docs.google.com/document/d/1uKjc8QfxJVrcqyIhEklHguA3H9d2d6mcAyxkeH1gdC4/edit?tab=t.0"
               description="Assessment of ARIMA model effectiveness for forecasting prices of five key root crops in the National Capital Region of the Philippines."
-              className="px-6 py-6"
+              className="px-4 sm:px-6 py-4 sm:py-6"
             />
           </Card>
-          <Card className="h-[320px] p-0 flex flex-col md:col-span-1 lg:col-span-1 bg-gradient-to-r from-black/80 to-darkblue">
+          <Card className="h-[320px] sm:h-[340px] md:h-[320px] p-0 flex flex-col md:col-span-1 lg:col-span-1 bg-gradient-to-r from-black/80 to-slate-900">
             <CardHeader
               title="Contact"
               description="Let's create something amazing together."
-              className="px-6 py-6"
+              className="px-4 sm:px-6 py-4 sm:py-6"
             />
-            <div className="flex-1 flex flex-col justify-between px-6 pb-10">
+            <div className="flex-1 flex flex-col justify-between px-4 sm:px-6 pb-6 sm:pb-8 md:pb-10">
               <p className="text-sm md:text-base mb-4">
                 If you're passionate about technology—websites, AI, and Software engineering—and want to contribute to open-source, I'd be thrilled to connect with you.
               </p>
               <div className="flex items-center gap-1">
-                <span className="font-medium">Email:</span>
+                <span className="font-medium text-sm sm:text-base">Email:</span>
                 <a
                   href="mailto:eldriv@proton.me"
-                  className="text-emerald-300 hover:text-[#FD8128] transition-colors"
+                  className="text-emerald-300 hover:text-[#FD8128] transition-colors text-xs sm:text-sm"
                 >
                   eldriv@proton.me
                 </a>
               </div>
-              <div className="flex items-center gap-2 mt-2">
+              <div className="flex items-center gap-2 sm:gap-3 mt-2 mb-6 sm:mb-6 md:mb-0">
                 <a href="https://github.com/eldriv" target="_blank" rel="noopener noreferrer">
-                  <GithubIcon className="w-6 h-6 text-emerald-300 hover:text-[#FD8128] transition-colors" />
+                  <GithubIcon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-300 hover:text-[#FD8128] transition-colors" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/"
@@ -393,7 +407,7 @@ return (
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-emerald-300 hover:text-[#FD8128] transition-colors"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-300 hover:text-[#FD8128] transition-colors"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >

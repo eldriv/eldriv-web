@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Your existing SVG configuration
-  webpack(config) {
+  webpack(config, { isServer }) {
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.(".svg")
     );
@@ -35,6 +35,18 @@ const nextConfig = {
       }
     );
     fileLoaderRule.exclude = /\.svg$/i;
+    
+    // Ignore Node.js modules that aren't available in the browser
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        readline: false,
+        fs: false,
+        path: false,
+        os: false,
+      };
+    }
+    
     return config;
   },
 

@@ -19,6 +19,7 @@ import portfolioImage6 from '@/assets/images/6.png';
 import portfolioImage7 from '@/assets/images/valmiz-front.png';
 import VedaLandingPage from "@/assets/images/veda.png";
 import certificateImage from "@/assets/images/coc.png";
+import freelanceImage from "@/assets/images/figma.png";
 import Image, { StaticImageData } from "next/image"; 
 import { Card } from '@/components/card';
 
@@ -314,6 +315,24 @@ const portfolioExperience: PortfolioExperienceItem[] = [
     buttonType: "certificate"
   },
   {
+    company: "Independent Contractor",
+    Date: "January 2024 - Present",
+    title: "Web Developer",
+    results: [
+      { title: "Clients Worldwide" },
+      { title: "UI/UX Design (Figma)" },
+      { title: "SEO" },
+      { title: "Automations (Zapier, n8n, etc.)" },
+      { title: "Funnels (Landing Pages, Sales Pages, etc.)" },
+      { title: "Content Creation (Blog Posts, Articles, etc.)" },
+    ],
+    image: freelanceImage,
+    link: "#web",
+    target: "_self",
+    buttonText: "View Portfolio",
+    buttonType: "link"
+  },
+  {
     company: "Maevi Creative Studio",
     Date: "March 2021–July 2021",
     title: "Graphics Designer",
@@ -348,7 +367,7 @@ const imageVariants = {
 };
 
 export const ExperienceSection = () => {
-  const [expanded, setExpanded] = useState(false);
+  const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
   const [lightboxState, setLightboxState] = useState<LightboxState>({
     isOpen: false,
     type: null,
@@ -440,8 +459,16 @@ export const ExperienceSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobile]);
   
-  const toggleExpand = () => {
-    setExpanded(!expanded);
+  const toggleExpand = (index: number) => {
+    setExpandedProjects(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
   };
   
   // Open lightbox
@@ -517,8 +544,8 @@ export const ExperienceSection = () => {
   const HeaderComponent = SectionHeader();
 
   return (
-    <section className="pb-16 lg:py-24" id="experience" ref={sectionRef}> 
-      <div className="container" style={{ maxWidth: "1230px" }}>
+    <section className="pb-12 sm:pb-16 lg:py-24" id="experience" ref={sectionRef}> 
+      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1230px" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -530,10 +557,10 @@ export const ExperienceSection = () => {
             description="A look at the work I've done—designing systems, graphics design, writing code, and collaborating with teams to build useful and scalable solutions."
           />
         </motion.div>
-        <div className="mt-20 md:mt-20 relative">
+        <div className="mt-12 sm:mt-16 md:mt-20 relative">
           <div>
             {/* Sticky cards container */}
-            <div className="space-y-10">
+            <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {portfolioExperience.map((project, index) => (
                 <div 
                   key={project.title} 
@@ -552,8 +579,8 @@ export const ExperienceSection = () => {
                       hidden: { opacity: 0, y: 70 },
                     }}
                   >
-                    <Card className="px-8 pt-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20">
-                      <div className="lg:grid lg:grid-cols-2 lg:gap-16">
+                    <Card className="px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-0 md:pt-12 lg:pt-16 lg:px-20">
+                      <div className="lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-16">
                         <div className="lg:pb-16">           
                           <div className="bg-gradient-to-r from-emerald-300 
                             to-sky-400 inline-flex gap-2 font-bold uppercase 
@@ -562,19 +589,19 @@ export const ExperienceSection = () => {
                             <span>&bull;</span>
                             <span>{project.Date}</span>
                           </div>
-                          <h3 className="font-sans text-2xl mt-2 md:mt-5 md:text-4xl">{project.title}</h3>
+                          <h3 className="font-sans text-xl sm:text-2xl mt-2 md:mt-5 md:text-3xl lg:text-4xl">{project.title}</h3>
                           <hr className="border-t-2 border-white/5 mt-4 md:mt-5" />
                           
                           {/* Enhanced results container with mobile scroll */}
                           <div className={`mt-4 md:mt-5 ${
-                            index === 0 && expanded && isMobile 
+                            expandedProjects.has(index) && isMobile 
                               ? 'max-h-[40vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent' 
                               : ''
                           }`}>
                             <ul className="flex flex-col gap-4">
                               {project.results
-                                // For first card only: show all items when expanded, or first 2 when collapsed
-                                .filter((_, resultIndex) => index !== 0 || expanded || resultIndex < 2)
+                                // Show all items when expanded, or first 2 when collapsed
+                                .filter((_, resultIndex) => expandedProjects.has(index) || resultIndex < 2)
                                 .map((result, resultIndex) => (
                                   <motion.li 
                                     key={result.title} 
@@ -593,15 +620,15 @@ export const ExperienceSection = () => {
                             </ul>
                           </div>
                           
-                          {/* Show View More/Less button only for the first project */}
-                          {index === 0 && project.results.length > 2 && (
+                          {/* Show View More/Less button for projects with more than 2 results */}
+                          {project.results.length > 2 && (
                             <motion.button 
-                              onClick={toggleExpand}
+                              onClick={() => toggleExpand(index)}
                               className="mt-4 text-sm text-sky-400 font-medium flex items-center gap-1 hover:text-sky-300 transition-colors"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
-                              {expanded ? 'View Less -' : 'View More +'}
+                              {expandedProjects.has(index) ? 'View Less -' : 'View More +'}
                             </motion.button>
                           )}
                           
@@ -609,7 +636,7 @@ export const ExperienceSection = () => {
                           {project.buttonType === 'link' && project.link ? (
                             <a href={project.link} target="_blank">
                               <motion.button 
-                                className="bg-[#fd8128] text-white h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8"
+                                className="bg-[#fd8128] text-white h-11 sm:h-12 w-full md:w-auto px-5 sm:px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-6 sm:mt-8 text-sm sm:text-base"
                                 whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
                                 whileTap={{ scale: 0.95 }}
                                 transition={{ duration: 0.2 }}
