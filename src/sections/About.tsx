@@ -37,6 +37,8 @@ import OrgIcon from "@/assets/icons/org.svg"
 import PandocIcon from "@/assets/icons/pandoc.svg"
 import ClogIcon from "@/assets/icons/clog.svg"
 import FlameGraphIcon from "@/assets/icons/flamegraph.svg"
+import n8nIcon from "@/assets/icons/n8n.svg"
+import zapierIcon from "@/assets/icons/zapier.svg"
 
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg"
 
@@ -148,6 +150,14 @@ const tool = [
   {
     title: "FlameGraph",
     iconType: FlameGraphIcon,
+  },
+  {
+    title: "n8n",
+    iconType: n8nIcon,
+  },
+  {
+    title: "Zapier",
+    iconType: zapierIcon,
   },
 ];
 

@@ -37,7 +37,9 @@ const toolDescriptions: Record<string, string> = {
   "Org": "Emacs-based system for note-taking, planning, and literate programming",
   "Pandoc": "Universal document converter supporting multiple markup formats",
   "CLOG": "Common Lisp web framework for building modern web applications",
-  "FlameGraph": "Performance profiling tool for visualizing CPU usage and bottlenecks"
+  "FlameGraph": "Performance profiling tool for visualizing CPU usage and bottlenecks",
+  "n8n": "Open-source workflow automation platform for connecting APIs and services",
+  "Zapier": "Cloud-based automation platform for integrating web applications and automating workflows"
 };
 
 export const ToolboxItems = ({
