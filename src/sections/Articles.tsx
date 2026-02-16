@@ -36,7 +36,7 @@ const Articles: Article[] = [
     topic: "Programming",
     text: "In software development, engineers require tools that prioritize efficiency and flexibility. When dealing with complex systems, there's a...",
     avatar: memojiAvatar1,
-    href: "https://eldriv.com/en/adz",
+    href: "https://eldriv-blogs.netlify.app/en/adz",
     target: "_blank",
   },
   {
@@ -44,7 +44,7 @@ const Articles: Article[] = [
     topic: "Programming",
     text: "In February 2024, I felt lost in an unfamiliar forest, where a strong aura seemed to fill the air as if someone were watching me. The path...",
     avatar: memojiAvatar2,
-    href: "https://eldriv.com/en/lisp",
+    href: "https://eldriv-blogs.netlify.app/en/lisp",
     target: "_blank",
   },
   {
@@ -52,7 +52,7 @@ const Articles: Article[] = [
     topic: "System Administration",
     text: "As engineers, one of the essential tools we've always relied on is the terminal, due to its efficieny and speed that allows us to execute...",
     avatar: memojiAvatar3,
-    href: "https://eldriv.com/en/tmux",
+    href: "https://eldriv-blogs.netlify.app/en/tmux",
     target: "_blank",
   },
   {
@@ -60,7 +60,7 @@ const Articles: Article[] = [
     topic: "Operating System",
     text: "For anyone reading this article now, you might be wondering why I chose such a title. Have you ever seen someone who is very skilled...",
     avatar: memojiAvatar4,
-    href: "https://eldriv.com/en/nixos",
+    href: "https://eldriv-blogs.netlify.app/en/nixos",
     target: "_blank",
   },
   {
@@ -68,7 +68,7 @@ const Articles: Article[] = [
     topic: "System Administration",
     text: "Hello there! From the last article, I mentioned NixOS, right? My machine fully supports NixOS, and my experiences so far have exceeded...",
     avatar: memojiAvatar5,
-    href: "https://eldriv.com/en/docker",
+    href: "https://eldriv-blogs.netlify.app/en/docker",
     target: "_blank",
   },
   {
@@ -76,7 +76,7 @@ const Articles: Article[] = [
     topic: "Quality Testing",
     text: "I've been working with Common Lisp for about eight months now, and I've become curious about how to test my code in this language...",
     avatar: memojiAvatar6,
-    href: "https://eldriv.com/en/fiveam",
+    href: "https://eldriv-blogs.netlify.app/en/fiveam",
     target: "_blank",
   },
   {
@@ -84,7 +84,7 @@ const Articles: Article[] = [
     topic: "Programming",
     text: "Parsing is a technique where we use to analyze and understand the structure of a text or code in order to extract meaningful...",
     avatar: memojiAvatar7,
-    href: "https://eldriv.com/en/parser",
+    href: "https://eldriv-blogs.netlify.app/en/parser",
     target: "_blank",
   },
   {
@@ -92,7 +92,7 @@ const Articles: Article[] = [
     topic: "Operating System",
     text: "I have been using Windows for about 10 years, so switching to a different operating system was a brave move for me. I chose...",
     avatar: memojiAvatar8,
-    href: "https://eldriv.com/en/ubuntu",
+    href: "https://eldriv-blogs.netlify.app/en/ubuntu",
     target: "_blank",
   },
 ];
