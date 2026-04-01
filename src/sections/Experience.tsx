@@ -2,8 +2,8 @@
 
 // Components
 import { SectionHeader } from '@/components/SectionHeader';
-import { useState, useEffect, MouseEvent, useRef } from 'react'; 
-import { motion } from 'framer-motion'; // Import framer-motion
+import { useState, useEffect, MouseEvent } from 'react';
+import { AnimatePresence, motion } from 'framer-motion'; // Import framer-motion
 
 // SVGs
 import CheckIcon from '@/assets/icons/check-circle.svg';
@@ -367,109 +367,13 @@ const imageVariants = {
 };
 
 export const ExperienceSection = () => {
-  const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [lightboxState, setLightboxState] = useState<LightboxState>({
     isOpen: false,
     type: null,
     currentImage: null,
     currentIndex: 0
   });
-  
-  const [visibleSections, setVisibleSections] = useState<{[key: number]: boolean}>({});
-  
-  const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null);
-  
-  const [isMobile, setIsMobile] = useState(false);
-  
-  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  
-  // Check if on mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  
-  // Set up card refs
-  useEffect(() => {
-    cardRefs.current = Array(portfolioExperience.length).fill(null);
-  }, []);
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('.project-card');
-      const viewportHeight = window.innerHeight;
-      const viewportCenter = window.innerHeight / 2;
-      
-      // Track which sections are visible for animations
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        // Consider a section visible when at least partially in the viewport
-        const isVisible = rect.top < viewportHeight && rect.bottom > 0;
-        
-        setVisibleSections(prev => {
-          if (prev[index] !== isVisible) {
-            return { ...prev, [index]: isVisible };
-          }
-          return prev;
-        });
-        
-        // On mobile, don't dim any cards - keep them all fully visible
-        if (isMobile) {
-          setFocusedCardIndex(null);
-          return;
-        }
-        
-        // Calculate which card is most centered in the viewport
-        // We do this separately to determine focused card for desktop
-        const cards = cardRefs.current.filter(Boolean);
-        
-        if (cards.length) {
-          let closestCard = 0;
-          let minDistance = Infinity;
-          
-          cards.forEach((cardRef, idx) => {
-            if (cardRef) {
-              const cardRect = cardRef.getBoundingClientRect();
-              const cardCenter = cardRect.top + cardRect.height / 2;
-              const distanceFromViewportCenter = Math.abs(cardCenter - viewportCenter);
-              
-              if (distanceFromViewportCenter < minDistance) {
-                minDistance = distanceFromViewportCenter;
-                closestCard = idx;
-              }
-            }
-          });
-          
-          setFocusedCardIndex(closestCard);
-        }
-      });
-    };
-    
-    // Initialize visibility and focus on mount
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
-  
-  const toggleExpand = (index: number) => {
-    setExpandedProjects(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-      }
-      return newSet;
-    });
-  };
   
   // Open lightbox
   const openLightbox = (type: 'certificate' | 'gallery', image: StaticImageData | PortfolioImage, index = 0) => {
@@ -520,31 +424,12 @@ export const ExperienceSection = () => {
       currentIndex: index
     });
   };
-  
-  // Helper function to calculate opacity based on focus
-  const getCardOpacity = (index: number) => {
-    // On mobile, all cards remain at full opacity
-    if (isMobile || focusedCardIndex === null) return 1;
-    
-    // On desktop, focus-based opacity
-    return index === focusedCardIndex ? 1 : 0.2;
-  };
-  
-  // Helper function to calculate transition properties
-  const getCardTransition = (index: number) => {
-    // Smooth transition for opacity changes
-    return {
-      opacity: {
-        duration: 0.5,
-        ease: "easeInOut"
-      }
-    };
-  };
-  
+  const selectedProject = portfolioExperience[selectedProjectIndex];
+
   const HeaderComponent = SectionHeader();
 
   return (
-    <section className="pb-12 sm:pb-16 lg:py-24" id="experience" ref={sectionRef}> 
+    <section className="pb-12 sm:pb-16 lg:py-24" id="experience">
       <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1230px" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -557,134 +442,138 @@ export const ExperienceSection = () => {
             description="A look at the work I've done—designing systems, graphics design, writing code, and collaborating with teams to build useful and scalable solutions."
           />
         </motion.div>
-        <div className="mt-12 sm:mt-16 md:mt-20 relative">
-          <div>
-            {/* Sticky cards container */}
-            <div className="space-y-6 sm:space-y-8 md:space-y-10">
-              {portfolioExperience.map((project, index) => (
-                <div 
-                  key={project.title} 
-                  className="sticky project-card" 
-                  style={{ top: `${100 + index * 35}px` }}
-                  ref={(el) => { cardRefs.current[index] = el; }}
+        <div className="mt-12 sm:mt-16 md:mt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+            {/* Tabs */}
+            <div className="lg:col-span-3 xl:col-span-3">
+              <Card className="p-2.5 sm:p-3 bg-gray-800/95 border border-white/15">
+                <div className="text-xs uppercase tracking-widest text-white/50 px-2 pb-2">Experience</div>
+                <div className="space-y-2">
+                  {portfolioExperience.map((project, index) => {
+                    const isActive = selectedProjectIndex === index;
+                    return (
+                      <motion.button
+                        key={project.title}
+                        onClick={() => setSelectedProjectIndex(index)}
+                        className={`w-full text-left rounded-xl px-3 py-3 border transition-all ${
+                          isActive
+                            ? 'bg-white/10 border-[#fd8128]/50 shadow-[0_0_0_1px_rgba(253,129,40,0.25)]'
+                            : 'bg-white/[0.03] border-white/10 hover:bg-white/[0.07]'
+                        }`}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ type: 'tween', duration: 0.2 }}
+                      >
+                        <p className="text-[14px] font-semibold text-white">{project.company}</p>
+                        <p className="text-[14px] text-white/60 mt-1">{project.title}</p>
+                        <p className="text-[14px] text-[#fd8128] mt-1">{project.Date}</p>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </Card>
+            </div>
+
+            {/* Active tab panel */}
+            <div className="lg:col-span-9 xl:col-span-9">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedProjectIndex}
+                  layout
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <motion.div
-                    initial="hidden"
-                    animate={visibleSections[index] ? {
-                      opacity: getCardOpacity(index),
-                      y: 0
-                    } : "hidden"}
-                    transition={getCardTransition(index)}
-                    variants={{
-                      hidden: { opacity: 0, y: 70 },
-                    }}
-                  >
-                    <Card className="px-4 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-0 md:pt-12 lg:pt-16 lg:px-20">
-                      <div className="lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-16">
-                        <div className="lg:pb-16">           
-                          <div className="bg-gradient-to-r from-emerald-300 
-                            to-sky-400 inline-flex gap-2 font-bold uppercase 
-                            tracking widest text-sm text-transparent bg-clip-text">
-                            <span>{project.company}</span>
-                            <span>&bull;</span>
-                            <span>{project.Date}</span>
-                          </div>
-                          <h3 className="font-sans text-xl sm:text-2xl mt-2 md:mt-5 md:text-3xl lg:text-4xl">{project.title}</h3>
-                          <hr className="border-t-2 border-white/5 mt-4 md:mt-5" />
-                          
-                          {/* Enhanced results container with mobile scroll */}
-                          <div className={`mt-4 md:mt-5 ${
-                            expandedProjects.has(index) && isMobile 
-                              ? 'max-h-[40vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent' 
-                              : ''
-                          }`}>
-                            <ul className="flex flex-col gap-4">
-                              {project.results
-                                // Show all items when expanded, or first 2 when collapsed
-                                .filter((_, resultIndex) => expandedProjects.has(index) || resultIndex < 2)
-                                .map((result, resultIndex) => (
-                                  <motion.li 
-                                    key={result.title} 
-                                    className="flex gap-2 text-sm text-white/100 md:text-base"
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.3 + resultIndex * 0.1 }}
-                                  >
-                                    <CheckIcon className="w-5 h-5 flex-shrink-0" />
-                                    <span>
-                                      {result.title}
-                                    </span>
-                                  </motion.li>
-                                ))
-                              }
-                            </ul>
-                          </div>
-                          
-                          {/* Show View More/Less button for projects with more than 2 results */}
-                          {project.results.length > 2 && (
-                            <motion.button 
-                              onClick={() => toggleExpand(index)}
-                              className="mt-4 text-sm text-sky-400 font-medium flex items-center gap-1 hover:text-sky-300 transition-colors"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              {expandedProjects.has(index) ? 'View Less -' : 'View More +'}
-                            </motion.button>
-                          )}
-                          
-                          {/* Conditional button based on project type */}
-                          {project.buttonType === 'link' && project.link ? (
-                            <a href={project.link} target="_blank">
-                              <motion.button 
-                                className="bg-[#fd8128] text-white h-11 sm:h-12 w-full md:w-auto px-5 sm:px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-6 sm:mt-8 text-sm sm:text-base"
-                                whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
-                                whileTap={{ scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <span>{project.buttonText}</span>  
-                                <ArrowUprightIcon className="size-4" />
-                              </motion.button>
-                            </a>
-                          ) : (
-                            <motion.button 
-                              onClick={() => {
-                                if (project.buttonType === 'certificate' && project.certificateImage) {
-                                  openLightbox('certificate', project.certificateImage);
-                                } else if (project.buttonType === 'gallery') {
-                                  openLightbox('gallery', portfolioImages[0], 0);
-                                }
-                              }}
-                              className="bg-[#fd8128] text-white h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8"
-                              whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
-                              whileTap={{ scale: 0.95 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <span>{project.buttonText}</span>  
-                              <ArrowUprightIcon className="size-4" />
-                            </motion.button>
-                          )}
+                <Card className="px-4 sm:px-6 md:px-8 pt-6 pb-6 md:pt-8 bg-gray-800/95 border border-white/15">
+                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-stretch">
+                    <div className="lg:col-span-6 flex flex-col h-full">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px]">
+                        <span className="h-2 w-2 rounded-full bg-[#fd8128]" />
+                        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-[0.16em] text-transparent bg-clip-text">
+                          <span>{selectedProject.company}</span>
+                          <span className="text-white/50">&bull;</span>
+                          <span>{selectedProject.Date}</span>
                         </div>
-                        <div className="relative">
+                      </div>
+
+                      <h3 className="font-sans text-2xl sm:text-3xl mt-4">{selectedProject.title}</h3>
+                      <div className="mt-4 h-px w-full bg-gradient-to-r from-[#fd8128]/80 via-white/20 to-transparent" />
+
+                      <div className="mt-4 min-h-0 overflow-y-auto pr-1 max-h-[190px] sm:max-h-[220px] scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                        <ul className="flex flex-col gap-4">
+                          {selectedProject.results.map((result, resultIndex) => (
+                              <motion.li
+                                key={`${selectedProject.title}-${result.title}`}
+                                className="flex gap-2 text-sm text-white/100 md:text-base"
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: resultIndex * 0.06 }}
+                              >
+                                <CheckIcon className="w-5 h-5 flex-shrink-0" />
+                                <span>{result.title}</span>
+                              </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {selectedProject.buttonType === 'link' && selectedProject.link ? (
+                        <a href={selectedProject.link} target={selectedProject.target ?? "_blank"} rel="noreferrer">
+                          <motion.button
+                            className="bg-[#fd8128] text-white h-11 sm:h-12 w-full md:w-auto px-5 sm:px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-6 text-sm sm:text-base"
+                            whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <span>{selectedProject.buttonText}</span>
+                            <ArrowUprightIcon className="size-4" />
+                          </motion.button>
+                        </a>
+                      ) : (
+                        <motion.button
+                          onClick={() => {
+                            if (selectedProject.buttonType === 'certificate' && selectedProject.certificateImage) {
+                              openLightbox('certificate', selectedProject.certificateImage);
+                            } else if (selectedProject.buttonType === 'gallery') {
+                              openLightbox('gallery', portfolioImages[0], 0);
+                            }
+                          }}
+                          className="bg-[#fd8128] text-white h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-6"
+                          whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <span>{selectedProject.buttonText}</span>
+                          <ArrowUprightIcon className="size-4" />
+                        </motion.button>
+                      )}
+                    </div>
+
+                    <div className="lg:col-span-6 mt-6 lg:mt-0">
+                      <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-2 sm:p-3">
+                        <div className="relative w-full h-[360px] sm:h-[420px] lg:h-full min-h-[360px] rounded-xl overflow-hidden">
                           <motion.div
                             variants={imageVariants}
                             initial="hidden"
                             animate="visible"
                             whileHover="hover"
-                            className="w-full h-full lg:absolute"
+                            className="absolute inset-0"
                           >
-                            <Image 
-                              src={project.image} 
-                              alt={project.title} 
-                              className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none transform transition-transform"
-                              priority={index < 2} // Prioritize loading the first two images
+                            <Image
+                              src={selectedProject.image}
+                              alt={selectedProject.title}
+                              fill
+                              sizes="(min-width: 1024px) 50vw, 100vw"
+                              className="object-cover object-left"
+                              priority={selectedProjectIndex < 2}
                             />
                           </motion.div>
                         </div>
                       </div>
-                    </Card>
-                  </motion.div>
-                </div>
-              ))}
+                    </div>
+                  </div>
+                </Card>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>
