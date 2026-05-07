@@ -22,7 +22,6 @@ export interface Website {
   technologies: string[];
   featured?: boolean;
   clientLocation: ClientLocation;
-  clientQuote?: string;
 }
 
 const getLocationBadgeColors = (location: ClientLocation) => {
@@ -71,7 +70,7 @@ export const WebsiteCard = ({
     : `${website.description.substring(0, maxLength)}...`;
 
   const handleCardClick = () => {
-    if (website.liveUrl && !isExpanded) {
+    if (website.liveUrl) {
       window.open(website.liveUrl, '_blank', 'noopener,noreferrer');
     }
   };
@@ -90,11 +89,26 @@ export const WebsiteCard = ({
     >
       <Card
         className={`min-h-[400px] sm:min-h-[360px] md:min-h-[380px] ${!isExpanded ? 'sm:h-[360px] md:h-[380px]' : ''} p-0 flex flex-col group transition-all duration-300 ease-in-out touch-manipulation ${
-          website.liveUrl && !isExpanded ? 'cursor-pointer' : ''
+          website.liveUrl ? 'cursor-pointer' : ''
         } ${
           website.featured ? "md:col-span-2 lg:col-span-2" : ""
         }`}
-        onClick={website.liveUrl && !isExpanded ? handleCardClick : undefined}
+        onClick={website.liveUrl ? handleCardClick : undefined}
+        role={website.liveUrl ? 'link' : undefined}
+        tabIndex={website.liveUrl ? 0 : undefined}
+        onKeyDown={
+          website.liveUrl
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleCardClick();
+                }
+              }
+            : undefined
+        }
+        aria-label={
+          website.liveUrl ? `Open ${website.title} in a new tab` : undefined
+        }
       >
         {/* Project Image */}
         <div className="relative h-40 sm:h-40 md:h-44 overflow-hidden rounded-t-2xl sm:rounded-t-3xl bg-gradient-to-br from-emerald-300/20 to-[#FD8128]/20 flex-shrink-0">
@@ -167,22 +181,6 @@ export const WebsiteCard = ({
               )}
             </AnimatePresence>
           </div>
-
-          {website.clientQuote && (
-            <div className="mb-3 inline-flex items-start gap-2 rounded-lg border border-[#fd8128]/25 bg-[#fd8128]/[0.06] px-2.5 py-1.5 max-w-full">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-                className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-[#fd8128]"
-              >
-                <path d="M7.17 6C4.87 6 3 7.87 3 10.17v6.66C3 17.47 3.53 18 4.17 18h4.66c.64 0 1.17-.53 1.17-1.17v-4.66c0-.64-.53-1.17-1.17-1.17H6c0-1.66 1.34-3 3-3h.17C9.62 8 10 7.62 10 7.17V6.83C10 6.37 9.62 6 9.17 6H7.17zm10 0c-2.3 0-4.17 1.87-4.17 4.17v6.66c0 .64.53 1.17 1.17 1.17h4.66c.64 0 1.17-.53 1.17-1.17v-4.66c0-.64-.53-1.17-1.17-1.17H16c0-1.66 1.34-3 3-3h.17C19.62 8 20 7.62 20 7.17V6.83C20 6.37 19.62 6 19.17 6h-2z" />
-              </svg>
-              <span className="text-white/80 text-[12px] sm:text-[13px] italic leading-snug font-serif">
-                &ldquo;{website.clientQuote}&rdquo;
-              </span>
-            </div>
-          )}
 
           <div className="mb-4 sm:mb-4">
             <motion.p

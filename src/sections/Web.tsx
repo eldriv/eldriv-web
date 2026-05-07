@@ -94,7 +94,6 @@ const websites: Website[] = [
     liveUrl: "https://www.cassandradaher.com",
     technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
     clientLocation: "US",
-    clientQuote: "Beautiful, it looks great!",
   },
 ];
 
@@ -144,8 +143,8 @@ export const WebsitesSection = () => {
 
   return (
     <section id="web">
-      <div className="py-12 sm:py-16 lg:py-28 relative" ref={sectionRef}>
-        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="py-12 sm:py-16 lg:py-24 relative" ref={sectionRef}>
+        <div className="w-full max-w-[1280px] mx-auto px-6 sm:px-8 md:px-10">
           <HeaderComponent
             eyebrow="Web Design & Development"
             title="Eldriv's Website Portfolio"

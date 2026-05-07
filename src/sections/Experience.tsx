@@ -429,8 +429,8 @@ export const ExperienceSection = () => {
   const HeaderComponent = SectionHeader();
 
   return (
-    <section className="pb-12 sm:pb-16 lg:py-24" id="experience">
-      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1230px" }}>
+    <section className="py-12 sm:py-16 lg:py-24" id="experience">
+      <div className="container px-6 sm:px-8 md:px-10" style={{ maxWidth: "1280px" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

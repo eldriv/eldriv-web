@@ -139,16 +139,24 @@ export const ToolboxItems = ({
         <div className={twMerge("flex flex-none py-0.5 gap-3 md:gap-6 pr-6 md:pr-12", itemsWrapperClassName)}>
           {[...new Array(2)].fill(0).map((_, index) => (
             <Fragment key={index}>
-              {enhancedTools.map((item) => (
-                <div
+              {enhancedTools.map((item, itemIndex) => (
+                <motion.div
                   key={item.title}
                   className="inline-flex items-center gap-2 md:gap-4 py-1.5 md:py-2 px-2 md:px-3 outline outline-2 outline-white/10 rounded-lg text-sm md:text-base"
+                  animate={{ y: [0, -2, 0, 2, 0] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    // Stagger the oscillation so the row never moves as a single block.
+                    delay: (itemIndex * 0.18) % 4,
+                  }}
                 >
                   <div className="scale-75 md:scale-100">
                     <TechIcon component={item.iconType} />
                   </div>
                   <span className="font-semibold whitespace-nowrap">{item.title}</span>
-                </div>
+                </motion.div>
               ))}
             </Fragment>
           ))}

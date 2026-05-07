@@ -199,8 +199,8 @@ export const TestimonialsSection = () => {
 
   return (
     <section id="testimonials" className="relative">
-      <div ref={sectionRef} className="py-12 sm:py-16 lg:py-28 relative">
-        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
+      <div ref={sectionRef} className="py-12 sm:py-16 lg:py-24 relative">
+        <div className="w-full max-w-[1280px] mx-auto px-6 sm:px-8 md:px-10">
           <HeaderComponent
             eyebrow="Testimonials"
             title="What clients say about working with me."

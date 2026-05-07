@@ -202,7 +202,7 @@ export function HeroSection() {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-8 md:py-20 lg:py-24 overflow-hidden w-full" 
+      className="relative py-12 sm:py-16 lg:py-24 overflow-hidden w-full" 
       id="home"
       onMouseMove={handleSectionMouseMove}
       onMouseEnter={handleSectionMouseEnter}

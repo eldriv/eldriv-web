@@ -1,15 +1,15 @@
 "use client";
 
-// Link
-import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Components
-import { SectionHeader } from '@/components/SectionHeader';
-import { Card } from '@/components/card';
+import { SectionHeader } from "@/components/SectionHeader";
+import { Card } from "@/components/card";
 
 // Images
-import Image from 'next/image';
 import memojiAvatar1 from "@/assets/images/taijitu-lisp.png";
 import memojiAvatar2 from "@/assets/images/taijitu-lisp.png";
 import memojiAvatar3 from "@/assets/images/tmux.png";
@@ -18,251 +18,389 @@ import memojiAvatar5 from "@/assets/images/docker.png";
 import memojiAvatar6 from "@/assets/images/taijitu-lisp.png";
 import memojiAvatar7 from "@/assets/images/taijitu-lisp.png";
 import memojiAvatar8 from "@/assets/images/ubuntu.png";
-import { Fragment } from 'react';
 
-// Define interface for article items
+// Icons
+import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
+
+interface Preview {
+  filename: string;
+  lines: string[];
+}
+
 interface Article {
   name: string;
   topic: string;
   text: string;
-  avatar: any; // Using any for image imports
+  avatar: any;
   href: string;
   target: string;
+  tags: string[];
+  preview?: Preview;
 }
 
 const Articles: Article[] = [
   {
     name: "Building 'adz' in Common Lisp with Clingon",
     topic: "Programming",
-    text: "In software development, engineers require tools that prioritize efficiency and flexibility. When dealing with complex systems, there's a...",
+    text: "Engineers need tools that prioritize efficiency and flexibility — Clingon makes building purpose-built CLIs in Common Lisp surprisingly elegant.",
     avatar: memojiAvatar1,
     href: "https://eldriv-blogs.netlify.app/en/adz",
     target: "_blank",
+    tags: ["common-lisp", "cli", "clingon"],
+    preview: {
+      filename: "adz.lisp",
+      lines: [
+        "(defcommand main ()",
+        "  (:description \"a tiny task-runner\")",
+        "  (format t \"~&hello, ~a!~%\" *name*))",
+      ],
+    },
   },
   {
     name: "A Wanderer's Tale of Discovering Lisp",
     topic: "Programming",
-    text: "In February 2024, I felt lost in an unfamiliar forest, where a strong aura seemed to fill the air as if someone were watching me. The path...",
+    text: "In February 2024, I felt lost in an unfamiliar forest, where a strong aura seemed to fill the air as if someone were watching me.",
     avatar: memojiAvatar2,
     href: "https://eldriv-blogs.netlify.app/en/lisp",
     target: "_blank",
+    tags: ["common-lisp", "story", "discovery"],
+    preview: {
+      filename: "wanderer.lisp",
+      lines: [
+        ";; the path was unfamiliar — but luminous",
+        "(loop for thought in *forest*",
+        "      collect (parenthesize thought))",
+      ],
+    },
   },
   {
     name: "Using Tmux to Perk Up Your Terminal Experience",
     topic: "System Administration",
-    text: "As engineers, one of the essential tools we've always relied on is the terminal, due to its efficieny and speed that allows us to execute...",
+    text: "As engineers, the terminal is our most essential tool — and Tmux turns it into a dependable, multiplexed home base.",
     avatar: memojiAvatar3,
     href: "https://eldriv-blogs.netlify.app/en/tmux",
     target: "_blank",
+    tags: ["tmux", "terminal", "productivity"],
+    preview: {
+      filename: "~/.tmux.conf",
+      lines: [
+        "set -g prefix C-a",
+        "set -g mouse on",
+        "bind | split-window -h",
+      ],
+    },
   },
   {
     name: "How NixOS Treated a Novice Sysadmin",
     topic: "Operating System",
-    text: "For anyone reading this article now, you might be wondering why I chose such a title. Have you ever seen someone who is very skilled...",
+    text: "Have you ever seen someone very skilled treat their machine like a contract, declaratively? NixOS made me one of them.",
     avatar: memojiAvatar4,
     href: "https://eldriv-blogs.netlify.app/en/nixos",
     target: "_blank",
+    tags: ["nixos", "linux", "declarative"],
+    preview: {
+      filename: "configuration.nix",
+      lines: [
+        "{ pkgs, ... }: {",
+        "  environment.systemPackages = with pkgs;",
+        "    [ git tmux emacs sbcl ];",
+        "}",
+      ],
+    },
   },
   {
     name: "Docker Containers Are Fast",
     topic: "System Administration",
-    text: "Hello there! From the last article, I mentioned NixOS, right? My machine fully supports NixOS, and my experiences so far have exceeded...",
+    text: "From the last article: NixOS exceeded my expectations. Then I met Docker — and the build/ship/run loop became near-instant.",
     avatar: memojiAvatar5,
     href: "https://eldriv-blogs.netlify.app/en/docker",
     target: "_blank",
+    tags: ["docker", "containers", "devops"],
+    preview: {
+      filename: "Dockerfile",
+      lines: [
+        "FROM alpine:latest",
+        "RUN apk add --no-cache sbcl",
+        "CMD [\"sbcl\", \"--script\", \"run.lisp\"]",
+      ],
+    },
   },
   {
     name: "Testing a Testing Framework",
     topic: "Quality Testing",
-    text: "I've been working with Common Lisp for about eight months now, and I've become curious about how to test my code in this language...",
+    text: "I've worked in Common Lisp for about eight months, and I became curious about how to test my code with FiveAM.",
     avatar: memojiAvatar6,
     href: "https://eldriv-blogs.netlify.app/en/fiveam",
     target: "_blank",
+    tags: ["fiveam", "testing", "common-lisp"],
+    preview: {
+      filename: "tests.lisp",
+      lines: [
+        "(test addition",
+        "  (is (= 4 (+ 2 2)))",
+        "  (is (= 0 (+ -1 1))))",
+      ],
+    },
   },
   {
     name: "Explore Parsing in S-expression",
     topic: "Programming",
-    text: "Parsing is a technique where we use to analyze and understand the structure of a text or code in order to extract meaningful...",
+    text: "Parsing is a technique used to analyze and understand the structure of a text or code in order to extract meaningful information.",
     avatar: memojiAvatar7,
     href: "https://eldriv-blogs.netlify.app/en/parser",
     target: "_blank",
+    tags: ["parsing", "s-expression", "lisp"],
+    preview: {
+      filename: "parser.lisp",
+      lines: [
+        "(defun parse (tokens)",
+        "  (cond ((eq (car tokens) #\\() (read-list))",
+        "        (t (read-atom tokens))))",
+      ],
+    },
   },
   {
     name: "How I Installed Ubuntu From Windows",
     topic: "Operating System",
-    text: "I have been using Windows for about 10 years, so switching to a different operating system was a brave move for me. I chose...",
+    text: "I used Windows for about a decade, so switching to a different operating system was a brave move — and Ubuntu rewarded the leap.",
     avatar: memojiAvatar8,
     href: "https://eldriv-blogs.netlify.app/en/ubuntu",
     target: "_blank",
+    tags: ["ubuntu", "linux", "switch"],
+    preview: {
+      filename: "first-boot.sh",
+      lines: [
+        "sudo apt update && sudo apt upgrade -y",
+        "sudo apt install build-essential git tmux",
+        "echo \"welcome home.\"",
+      ],
+    },
   },
 ];
 
+const TOPICS = [
+  "All",
+  "Programming",
+  "Operating System",
+  "System Administration",
+  "Quality Testing",
+] as const;
+
 export const ArticlesSection = () => {
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const [isAnimationPaused, setIsAnimationPaused] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
   const HeaderComponent = SectionHeader();
-  
-  const smoothScroll = (distance: number): void => {
-    if (!scrollContainerRef.current || isScrolling) return;
-    
-    setIsAnimationPaused(true);
-    setIsScrolling(true);
-    
-    const startPosition = scrollContainerRef.current.scrollLeft;
-    const targetPosition = startPosition + distance;
-    const startTime = performance.now();
-    const duration = 500; // 500ms for smooth animation
-    
-    const animateScroll = (currentTime: number): void => {
-      const elapsedTime = currentTime - startTime;
-      
-      if (elapsedTime < duration) {
-        // Easing function: easeInOutCubic for smooth acceleration and deceleration
-        const progress = elapsedTime / duration;
-        const easeProgress = progress < 0.5 
-          ? 4 * progress * progress * progress 
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-        
-        if (scrollContainerRef.current) {
-          scrollContainerRef.current.scrollLeft = startPosition + (distance * easeProgress);
-          requestAnimationFrame(animateScroll);
-        }
-      } else {
-        // Ensure we end exactly at the target position
-        if (scrollContainerRef.current) {
-          scrollContainerRef.current.scrollLeft = targetPosition;
-        }
-        setIsScrolling(false);
-      }
-    };
-    
-    requestAnimationFrame(animateScroll);
-  };
-  
-  const scrollLeft = (): void => {
-    smoothScroll(-300);
-  };
-  
-  const scrollRight = (): void => {
-    smoothScroll(300);
-  };
+  const [activeTopic, setActiveTopic] = useState<(typeof TOPICS)[number]>("All");
 
-  // Add event listeners for keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent): void => {
-      // Only handle keys if the scroll container is in view
-      if (scrollContainerRef.current) {
-        const containerRect = scrollContainerRef.current.getBoundingClientRect();
-        const isVisible = 
-          containerRect.top < window.innerHeight && 
-          containerRect.bottom > 0;
-          
-        if (isVisible) {
-          if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            scrollLeft();
-          } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            scrollRight();
-          }
-        }
-      }
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isScrolling]); // Re-bind if scrolling state changes
+  const filtered = useMemo(
+    () => (activeTopic === "All" ? Articles : Articles.filter((a) => a.topic === activeTopic)),
+    [activeTopic]
+  );
 
-  return ( 
+  return (
     <div className="py-12 sm:py-16 lg:py-24 relative" id="blogs">
-      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1500px" }}>
-        <HeaderComponent 
-          eyebrow="Eldriv's" 
-          title="Life and Tech Blogs" 
-          description="This passage reflects a personal journey through life and technology. The author aims to inspire others to explore their own paths, 
-            awakening to the profound possibilities that lie within their consciousness and beyond." 
+      {/* Soft ambient glows — dark, branded, very subtle. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-32 left-[15%] h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-emerald-500/[0.06] blur-3xl" />
+        <div className="absolute -bottom-32 right-[10%] h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-[#fd8128]/[0.06] blur-3xl" />
+      </div>
+
+      <div className="container px-6 sm:px-8 md:px-10" style={{ maxWidth: "1280px" }}>
+        <HeaderComponent
+          eyebrow="Eldriv's"
+          title="Life and Tech Blogs"
+          description="A personal journey through life and technology — written to inspire others to explore their own paths and the profound possibilities that lie beyond."
         />
-        
-        <div className="relative">
-          <div 
-            ref={scrollContainerRef}
-            className="mt-12 sm:mt-16 lg:mt-20 flex overflow-x-auto hide-scrollbar 
-            [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-4 -my-4 -mx-4 sm:-mx-6 px-4 sm:px-6"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            onMouseEnter={() => setIsAnimationPaused(true)}
-            onMouseLeave={() => setIsAnimationPaused(false)}
-          > 
-            <div 
-              className={`flex gap-8 pr-8 flex-none animate-move-left [animation-duration:90s] ${isAnimationPaused ? '[animation-play-state:paused]' : ''}`}
-            > 
-              {[...new Array(2)].fill(0).map((_, index) => (
-                <Fragment key={index}>
-                  {Articles.map(article => (
-                    <Link key={`${article.name}-${index}`} href={article.href} target={article.target}>
-                      <Card className="w-[280px] sm:w-[320px] md:max-w-md h-full p-5 sm:p-6 md:p-8 hover:-rotate-3 transition duration-300 flex-shrink-0 flex flex-col">
-                        <div className="flex gap-4 items-center">
-                          <div className="size-14 inline-flex items-center justify-center flex-shrink-0">
-                            <Image 
-                              src={article.avatar} 
-                              alt={article.name} 
-                              className="max-h-full"
-                            />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-sm text-[#fd8128]">{article.name}</div>
-                            <div className="text-sm text-white/80 mt-1">{article.topic}</div>
-                          </div>
-                        </div>
-                        <p className="mt-4 md:mt-6 text-sm md:text-base flex-1">{article.text}</p>
-                      </Card>
-                    </Link>
-                  ))}
-                </Fragment>
-              ))}   
-            </div>
+
+        {/* Filter chrome */}
+        <div className="mt-12 sm:mt-16 lg:mt-20 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-2">
+            {TOPICS.map((topic) => {
+              const isActive = activeTopic === topic;
+              return (
+                <button
+                  key={topic}
+                  onClick={() => setActiveTopic(topic)}
+                  className={`relative px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
+                    isActive
+                      ? "bg-gradient-to-r from-emerald-300 to-[#fd8128] text-gray-950 shadow-[0_6px_16px_-6px_rgba(253,129,40,0.5)]"
+                      : "bg-white/5 text-white/70 ring-1 ring-white/10 hover:bg-white/10 hover:text-white hover:ring-white/20"
+                  }`}
+                >
+                  {topic}
+                </button>
+              );
+            })}
           </div>
-          
-          {/* Navigation Arrows with visual feedback */}
-          <div className="flex justify-center items-center gap-4 mt-8">
-            <button 
-              onClick={scrollLeft}
-              disabled={isScrolling}
-              className={`rounded-full p-2 transition-all duration-300 ${
-                isScrolling 
-                  ? 'bg-black/20 text-white/40 cursor-not-allowed' 
-                  : 'bg-black/30 hover:bg-black/50 text-white/80 hover:text-white hover:scale-105'
-              }`}
-              aria-label="Scroll left"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m15 18-6-6 6-6"/>
-              </svg>
-            </button>
-            
-            <button 
-              onClick={scrollRight}
-              disabled={isScrolling}
-              className={`rounded-full p-2 transition-all duration-300 ${
-                isScrolling 
-                  ? 'bg-black/20 text-white/40 cursor-not-allowed' 
-                  : 'bg-black/30 hover:bg-black/50 text-white/80 hover:text-white hover:scale-105'
-              }`}
-              aria-label="Scroll right"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m9 18 6-6-6-6"/>
-              </svg>
-            </button>
+
+          <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300/70" />
+            {filtered.length.toString().padStart(2, "0")} entries
           </div>
         </div>
-        
-        {/* Add custom CSS to hide scrollbar */}
-        <style jsx global>{`
-          .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
+
+        {/* Bento grid */}
+        <motion.div
+          layout
+          className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+        >
+          <AnimatePresence mode="popLayout">
+            {filtered.map((article, idx) => {
+              const isFeatured = idx === 0;
+              const indexLabel = `// ${String(idx + 1).padStart(2, "0")}`;
+
+              return (
+                <motion.div
+                  key={article.href}
+                  layout
+                  initial={{ opacity: 0, y: 12, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                  transition={{ duration: 0.3, delay: idx * 0.04 }}
+                  className={
+                    isFeatured ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
+                  }
+                >
+                  <Link
+                    href={article.href}
+                    target={article.target}
+                    className="block h-full group/post"
+                  >
+                    <Card
+                      className={`relative h-full p-4 sm:p-5 ${
+                        isFeatured
+                          ? "min-h-[220px] lg:min-h-[320px]"
+                          : "min-h-[150px]"
+                      } flex flex-col transition-all duration-300 will-change-transform motion-safe:hover:-translate-y-1 hover:border-[#fd8128]/40 hover:shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6),_0_0_0_1px_rgba(253,129,40,0.18)]`}
+                    >
+                      {/* Top-right ornament: Featured pulse on featured, mono index on others. */}
+                      {isFeatured ? (
+                        <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#fd8128]/15 ring-1 ring-[#fd8128]/30 text-[#fd8128] text-[10px] font-mono uppercase tracking-[0.2em]">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-[#fd8128] opacity-75 animate-ping" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#fd8128]" />
+                          </span>
+                          Featured
+                        </span>
+                      ) : (
+                        <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 group-hover/post:text-[#fd8128]/70 transition-colors">
+                          {indexLabel}
+                        </span>
+                      )}
+
+                      <div className="flex items-center gap-2.5 mb-2 sm:mb-3">
+                        <div
+                          className={`${
+                            isFeatured ? "size-10 sm:size-12" : "size-9"
+                          } rounded-lg bg-white/5 ring-1 ring-white/10 grid place-items-center overflow-hidden flex-shrink-0`}
+                        >
+                          <Image
+                            src={article.avatar}
+                            alt={article.name}
+                            className="max-h-full max-w-full"
+                          />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-emerald-300">
+                            {article.topic}
+                          </span>
+                          {isFeatured && (
+                            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
+                              {indexLabel} · Latest
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <h3
+                        className={`${
+                          isFeatured
+                            ? "text-lg sm:text-xl md:text-2xl"
+                            : "text-sm sm:text-base"
+                        } font-semibold text-white group-hover/post:text-[#fd8128] transition-colors leading-snug ${
+                          isFeatured ? "mb-2" : "mb-1.5"
+                        }`}
+                      >
+                        {article.name}
+                      </h3>
+
+                      <p
+                        className={`${
+                          isFeatured ? "text-xs sm:text-sm" : "text-xs"
+                        } text-white/70 leading-relaxed ${
+                          isFeatured ? "line-clamp-2" : "line-clamp-2"
+                        }`}
+                      >
+                        {article.text}
+                      </p>
+
+                      {/* Featured-only extras: terminal-style code preview + tags. */}
+                      {isFeatured && article.preview && (
+                        <div className="mt-3 rounded-lg bg-gray-900/70 ring-1 ring-white/10 overflow-hidden">
+                          <div className="flex items-center gap-2 px-3 py-1.5 border-b border-white/5 bg-white/[0.02]">
+                            <span className="flex gap-1">
+                              <span className="w-2 h-2 rounded-full bg-rose-400/60" />
+                              <span className="w-2 h-2 rounded-full bg-amber-400/60" />
+                              <span className="w-2 h-2 rounded-full bg-emerald-400/60" />
+                            </span>
+                            <span className="font-mono text-[10px] text-white/40">{article.preview.filename}</span>
+                          </div>
+                          <div className="px-3 py-2 font-mono text-[10px] sm:text-[11px] leading-relaxed">
+                            {article.preview.lines.map((line, i) => (
+                              <div key={i} className="flex gap-3 whitespace-pre">
+                                <span className="text-white/25 select-none">{String(i + 1).padStart(2, "0")}</span>
+                                <span className="text-white/80 truncate">{line}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {isFeatured && article.tags.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {article.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-0.5 rounded-full bg-white/5 ring-1 ring-white/10 text-[10px] font-mono text-white/60 group-hover/post:text-white/80 transition-colors"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="mt-auto pt-3 inline-flex items-center gap-1.5 self-start text-emerald-300 group-hover/post:text-[#fd8128] transition-colors text-xs sm:text-sm font-medium">
+                        Read article
+                        <ArrowUpRightIcon className="w-3.5 h-3.5 transition-transform group-hover/post:translate-x-0.5 group-hover/post:-translate-y-0.5" />
+                      </div>
+                    </Card>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Empty state */}
+        {filtered.length === 0 && (
+          <div className="mt-10 text-center font-mono text-sm text-white/50">
+            // no entries for &quot;{activeTopic}&quot;
+          </div>
+        )}
+
+        {/* View all CTA */}
+        <div className="mt-10 sm:mt-12 flex justify-center">
+          <Link
+            href="https://eldriv-blogs.netlify.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/cta inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-[#fd8128]/15 ring-1 ring-white/10 hover:ring-[#fd8128]/40 text-white hover:text-[#fd8128] transition-all text-sm font-medium"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-300 group-hover/cta:text-[#fd8128] transition-colors">
+              {">"}_
+            </span>
+            View all posts on the blog
+            <ArrowUpRightIcon className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+          </Link>
+        </div>
       </div>
     </div>
   );

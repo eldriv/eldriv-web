@@ -6,7 +6,7 @@ export const Header = () => {
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
-  const navLinks = ['Home', 'Experience', 'Blogs', 'About', 'Contact'];
+  const navLinks = ['Home', 'Experience', 'Blogs', 'About', 'Testimonials', 'Contact'];
 
   // Improved animation effect with proper timing
   useEffect(() => {
