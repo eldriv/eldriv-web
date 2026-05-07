@@ -13,7 +13,7 @@ import CrownImage from "@/assets/images/crown.png";
 import MaeviImage from "@/assets/images/maevi.png";
 import Cr8Image from "@/assets/images/cr8.png";
 import EvaImage from "@/assets/images/eva-hooft.png";
-import CassandraImage from "@/assets/images/cassandra.png";
+import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
 
 // motion
@@ -94,6 +94,7 @@ const websites: Website[] = [
     liveUrl: "https://www.cassandradaher.com",
     technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
     clientLocation: "US",
+    clientQuote: "Beautiful, it looks great!",
   },
 ];
 
