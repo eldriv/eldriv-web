@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import type { Testimonial } from "@/components/TestimonialCard";
 
 const MAX_QUOTE_LENGTH = 400;
+const MIN_QUOTE_LENGTH = 10;
 const MAX_PHOTO_BYTES = 2 * 1024 * 1024; // 2 MB
 const ALLOWED_IMAGE_TYPES = [
   "image/jpeg",
@@ -12,6 +12,15 @@ const ALLOWED_IMAGE_TYPES = [
   "image/webp",
   "image/gif",
 ];
+
+export type TestimonialSubmitInput = {
+  name: string;
+  title?: string;
+  quote: string;
+  imageUrl?: string;
+  /** Honeypot — leave empty. Real visitors never fill this. */
+  website?: string;
+};
 
 const CloseIcon = ({ className }: { className?: string }) => (
   <svg
@@ -57,7 +66,11 @@ const readFileAsDataUrl = (file: File): Promise<string> =>
 interface TestimonialModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (t: Testimonial) => void;
+  /**
+   * Resolves on success (modal will be closed by the parent), rejects with a
+   * user-facing message on failure (shown inline in the form).
+   */
+  onSubmit: (input: TestimonialSubmitInput) => Promise<void>;
 }
 
 export const TestimonialModal = ({
@@ -70,6 +83,7 @@ export const TestimonialModal = ({
   const [quote, setQuote] = useState("");
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
   const [photoName, setPhotoName] = useState<string | undefined>(undefined);
+  const [website, setWebsite] = useState(""); // Honeypot
   const [error, setError] = useState<string | undefined>(undefined);
   const [submitting, setSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -83,6 +97,7 @@ export const TestimonialModal = ({
       setQuote("");
       setPhotoUrl(undefined);
       setPhotoName(undefined);
+      setWebsite("");
       setError(undefined);
       setSubmitting(false);
     }
@@ -134,15 +149,10 @@ export const TestimonialModal = ({
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const generateId = () => {
-    if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-      return crypto.randomUUID();
-    }
-    return `t_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
+
     const trimmedName = name.trim();
     const trimmedQuote = quote.trim();
 
@@ -154,22 +164,35 @@ export const TestimonialModal = ({
       setError("Please share a short testimonial.");
       return;
     }
+    if (trimmedQuote.length < MIN_QUOTE_LENGTH) {
+      setError(
+        `Please share at least ${MIN_QUOTE_LENGTH} characters about working together.`
+      );
+      return;
+    }
     if (trimmedQuote.length > MAX_QUOTE_LENGTH) {
       setError(`Testimonial must be ${MAX_QUOTE_LENGTH} characters or fewer.`);
       return;
     }
 
     setSubmitting(true);
-    const newTestimonial: Testimonial = {
-      id: generateId(),
-      quote: trimmedQuote,
-      name: trimmedName,
-      title: title.trim() || undefined,
-      imageUrl: photoUrl,
-      source: "user",
-      createdAt: new Date().toISOString(),
-    };
-    onSubmit(newTestimonial);
+    setError(undefined);
+    try {
+      await onSubmit({
+        name: trimmedName,
+        title: title.trim() || undefined,
+        quote: trimmedQuote,
+        imageUrl: photoUrl,
+        website,
+      });
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Could not submit your testimonial. Please try again."
+      );
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -223,8 +246,8 @@ export const TestimonialModal = ({
                     Share your experience
                   </h3>
                   <p className="text-white/60 text-sm mt-1.5 leading-relaxed">
-                    Tell us what working with Eldriv was like — your testimonial
-                    may appear in the carousel.
+                    Tell us what working with Eldriv was like. Submissions are
+                    reviewed before appearing in the public carousel.
                   </p>
                 </div>
                 <button
@@ -238,6 +261,23 @@ export const TestimonialModal = ({
               </div>
 
               <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                {/* Honeypot — visually hidden but still submittable. Real
+                    visitors leave it empty; bots auto-fill every field. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
+                >
+                  <label htmlFor="t-website">Website</label>
+                  <input
+                    id="t-website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+
                 {/* Name */}
                 <div>
                   <label

@@ -11,6 +11,10 @@ export type Testimonial = {
   imageUrl?: string;
   source?: "seed" | "user";
   createdAt?: string;
+  /** Optional human-readable name of the related project */
+  projectTitle?: string;
+  /** In-page anchor (e.g. "#web") or external URL of the related project */
+  projectHref?: string;
 };
 
 const QuoteMark = ({ className }: { className?: string }) => (
@@ -128,7 +132,7 @@ export const TestimonialCard = ({
         {/* Divider */}
         <div className="mt-6 h-px w-full bg-gradient-to-r from-[#fd8128]/60 via-white/15 to-transparent" />
 
-        {/* Author */}
+        {/* Author + project link */}
         <div className="mt-5 flex items-center gap-3">
           {testimonial.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -142,7 +146,7 @@ export const TestimonialCard = ({
               {getInitials(testimonial.name)}
             </div>
           )}
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="text-white font-semibold text-sm sm:text-base truncate">
               {testimonial.name}
             </p>
@@ -152,8 +156,72 @@ export const TestimonialCard = ({
               </p>
             )}
           </div>
+
+          {testimonial.projectHref && (
+            <ProjectLink
+              href={testimonial.projectHref}
+              label={testimonial.projectTitle}
+            />
+          )}
         </div>
       </Card>
     </motion.div>
+  );
+};
+
+const ArrowRightIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+);
+
+interface ProjectLinkProps {
+  href: string;
+  label?: string;
+}
+
+const ProjectLink = ({ href, label }: ProjectLinkProps) => {
+  const isAnchor = href.startsWith("#");
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isAnchor) return;
+    if (typeof document === "undefined") return;
+    const id = href.slice(1);
+    const target = document.getElementById(id);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      try {
+        window.history.replaceState(null, "", href);
+      } catch {
+        // history.replaceState may be unavailable in restricted contexts; ignore.
+      }
+    }
+  };
+
+  return (
+    <a
+      href={href}
+      onClick={isAnchor ? handleAnchorClick : undefined}
+      target={isAnchor ? undefined : "_blank"}
+      rel={isAnchor ? undefined : "noopener noreferrer"}
+      title={label ? `View ${label}` : "View project"}
+      aria-label={label ? `View ${label}` : "View project"}
+      className="group/link flex-shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] hover:border-[#fd8128]/50 hover:bg-[#fd8128]/10 hover:text-white text-white/70 text-[11px] sm:text-xs font-medium px-2.5 py-1.5 transition-colors"
+    >
+      <span className="hidden md:inline">View project</span>
+      <span className="md:hidden">View</span>
+      <ArrowRightIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover/link:translate-x-0.5" />
+    </a>
   );
 };

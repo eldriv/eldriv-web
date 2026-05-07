@@ -10,13 +10,14 @@ import {
   TestimonialCard,
   type Testimonial,
 } from "@/components/TestimonialCard";
-import { TestimonialModal } from "@/components/TestimonialModal";
+import {
+  TestimonialModal,
+  type TestimonialSubmitInput,
+} from "@/components/TestimonialModal";
 
 import angelicaMaeviAvatar from "@/assets/images/angelica-maevi.png";
 import evaHooftAvatar from "@/assets/images/eva-hooft-profile.png";
 import cassandraDaherAvatar from "@/assets/images/cassandra-profile.png";
-
-const STORAGE_KEY = "eldriv:user-testimonials:v1";
 
 export const seedTestimonials: Testimonial[] = [
   {
@@ -25,6 +26,8 @@ export const seedTestimonials: Testimonial[] = [
     name: "Eva Hooft",
     title: "CEO · Evahooft",
     imageUrl: evaHooftAvatar.src,
+    projectTitle: "Eva Hooft",
+    projectHref: "#web",
     source: "seed",
   },
   {
@@ -32,6 +35,8 @@ export const seedTestimonials: Testimonial[] = [
       "Working with Eldriv was straightforward and professional. He delivered a polished site that matches our brand and events work.",
     name: "UAE Client",
     title: "Confidential · Crown Catering",
+    projectTitle: "Crown Catering",
+    projectHref: "#web",
     source: "seed",
   },
   {
@@ -39,6 +44,8 @@ export const seedTestimonials: Testimonial[] = [
       "His communication was great from start to launch. The site is clear, clean, and explains our services much better than before.",
     name: "UAE Client",
     title: "Confidential · Proserv Hospitality",
+    projectTitle: "Proserv Hospitality Services",
+    projectHref: "#web",
     source: "seed",
   },
   {
@@ -47,6 +54,8 @@ export const seedTestimonials: Testimonial[] = [
     name: "Angelica Villareal",
     title: "CEO · Maevi Studio",
     imageUrl: angelicaMaeviAvatar.src,
+    projectTitle: "Maevi Creative Studio",
+    projectHref: "#web",
     source: "seed",
   },
   {
@@ -54,6 +63,8 @@ export const seedTestimonials: Testimonial[] = [
     name: "Cassandra Daher",
     title: "Founder · Cassandra Daher",
     imageUrl: cassandraDaherAvatar.src,
+    projectTitle: "Cassandra Daher",
+    projectHref: "#web",
     source: "seed",
   },
 ];
@@ -75,42 +86,39 @@ const ChatPlusIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const loadStoredTestimonials = (): Testimonial[] => {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as Testimonial[];
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (t) => t && typeof t.quote === "string" && typeof t.name === "string"
-    );
-  } catch {
-    return [];
-  }
+type ApiTestimonial = {
+  id: string;
+  quote: string;
+  name: string;
+  title?: string;
+  imageUrl?: string;
+  projectTitle?: string;
+  projectHref?: string;
+  source?: "seed" | "user";
+  createdAt?: string;
 };
 
-const persistStoredTestimonials = (items: Testimonial[]) => {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  } catch {
-    // Storage might be full or disabled — fail silently, the in-memory copy is fine.
-  }
-};
+const apiToTestimonial = (t: ApiTestimonial): Testimonial => ({
+  id: t.id,
+  quote: t.quote,
+  name: t.name,
+  title: t.title,
+  imageUrl: t.imageUrl,
+  projectTitle: t.projectTitle,
+  projectHref: t.projectHref,
+  source: "user",
+  createdAt: t.createdAt,
+});
 
 export const TestimonialsSection = () => {
   const HeaderComponent = SectionHeader();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [userTestimonials, setUserTestimonials] = useState<Testimonial[]>([]);
+  const [approvedTestimonials, setApprovedTestimonials] = useState<
+    Testimonial[]
+  >([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [justSubmitted, setJustSubmitted] = useState(false);
-
-  // Hydrate user-submitted testimonials from localStorage.
-  useEffect(() => {
-    setUserTestimonials(loadStoredTestimonials());
-  }, []);
 
   // Reveal animations when scrolled into view.
   useEffect(() => {
@@ -128,10 +136,29 @@ export const TestimonialsSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // User testimonials appear first (newest), seeds round out the carousel.
+  // Hydrate approved client submissions from the API.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/testimonials", { cache: "no-store" });
+        if (!res.ok) return;
+        const json = (await res.json()) as { testimonials: ApiTestimonial[] };
+        if (cancelled) return;
+        setApprovedTestimonials(json.testimonials.map(apiToTestimonial));
+      } catch {
+        // Network issue — the seed testimonials still render fine.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Newest approved client testimonials lead, seeds round out the carousel.
   const allTestimonials = useMemo<Testimonial[]>(
-    () => [...userTestimonials, ...seedTestimonials],
-    [userTestimonials]
+    () => [...approvedTestimonials, ...seedTestimonials],
+    [approvedTestimonials]
   );
 
   const [emblaRef] = useEmblaCarousel(
@@ -151,27 +178,28 @@ export const TestimonialsSection = () => {
     ]
   );
 
-  const handleSubmit = (t: Testimonial) => {
-    const next = [t, ...userTestimonials];
-    setUserTestimonials(next);
-    persistStoredTestimonials(next);
+  const handleSubmit = async (input: TestimonialSubmitInput): Promise<void> => {
+    const res = await fetch("/api/testimonials", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(input),
+    });
+    if (!res.ok) {
+      const json = (await res.json().catch(() => ({}))) as {
+        error?: string;
+      };
+      throw new Error(
+        json.error || "Could not submit your testimonial. Please try again."
+      );
+    }
     setModalOpen(false);
     setJustSubmitted(true);
-    window.setTimeout(() => setJustSubmitted(false), 4000);
-  };
-
-  const handleDelete = (id: string) => {
-    const next = userTestimonials.filter((t) => t.id !== id);
-    setUserTestimonials(next);
-    persistStoredTestimonials(next);
+    window.setTimeout(() => setJustSubmitted(false), 6000);
   };
 
   return (
     <section id="testimonials" className="relative">
-      <div
-        ref={sectionRef}
-        className="py-12 sm:py-16 lg:py-28 relative"
-      >
+      <div ref={sectionRef} className="py-12 sm:py-16 lg:py-28 relative">
         <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8">
           <HeaderComponent
             eyebrow="Testimonials"
@@ -201,10 +229,11 @@ export const TestimonialsSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.25 }}
-                  className="text-sm text-emerald-300"
+                  className="text-sm text-emerald-300 max-w-md text-center"
                   role="status"
                 >
-                  Thanks for sharing — your testimonial is now in the carousel.
+                  Thanks for sharing! Your testimonial is in for review and
+                  will appear here once approved.
                 </motion.p>
               )}
             </AnimatePresence>
@@ -219,7 +248,6 @@ export const TestimonialsSection = () => {
                   testimonial={testimonial}
                   index={index}
                   isVisible={isVisible}
-                  onDelete={handleDelete}
                 />
               ))}
             </div>
@@ -241,7 +269,6 @@ export const TestimonialsSection = () => {
                           testimonial={testimonial}
                           index={index % allTestimonials.length}
                           isVisible={isVisible}
-                          onDelete={handleDelete}
                         />
                       </div>
                     )
