@@ -334,20 +334,24 @@ export const ArticlesSection = () => {
 
                       {/* Featured-only extras: terminal-style code preview + tags. */}
                       {isFeatured && article.preview && (
-                        <div className="mt-3 rounded-lg bg-gray-900/70 ring-1 ring-white/10 overflow-hidden">
-                          <div className="flex items-center gap-2 px-3 py-1.5 border-b border-white/5 bg-white/[0.02]">
+                        <div className="mt-2.5 sm:mt-3 rounded-lg bg-gray-900/70 ring-1 ring-white/10 overflow-hidden">
+                          <div className="flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 border-b border-white/5 bg-white/[0.02]">
                             <span className="flex gap-1">
-                              <span className="w-2 h-2 rounded-full bg-rose-400/60" />
-                              <span className="w-2 h-2 rounded-full bg-amber-400/60" />
-                              <span className="w-2 h-2 rounded-full bg-emerald-400/60" />
+                              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-rose-400/60" />
+                              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400/60" />
+                              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400/60" />
                             </span>
-                            <span className="font-mono text-[10px] text-white/40">{article.preview.filename}</span>
+                            <span className="font-mono text-[9px] sm:text-[10px] text-white/40 truncate">
+                              {article.preview.filename}
+                            </span>
                           </div>
-                          <div className="px-3 py-2 font-mono text-[10px] sm:text-[11px] leading-relaxed">
+                          <div className="px-2.5 sm:px-3 py-1.5 sm:py-2 font-mono text-[9px] sm:text-[10px] md:text-[11px] leading-relaxed overflow-x-auto">
                             {article.preview.lines.map((line, i) => (
-                              <div key={i} className="flex gap-3 whitespace-pre">
-                                <span className="text-white/25 select-none">{String(i + 1).padStart(2, "0")}</span>
-                                <span className="text-white/80 truncate">{line}</span>
+                              <div key={i} className="flex gap-2 sm:gap-3 whitespace-pre">
+                                <span className="text-white/25 select-none flex-shrink-0">
+                                  {String(i + 1).padStart(2, "0")}
+                                </span>
+                                <span className="text-white/80">{line}</span>
                               </div>
                             ))}
                           </div>
@@ -355,11 +359,11 @@ export const ArticlesSection = () => {
                       )}
 
                       {isFeatured && article.tags.length > 0 && (
-                        <div className="mt-3 flex flex-wrap gap-1.5">
+                        <div className="mt-2.5 sm:mt-3 flex flex-wrap gap-1 sm:gap-1.5">
                           {article.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-0.5 rounded-full bg-white/5 ring-1 ring-white/10 text-[10px] font-mono text-white/60 group-hover/post:text-white/80 transition-colors"
+                              className="px-1.5 sm:px-2 py-0.5 rounded-full bg-white/5 ring-1 ring-white/10 text-[9px] sm:text-[10px] font-mono text-white/60 group-hover/post:text-white/80 transition-colors"
                             >
                               #{tag}
                             </span>

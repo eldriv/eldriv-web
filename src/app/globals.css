@@ -3,6 +3,24 @@
     @tailwind utilities;
 
     @layer base {
+        /* Belt-and-suspenders: stop any rogue overflow from triggering
+           horizontal scroll on mobile (we already use overflow-x-clip in
+           tape strips and the section glow layers). */
+        html, body {
+            overflow-x: hidden;
+        }
+
+        /* Honor the system "reduce motion" setting — kill non-essential
+           framer-motion / keyframe animations for users who request it. */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
         .nav-item {
             @apply px-4 py-1.5 rounded-full text-white/70 text-sm font-semibold hover:bg-white/10 hover:text-white transition duration-300;
         }

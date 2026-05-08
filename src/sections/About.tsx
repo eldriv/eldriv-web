@@ -224,6 +224,7 @@ interface Book {
   id: string;
   title: string;
   short: string;
+  spineLabel: string; // very short label for the rotated spine text on narrow screens
   author: string;
   spine: string;
   status?: ReadingStatus;
@@ -234,6 +235,7 @@ const books: Book[] = [
     id: "grokking",
     title: "Grokking Algorithms",
     short: "Grokking Algorithms",
+    spineLabel: "GROKKING",
     author: "Aditya Y. Bhargava",
     spine: "from-emerald-400 via-emerald-600 to-emerald-800",
     status: "next",
@@ -242,6 +244,7 @@ const books: Book[] = [
     id: "cloud-native",
     title: "Cloud Native Apps with Docker and Kubernetes",
     short: "Cloud Native Apps",
+    spineLabel: "CLOUD NATIVE",
     author: "Jonathan Bartlett",
     spine: "from-[#fd8128] via-orange-600 to-orange-800",
     status: "reading",
@@ -249,14 +252,16 @@ const books: Book[] = [
   {
     id: "unix",
     title: "UNIX Programmer's Manual",
-    short: "UNIX Programmer's Manual",
+    short: "UNIX Manual",
+    spineLabel: "UNIX",
     author: "Bell Labs",
     spine: "from-amber-300 via-amber-500 to-amber-700",
   },
   {
     id: "networking",
     title: "Networking for Dummies",
-    short: "Networking for Dummies",
+    short: "Networking",
+    spineLabel: "NETWORKING",
     author: "Doug Lowe",
     spine: "from-yellow-400 via-yellow-600 to-amber-700",
   },
@@ -264,6 +269,7 @@ const books: Book[] = [
     id: "convict",
     title: "Convict Conditioning",
     short: "Convict Conditioning",
+    spineLabel: "CONVICT",
     author: "Paul Wade",
     spine: "from-slate-700 via-slate-800 to-black",
   },
@@ -271,6 +277,7 @@ const books: Book[] = [
     id: "power",
     title: "The 48 Laws of Power",
     short: "48 Laws of Power",
+    spineLabel: "48 LAWS",
     author: "Robert Greene",
     spine: "from-rose-500 via-rose-700 to-rose-900",
   },
@@ -428,7 +435,7 @@ return (
                       onFocus={() => setHoveredBookIdx(idx)}
                       onBlur={() => setHoveredBookIdx(null)}
                       aria-label={`${book.title} by ${book.author}`}
-                      className={`relative h-[130px] sm:h-[145px] md:h-[160px] w-7 sm:w-9 md:w-10 rounded-sm bg-gradient-to-b ${book.spine} cursor-pointer flex-shrink-0 shadow-[0_6px_14px_-4px_rgba(0,0,0,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800`}
+                      className={`relative h-[130px] sm:h-[145px] md:h-[160px] w-8 sm:w-10 md:w-11 rounded-sm bg-gradient-to-b ${book.spine} cursor-pointer flex-shrink-0 shadow-[0_6px_14px_-4px_rgba(0,0,0,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800`}
                       animate={{ y: [0, -1.5, 0, 1.5, 0] }}
                       transition={{
                         duration: 5,
@@ -453,13 +460,13 @@ return (
 
                       {/* Vertical title — uses CSS writing-mode for clean rotation that respects line-height. */}
                       <span
-                        className="absolute inset-0 flex items-center justify-center text-[8px] sm:text-[9px] md:text-[10px] font-bold text-white/95 whitespace-nowrap drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)] tracking-wide px-1"
+                        className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] md:text-[11px] font-bold text-white/95 whitespace-nowrap drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)] tracking-wide px-1"
                         style={{
                           writingMode: "vertical-rl",
                           transform: "rotate(180deg)",
                         }}
                       >
-                        {book.short.toUpperCase()}
+                        {book.spineLabel}
                       </span>
 
                       {/* Status pin — pulse for currently reading, soft for up next. */}

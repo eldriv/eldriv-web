@@ -487,11 +487,11 @@ export const ExperienceSection = () => {
                 <Card className="px-4 sm:px-6 md:px-8 pt-6 pb-6 md:pt-8 bg-gray-800/95 border border-white/15">
                   <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-stretch">
                     <div className="lg:col-span-6 flex flex-col h-full">
-                      <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px]">
-                        <span className="h-2 w-2 rounded-full bg-[#fd8128]" />
-                        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex gap-2 font-bold uppercase tracking-[0.16em] text-transparent bg-clip-text">
+                      <div className="inline-flex items-start sm:items-center gap-2 rounded-2xl sm:rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] max-w-full">
+                        <span className="h-2 w-2 mt-1 sm:mt-0 rounded-full bg-[#fd8128] flex-shrink-0" />
+                        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex flex-wrap gap-x-2 gap-y-0.5 font-bold uppercase tracking-[0.16em] text-transparent bg-clip-text">
                           <span>{selectedProject.company}</span>
-                          <span className="text-white/50">&bull;</span>
+                          <span className="text-white/50 hidden sm:inline">&bull;</span>
                           <span>{selectedProject.Date}</span>
                         </div>
                       </div>

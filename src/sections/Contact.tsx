@@ -302,18 +302,18 @@ function UltraModernContactForm() {
                   </Card>
                 )}     
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex items-center text-gray-400 text-sm space-x-2">
-                      <MessageSquare className="w-4 h-4" />
-                      <span>eldriv@proton.me</span>
+                      <MessageSquare className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">eldriv@proton.me</span>
                   </div>
                   <button
                       onClick={handleSubmit}
                       disabled={isLoading}
-                      className="relative group"
+                      className="relative group w-full sm:w-auto"
                   >
                       <div className="absolute -inset-1 bg-orange-500 rounded-2xl transition-opacity duration-300" />
-                      <div className="relative text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex hover:bg-orange-600">
+                      <div className="relative text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex justify-center hover:bg-orange-600">
                       {isLoading ? (
                           <div className="flex items-center space-x-3">
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
