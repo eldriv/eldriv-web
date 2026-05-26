@@ -2,6 +2,7 @@
 
 // Components
 import { SectionHeader } from '@/components/SectionHeader';
+import { ScrollReveal } from '@/components/scroll-reveal';
 import { useState, useEffect, MouseEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion'; // Import framer-motion
 
@@ -426,23 +427,15 @@ export const ExperienceSection = () => {
   };
   const selectedProject = portfolioExperience[selectedProjectIndex];
 
-  const HeaderComponent = SectionHeader();
-
   return (
     <section className="py-12 sm:py-16 lg:py-24" id="experience">
-      <div className="container px-6 sm:px-8 md:px-10" style={{ maxWidth: "1280px" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <HeaderComponent 
-            eyebrow="Eldriv's" 
-            title="Professional History" 
-            description="A look at the work I've done—designing systems, graphics design, writing code, and collaborating with teams to build useful and scalable solutions."
-          />
-        </motion.div>
-        <div className="mt-12 sm:mt-16 md:mt-20">
+      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
+        <SectionHeader
+          eyebrow="Eldriv's"
+          title="Professional History"
+          description="A look at the work I've done—designing systems, graphics design, writing code, and collaborating with teams to build useful and scalable solutions."
+        />
+        <ScrollReveal className="mt-12 sm:mt-16 md:mt-20" delay={0.08}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* Tabs */}
             <div className="lg:col-span-3 xl:col-span-3">
@@ -576,7 +569,7 @@ export const ExperienceSection = () => {
               </AnimatePresence>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
       
       {/* Lightbox component */}

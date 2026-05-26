@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { Send, CheckCircle, Mail, User, MessageSquare, Hash } from 'lucide-react';
-import { Card } from '@/components/card'; // Import your custom Card component
+import { Card } from '@/components/card';
+import { ScrollReveal } from '@/components/scroll-reveal';
 
 interface FormData {
   name: string;
@@ -206,8 +207,9 @@ function UltraModernContactForm() {
 
   return (
     <div className="w-full py-12 sm:py-16 lg:py-24" id="contact">
-      <div className="relative z-10 flex justify-center px-6 sm:px-8 md:px-10">
+      <div className="relative z-10 flex justify-center px-4 sm:px-6 md:px-8">
         <div className="w-full max-w-[1280px]">
+          <ScrollReveal>
           {/* Status indicator */}
           <div className="flex items-center justify-center mb-8">
             <Card className="px-6 py-3 border-green-400/30">
@@ -217,7 +219,9 @@ function UltraModernContactForm() {
               </div>
             </Card>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal delay={0.1}>
           {/* Header */}
           <div className="text-center mb-8 sm:mb-12 px-4">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
@@ -227,9 +231,11 @@ function UltraModernContactForm() {
               Ready to bring your ideas to life? Let's start a conversation.
             </p>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal delay={0.15} variant="scaleUp">
           {/* Form Container */}
-          <Card className="p-5 sm:p-6 md:p-8 lg:p-12 shadow-2xl animate-in zoom-in-95 duration-1000 delay-400">
+          <Card className="p-5 sm:p-6 md:p-8 lg:p-12 shadow-2xl">
             {isSubmitted ? (
               <div className="text-center py-16 animate-in zoom-in-95 duration-500">
                 <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
@@ -330,7 +336,8 @@ function UltraModernContactForm() {
                 </div>
               </div>
             )}
-          </Card>  
+          </Card>
+          </ScrollReveal>
         </div>
       </div>
     </div>

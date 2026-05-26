@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { scrollViewport } from "@/components/scroll-reveal";
 import { Card } from "@/components/card";
 
 export type Testimonial = {
@@ -39,7 +40,6 @@ const getInitials = (name: string) =>
 interface TestimonialCardProps {
   testimonial: Testimonial;
   index: number;
-  isVisible: boolean;
   onDelete?: (id: string) => void;
 }
 
@@ -65,7 +65,6 @@ const TrashIcon = ({ className }: { className?: string }) => (
 export const TestimonialCard = ({
   testimonial,
   index,
-  isVisible,
   onDelete,
 }: TestimonialCardProps) => {
   const isUser = testimonial.source === "user";
@@ -84,9 +83,14 @@ export const TestimonialCard = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
+      initial={{ opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={scrollViewport}
+      transition={{
+        duration: 0.6,
+        delay: (index % 6) * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className="h-full"
     >
       <Card className="h-full min-h-[300px] sm:min-h-[320px] p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-all duration-300 hover:border-[#fd8128]/40 hover:shadow-[0_0_0_1px_rgba(253,129,40,0.15)]">

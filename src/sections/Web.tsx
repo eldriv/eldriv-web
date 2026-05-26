@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 
 // Components
 import { SectionHeader } from "@/components/SectionHeader";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteCard, type Website } from "@/components/WebsiteCard";
 
 // Image imports
@@ -15,9 +15,7 @@ import Cr8Image from "@/assets/images/cr8.png";
 import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
-
-// motion
-import { motion } from "framer-motion";
+import MaravillaTaosImage from "@/assets/images/maravilla-taos.png";
 
 const websites: Website[] = [
   {
@@ -50,6 +48,23 @@ const websites: Website[] = [
       "CSS"
     ],
     clientLocation: "UAE",
+  },
+  {
+    title: "Maravilla Taos",
+    description:
+      "Destination hospitality and experience in Taos—rooms, amenities, and local brand storytelling for visitors and guests.",
+    image: MaravillaTaosImage,
+    liveUrl: "https://maravillataos.com",
+    technologies: [
+      "Wix Studio",
+      "Velo",
+      "n8n",
+      "Brevo",
+      "Quo",
+      "Cloudbeds",
+      "Supabase",
+    ],
+    clientLocation: "US",
   },
   {
     title: "Maevi Creative Studio",
@@ -98,12 +113,8 @@ const websites: Website[] = [
 ];
 
 export const WebsitesSection = () => {
-  const HeaderComponent = SectionHeader();
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
   // Embla Carousel setup with continuous auto-scroll
-  const [emblaRef, emblaApi] = useEmblaCarousel(
+  const [emblaRef] = useEmblaCarousel(
     { 
       loop: true,
       align: "start",
@@ -117,41 +128,17 @@ export const WebsitesSection = () => {
     })]
   );
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-
   return (
     <section id="web">
-      <div className="py-12 sm:py-16 lg:py-24 relative" ref={sectionRef}>
-        <div className="w-full max-w-[1280px] mx-auto px-6 sm:px-8 md:px-10">
-          <HeaderComponent
+      <div className="py-12 sm:py-16 lg:py-24 relative">
+        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+          <SectionHeader
             eyebrow="Web Design & Development"
             title="Eldriv's Website Portfolio"
             description="Here are some of the websites I've built from the ground up, showcasing modern technologies, responsive design, and SEO-optimized. Each project reflects my commitment to clean architecture, accessibility, and user-centric interfaces."
           />
 
-          <div className="mt-12 sm:mt-16 md:mt-20 relative">
+          <ScrollReveal className="mt-12 sm:mt-16 md:mt-20 relative" delay={0.1}>
             {/* Mobile: Vertical Stack */}
             <div className="block sm:hidden space-y-4">
               {websites
@@ -160,8 +147,7 @@ export const WebsitesSection = () => {
                   <WebsiteCard 
                     key={website.title}
                     website={website} 
-                    index={index} 
-                    isVisible={isVisible}
+                    index={index}
                   />
                 ))}
             </div>
@@ -186,8 +172,7 @@ export const WebsitesSection = () => {
                       >
                         <WebsiteCard 
                           website={website} 
-                          index={index % websites.length} 
-                          isVisible={isVisible}
+                          index={index % websites.length}
                         />
                       </div>
                     ))}
@@ -215,15 +200,7 @@ export const WebsitesSection = () => {
                 </svg>
               </span>
             </div>
-          </div>
-
-          {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-16 text-center"
-          ></motion.div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

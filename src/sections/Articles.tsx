@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Components
 import { SectionHeader } from "@/components/SectionHeader";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { Card } from "@/components/card";
 
 // Images
@@ -187,7 +188,6 @@ const TOPICS = [
 ] as const;
 
 export const ArticlesSection = () => {
-  const HeaderComponent = SectionHeader();
   const [activeTopic, setActiveTopic] = useState<(typeof TOPICS)[number]>("All");
 
   const filtered = useMemo(
@@ -203,13 +203,14 @@ export const ArticlesSection = () => {
         <div className="absolute -bottom-32 right-[10%] h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-[#fd8128]/[0.06] blur-3xl" />
       </div>
 
-      <div className="container px-6 sm:px-8 md:px-10" style={{ maxWidth: "1280px" }}>
-        <HeaderComponent
+      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
+        <SectionHeader
           eyebrow="Eldriv's"
           title="Life and Tech Blogs"
           description="A personal journey through life and technology — written to inspire others to explore their own paths and the profound possibilities that lie beyond."
         />
 
+        <ScrollReveal delay={0.08}>
         {/* Filter chrome */}
         <div className="mt-12 sm:mt-16 lg:mt-20 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2">
@@ -405,6 +406,7 @@ export const ArticlesSection = () => {
             <ArrowUpRightIcon className="w-4 h-4 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
           </Link>
         </div>
+        </ScrollReveal>
       </div>
     </div>
   );

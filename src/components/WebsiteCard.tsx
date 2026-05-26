@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { scrollViewport } from "@/components/scroll-reveal";
 
 // Components
 import { Card } from "@/components/card";
@@ -53,13 +54,11 @@ const getLocationFlag = (location: ClientLocation) => {
 interface WebsiteCardProps {
   website: Website;
   index: number;
-  isVisible: boolean;
 }
 
 export const WebsiteCard = ({
   website,
   index,
-  isVisible,
 }: WebsiteCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 120; // Character limit for truncated description
@@ -82,9 +81,14 @@ export const WebsiteCard = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={scrollViewport}
+      transition={{
+        duration: 0.6,
+        delay: (index % 6) * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className="h-full"
     >
       <Card

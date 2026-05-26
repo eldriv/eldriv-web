@@ -12,6 +12,12 @@
 
         /* Honor the system "reduce motion" setting — kill non-essential
            framer-motion / keyframe animations for users who request it. */
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;

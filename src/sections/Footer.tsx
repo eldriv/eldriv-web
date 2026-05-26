@@ -1,4 +1,7 @@
+"use client";
+
 import ArrowUpRightIcon from '@/assets/icons/arrow-up-right.svg'
+import { ScrollReveal } from '@/components/scroll-reveal';
 
 const footerLinks = [
   {
@@ -28,6 +31,7 @@ export const Footer = () => {
 
       {/* Content */}
       <div className="w-full max-w-[77%] mx-auto px-4">
+        <ScrollReveal variant="fadeIn" duration={0.5}>
         <div className="border-t border-white/15 py-6 text-sm flex flex-col md:flex-row md:justify-between items-center gap-8">
           <div className="text-white/40">
             &copy; 2025. All Rights Reserved. | Powered by Eldriv
@@ -47,6 +51,7 @@ export const Footer = () => {
             ))}
           </nav>
         </div>
+        </ScrollReveal>
       </div>
     </footer>
   )

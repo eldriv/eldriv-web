@@ -2,6 +2,7 @@
 
 // Components
 import { SectionHeader } from "@/components/SectionHeader"
+import { ScrollReveal } from "@/components/scroll-reveal"
 import { Card } from "@/components/card"
 import { CardHeader } from "@/components/cardHeader"
 import { ToolboxItems } from "@/components/toolBoxItem"
@@ -285,10 +286,6 @@ const books: Book[] = [
 
 export const AboutSection = () => {
 const constrainRef = useRef<HTMLDivElement>(null);
-const HeaderComponent = SectionHeader();
-const bookRef = useRef<HTMLDivElement>(null);
-const sectionRef = useRef<HTMLDivElement>(null);
-const [isVisible, setIsVisible] = useState(false);
 const [showOpenSourceOptions, setShowOpenSourceOptions] = useState(false);
 const [activeContribution, setActiveContribution] = useState<Contribution | null>(null);
 // On mobile we drop the drift/drag and use a tidy wrap layout — the
@@ -307,30 +304,6 @@ useEffect(() => {
   update();
   mq.addEventListener("change", update);
   return () => mq.removeEventListener("change", update);
-}, []);
-
-// Animation visibility effect
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      });
-    },
-    { threshold: 0.1 } // Trigger animation earlier
-  );
-
-  if (sectionRef.current) {
-    observer.observe(sectionRef.current);
-  }
-
-  return () => {
-    if (sectionRef.current) {
-      observer.unobserve(sectionRef.current);
-    }
-  };
 }, []);
 
 // Close project selection when clicking outside
@@ -366,30 +339,25 @@ const handleContributionClick = (contribution: Contribution, e: React.MouseEvent
 
 return (
   <section id="about">
-  <div className="py-12 sm:py-16 lg:py-24 relative" ref={sectionRef}>
-    <div className="container px-6 sm:px-8 md:px-10" style={{ maxWidth: "1280px"}}>
-      <HeaderComponent
+  <div className="py-12 sm:py-16 lg:py-24 relative">
+    <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px"}}>
+      <SectionHeader
         eyebrow="About Me"
         title="More about Eldriv's"
         description="Learn more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer and Web Developer."
       />
-      <div className="mt-12 sm:mt-16 md:mt-20 flex flex-col gap-6 sm:gap-8">
+      <ScrollReveal delay={0.08} className="mt-12 sm:mt-16 md:mt-20 flex flex-col gap-6 sm:gap-8">
         <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           <Card className={`h-[280px] sm:h-[300px] md:h-[320px] md:col-span-1 lg:col-span-1 overflow-hidden flex flex-col p-0 ${cardHoverClass}`}>
-            <div
-              ref={bookRef}
-              className={`relative h-full flex flex-col p-4 sm:p-5 md:p-6 transition-all duration-1000 ease-out ${
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-              }`}
-            >
-              <div className="inline-flex items-center gap-2">
-                <StarIcon className="size-7 sm:size-8 text-emerald-300" />
-                <h3 className="font-sans text-2xl sm:text-3xl text-white">Books In Queue</h3>
-              </div>
-
+            <CardHeader
+              title="Books In Queue"
+              description="The books that I'm currently reading."
+              className="px-4 sm:px-6 pt-4 sm:pt-6 pb-0"
+            />
+            <div className="relative flex-1 flex flex-col px-4 sm:px-6 pb-4 sm:pb-6">
               {/* Dynamic detail row — reflects the hovered spine, falls back to the
                   current "reading" book when nothing is hovered. */}
-              <div className="mt-3 flex items-center gap-2 min-h-[28px]">
+              <div className="flex items-center gap-2 min-h-[28px] -mt-1">
                 <span
                   className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] flex-shrink-0 ${
                     displayedBook.status === "reading"
@@ -722,7 +690,7 @@ return (
             </div>
           </Card>
         </div>
-      </div>
+      </ScrollReveal>
     </div>
     <style jsx>{`
       @keyframes float-up {

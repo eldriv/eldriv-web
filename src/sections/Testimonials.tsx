@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 
 import { SectionHeader } from "@/components/SectionHeader";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import {
   TestimonialCard,
   type Testimonial,
@@ -111,30 +112,11 @@ const apiToTestimonial = (t: ApiTestimonial): Testimonial => ({
 });
 
 export const TestimonialsSection = () => {
-  const HeaderComponent = SectionHeader();
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [approvedTestimonials, setApprovedTestimonials] = useState<
     Testimonial[]
   >([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [justSubmitted, setJustSubmitted] = useState(false);
-
-  // Reveal animations when scrolled into view.
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setIsVisible(true);
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
 
   // Hydrate approved client submissions from the API.
   useEffect(() => {
@@ -199,14 +181,15 @@ export const TestimonialsSection = () => {
 
   return (
     <section id="testimonials" className="relative">
-      <div ref={sectionRef} className="py-12 sm:py-16 lg:py-24 relative">
-        <div className="w-full max-w-[1280px] mx-auto px-6 sm:px-8 md:px-10">
-          <HeaderComponent
+      <div className="py-12 sm:py-16 lg:py-24 relative">
+        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+          <SectionHeader
             eyebrow="Testimonials"
             title="What clients say about working with me."
             description="A handful of kind words from the people I've collaborated with — and an open invitation for clients to add their own."
           />
 
+          <ScrollReveal delay={0.08}>
           {/* Share yours CTA */}
           <div className="mt-8 sm:mt-10 flex flex-col items-center gap-3">
             <motion.button
@@ -247,7 +230,6 @@ export const TestimonialsSection = () => {
                   key={testimonial.id ?? `${testimonial.name}-${index}`}
                   testimonial={testimonial}
                   index={index}
-                  isVisible={isVisible}
                 />
               ))}
             </div>
@@ -268,7 +250,6 @@ export const TestimonialsSection = () => {
                         <TestimonialCard
                           testimonial={testimonial}
                           index={index % allTestimonials.length}
-                          isVisible={isVisible}
                         />
                       </div>
                     )
@@ -333,6 +314,7 @@ export const TestimonialsSection = () => {
               </span>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </div>
 
