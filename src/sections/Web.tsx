@@ -16,7 +16,6 @@ import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
 import MaravillaTaosImage from "@/assets/images/maravilla-taos.png";
-import FinanceTrackerImage from "@/assets/images/ads-finance-tracker.png";
 
 const websites: Website[] = [
   {
@@ -91,15 +90,6 @@ const websites: Website[] = [
     image: Cr8Image,
     liveUrl: "https://cr8-agency.netlify.app/",
     technologies: ["GSAP", "Tailwind CSS", "ReactJS"],
-    clientLocation: "PH",
-  },
-  {
-    title: "Finance Tracker",
-    description:
-      "A personal finance web app for logging earnings from Wise, PayPal, or GCash and tracking every expense going forward. Dashboard summaries cover total earned, spent, net balance, and pending payments—with data kept private in the browser.",
-    image: FinanceTrackerImage,
-    liveUrl: "https://ads-finance-tracker.netlify.app/#/",
-    technologies: ["React", "JavaScript", "Local Storage", "Netlify"],
     clientLocation: "PH",
   },
   {

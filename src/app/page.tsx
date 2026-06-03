@@ -6,7 +6,8 @@ import { ArticlesSection } from "@/sections/Articles";
 import { TapeSection1 } from "@/sections/Tape2";
 import { AboutSection } from "@/sections/About";
 import { ContactSection } from "@/sections/Contact";
-import { WebsitesSection } from "@/sections/Web"; 
+import { WebsitesSection } from "@/sections/Web";
+import { WebAppsSection } from "@/sections/WebApps";
 import { TestimonialsSection } from "@/sections/Testimonials";
 import { Footer } from "@/sections/Footer";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <TapeSection /> 
       <AboutSection />
       <WebsitesSection />
+      <WebAppsSection />
       <TestimonialsSection />
       <ContactSection />
       <Footer />

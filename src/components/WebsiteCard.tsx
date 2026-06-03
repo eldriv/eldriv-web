@@ -22,7 +22,8 @@ export interface Website {
   githubUrl?: string;
   technologies: string[];
   featured?: boolean;
-  clientLocation: ClientLocation;
+  clientLocation?: ClientLocation;
+  projectType?: "client" | "app";
 }
 
 const getLocationBadgeColors = (location: ClientLocation) => {
@@ -134,13 +135,20 @@ export const WebsiteCard = ({
             <div className="absolute inset-y-0 left-0 w-[200%] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </div>
           
-          {/* Client Location Badge */}
+          {/* Project badge */}
           <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
-            <span className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm ${getLocationBadgeColors(website.clientLocation)}`}>
-              <span className="text-base sm:text-base">{getLocationFlag(website.clientLocation)}</span>
-              <span className="hidden sm:inline">{website.clientLocation} CLIENT</span>
-              <span className="sm:hidden">{website.clientLocation}</span>
-            </span>
+            {website.projectType === "app" ? (
+              <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm bg-violet-500/20 text-violet-200 border-violet-400/30">
+                <span className="text-sm">⚡</span>
+                <span>WEB APP</span>
+              </span>
+            ) : website.clientLocation ? (
+              <span className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm ${getLocationBadgeColors(website.clientLocation)}`}>
+                <span className="text-base sm:text-base">{getLocationFlag(website.clientLocation)}</span>
+                <span className="hidden sm:inline">{website.clientLocation} CLIENT</span>
+                <span className="sm:hidden">{website.clientLocation}</span>
+              </span>
+            ) : null}
           </div>
         </div>
 
