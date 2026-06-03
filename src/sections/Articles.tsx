@@ -19,6 +19,7 @@ import memojiAvatar5 from "@/assets/images/docker.png";
 import memojiAvatar6 from "@/assets/images/taijitu-lisp.png";
 import memojiAvatar7 from "@/assets/images/taijitu-lisp.png";
 import memojiAvatar8 from "@/assets/images/ubuntu.png";
+import aiIcon from "@/assets/images/ai-icon.jpg";
 
 // Icons
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
@@ -40,6 +41,23 @@ interface Article {
 }
 
 const Articles: Article[] = [
+  {
+    name: "We're Not One Prompt Away from AGI",
+    topic: "AI Discussion",
+    text: "A lot of the industry is trying to reach AGI by walking the generative road: bigger models, more data, longer training, shinier chat demos. That is one way to build useful software. It is not the same as sitting down to solve the actual problems behind general intelligence.",
+    avatar: aiIcon,
+    href: "https://eldriv-blogs.netlify.app/en/generative-agi/",
+    target: "_blank",
+    tags: ["agi", "generative-ai", "ai-discussion"],
+    preview: {
+      filename: "generative-agi.md",
+      lines: [
+        "# We're Not One Prompt Away from AGI",
+        "The generative path bets on scale.",
+        "AGI may need the plumbing problem solved first.",
+      ],
+    },
+  },
   {
     name: "Building 'adz' in Common Lisp with Clingon",
     topic: "Programming",
@@ -181,6 +199,7 @@ const Articles: Article[] = [
 
 const TOPICS = [
   "All",
+  "AI Discussion",
   "Programming",
   "Operating System",
   "System Administration",
@@ -296,7 +315,9 @@ export const ArticlesSection = () => {
                           <Image
                             src={article.avatar}
                             alt={article.name}
-                            className="max-h-full max-w-full"
+                            width={48}
+                            height={48}
+                            className="max-h-full max-w-full object-contain"
                           />
                         </div>
                         <div className="flex flex-col min-w-0">
