@@ -16,6 +16,7 @@ import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
 import MaravillaTaosImage from "@/assets/images/maravilla-taos.png";
+import CasaNorthImage from "@/assets/images/casa-north.png";
 
 const websites: Website[] = [
   {
@@ -108,6 +109,15 @@ const websites: Website[] = [
     image: CassandraImage,
     liveUrl: "https://www.cassandradaher.com",
     technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
+    clientLocation: "US",
+  },
+  {
+    title: "Casa North",
+    description:
+      "Cinematic real estate media for agents and brokerages—listing films, social reels, photo, and drone built to stop the scroll. Packages cover MLS photography, twilight shoots, branded reels, and custom listing micro-sites with strategy and scripts included.",
+    image: CasaNorthImage,
+    liveUrl: "https://casa-north.netlify.app",
+    technologies: ["React", "JavaScript", "Netlify", "Tailwind CSS"],
     clientLocation: "US",
   },
 ];
