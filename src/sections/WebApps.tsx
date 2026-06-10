@@ -32,7 +32,7 @@ const webApps: Website[] = [
     description:
       "QR ordering for restaurants and cafés—guests scan and order from their phone while a staff dashboard covers the kitchen board, menu builder, cashier, tables, QR codes, branding, and analytics in one browser tab.",
     image: Cr8QrMenuImage,
-    liveUrl: "https://cr8-qr-menu.netlify.app",
+    liveUrl: "https://quisina.netlify.app",
     technologies: ["React", "JavaScript", "Netlify"],
     projectType: "app",
   },
