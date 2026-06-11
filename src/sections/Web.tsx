@@ -17,6 +17,7 @@ import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
 import MaravillaTaosImage from "@/assets/images/maravilla-taos.png";
 import CasaNorthImage from "@/assets/images/casa-north.png";
+import GenerationSmileImage from "@/assets/images/generation-smile-dental-clinic.png";
 
 const websites: Website[] = [
   {
@@ -118,7 +119,24 @@ const websites: Website[] = [
     image: CasaNorthImage,
     liveUrl: "https://casa-north.netlify.app",
     technologies: ["React", "JavaScript", "Netlify", "Tailwind CSS"],
-    clientLocation: "US",
+    projectType: "mock",
+  },
+  {
+    title: "Generation Smile Dental Clinic",
+    description:
+      "A family-friendly dental clinic site in Candelaria, Quezon—services, opening promos, FAQs, and Google Maps—with built-in appointment booking that sends requests to the clinic email and syncs confirmed bookings to Google Calendar.",
+    image: GenerationSmileImage,
+    liveUrl: "https://generation-smile-dental-clinic.netlify.app",
+    technologies: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Lucide",
+      "Google Maps",
+      "Google Calendar",
+      "Netlify",
+    ],
+    clientLocation: "PH",
   },
 ];
 

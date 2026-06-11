@@ -23,7 +23,7 @@ export interface Website {
   technologies: string[];
   featured?: boolean;
   clientLocation?: ClientLocation;
-  projectType?: "client" | "app";
+  projectType?: "client" | "app" | "mock";
 }
 
 const getLocationBadgeColors = (location: ClientLocation) => {
@@ -141,6 +141,12 @@ export const WebsiteCard = ({
               <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm bg-violet-500/20 text-violet-200 border-violet-400/30">
                 <span className="text-sm">⚡</span>
                 <span>WEB APP</span>
+              </span>
+            ) : website.projectType === "mock" ? (
+              <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm bg-amber-500/20 text-amber-200 border-amber-400/30">
+                <span className="text-sm">✦</span>
+                <span className="hidden sm:inline">MOCK DESIGN PORTFOLIO</span>
+                <span className="sm:hidden">MOCK DESIGN</span>
               </span>
             ) : website.clientLocation ? (
               <span className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm ${getLocationBadgeColors(website.clientLocation)}`}>
