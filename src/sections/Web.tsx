@@ -16,6 +16,8 @@ import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
 import MaravillaTaosImage from "@/assets/images/maravilla-taos.png";
+import CheerFunderImage from "@/assets/images/cheerfunder.png";
+import LeadingLsImage from "@/assets/images/leading-ls.png";
 import CasaNorthImage from "@/assets/images/casa-north.png";
 import GenerationSmileImage from "@/assets/images/generation-smile-dental-clinic.png";
 
@@ -56,7 +58,7 @@ const websites: Website[] = [
     description:
       "Destination hospitality and experience in Taos—rooms, amenities, and local brand storytelling for visitors and guests.",
     image: MaravillaTaosImage,
-    liveUrl: "https://maravillataos.com",
+    liveUrl: "https://www.maravillataos.com",
     technologies: [
       "Wix Studio",
       "Velo",
@@ -66,6 +68,24 @@ const websites: Website[] = [
       "Cloudbeds",
       "Supabase",
     ],
+    clientLocation: "US",
+  },
+  {
+    title: "CheerFunder",
+    description:
+      "A cheer team fundraising site by Fishbowl International—spirit merchandise with no upfront inventory cost, a simple two-week campaign, and organizations keeping 50% of proceeds. Built for squads, dance teams, and booster clubs ready to raise without financial risk.",
+    image: CheerFunderImage,
+    liveUrl: "https://www.cheerfunder.org",
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
+    clientLocation: "US",
+  },
+  {
+    title: "Leading Ladies Society",
+    description:
+      "Nonprofit site empowering women and youth through scholarships, mentorship, leadership development, and community programs. Highlights impact stats, partner sponsors, events, gallery moments, and donation pathways for families and community partners.",
+    image: LeadingLsImage,
+    liveUrl: "https://www.leadingls.com",
+    technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
     clientLocation: "US",
   },
   {
