@@ -19,6 +19,7 @@ import portfolioImage5 from '@/assets/images/5.png';
 import portfolioImage6 from '@/assets/images/6.png';
 import portfolioImage7 from '@/assets/images/valmiz-front.png';
 import VedaLandingPage from "@/assets/images/veda.png";
+import BehindDigitalsImage from "@/assets/images/behind-digitals.png";
 import certificateImage from "@/assets/images/coc.png";
 import freelanceImage from "@/assets/images/figma.png";
 import Image, { StaticImageData } from "next/image"; 
@@ -282,6 +283,38 @@ const Lightbox = ({
 
 const portfolioExperience: PortfolioExperienceItem[] = [
   {
+    company: "Behind Digitals",
+    Date: "January 2026–Present",
+    title: "Product & Software Engineer",
+    results: [
+      {
+        title:
+          "Creator of BehindCourt and OnCourt—venue and court software products built and shipped under Behind Digitals.",
+      },
+      {
+        title:
+          "Decide what gets built and how it holds up—architecture and product direction for websites, automations, and custom systems.",
+      },
+      {
+        title:
+          "Own integrations and connected workflows so client tools stay in sync without manual handoffs.",
+      },
+      {
+        title:
+          "Handle deployment and launch-ready delivery that turns a plan into a product teams can actually run.",
+      },
+      {
+        title:
+          "Ship case-study work across web design, automations, and bespoke products for Behind Digitals clients.",
+      },
+    ],
+    link: "https://behinddigitals.com",
+    target: "_blank",
+    image: BehindDigitalsImage,
+    buttonText: "Visit Website",
+    buttonType: "link",
+  },
+  {
     company: "Veda Technologies, Inc.",
     Date: "May 2024–May 2025",
     title: "Junior Software Engineer",
@@ -446,7 +479,7 @@ export const ExperienceSection = () => {
                     const isActive = selectedProjectIndex === index;
                     return (
                       <motion.button
-                        key={project.title}
+                        key={project.company}
                         onClick={() => setSelectedProjectIndex(index)}
                         className={`w-full text-left rounded-xl px-3 py-3 border transition-all ${
                           isActive
