@@ -289,7 +289,7 @@ const portfolioExperience: PortfolioExperienceItem[] = [
     results: [
       {
         title:
-          "Built and shipped BehindCourt and OnCourt, venue and court software products developed at Behind Digitals.",
+          "Creator of BehindCourt and OnCourt at Behind Digitals.",
       },
       {
         title:
