@@ -25,8 +25,8 @@ export const WebAppsSection = () => {
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
           <SectionHeader
             eyebrow="Web Applications"
-            title="Eldriv's Web Application Portfolio"
-            description="Interactive web apps built from the ground up—focused on real workflows, responsive interfaces, and deployable products that go beyond static marketing sites."
+            title="Selected products"
+            description="Purpose-built software for real operational workflows."
           />
 
           <ScrollReveal className="mt-12 sm:mt-16 md:mt-20" delay={0.1}>

@@ -15,12 +15,12 @@ const calistoga = {
 };
 
 export const metadata: Metadata = {
-  title: "Eldriv",
-  description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
+  title: "Michael Adrian Villareal | Product & Software Engineer",
+  description: "Michael Adrian Villareal builds web products, client websites, and connected systems—from product direction and architecture through integrations and launch.",
   
   openGraph: {
-    title: "Eldriv's Portfolio",
-    description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
+    title: "Michael Adrian Villareal | Product & Software Engineer",
+    description: "Web products, client websites, and connected systems built from product direction through launch.",
     url: "https://eldriv-portfolio.netlify.app",
     siteName: "Eldriv",
     images: [
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   // Twitter Cards
   twitter: {
     card: "summary_large_image",
-    title: "Eldriv",
-    description: "Get to know more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer.",
+    title: "Michael Adrian Villareal | Product & Software Engineer",
+    description: "Web products, client websites, and connected systems built from product direction through launch.",
     images: ["https://portfolio.eldriv.com/assets/images/og-image.png"],
     creator: "@eldrivi", 
   },

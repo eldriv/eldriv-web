@@ -289,19 +289,19 @@ const portfolioExperience: PortfolioExperienceItem[] = [
     results: [
       {
         title:
-          "Creator of BehindCourt and OnCourt—venue and court software products built and shipped under Behind Digitals.",
+          "Built and shipped BehindCourt and OnCourt, venue and court software products developed at Behind Digitals.",
       },
       {
         title:
-          "Decide what gets built and how it holds up—architecture and product direction for websites, automations, and custom systems.",
+          "Lead product direction and architecture for websites, automations, and custom systems.",
       },
       {
         title:
-          "Own integrations and connected workflows so client tools stay in sync without manual handoffs.",
+          "Build integrations and connected workflows that keep client tools in sync without manual handoffs.",
       },
       {
         title:
-          "Handle deployment and launch-ready delivery that turns a plan into a product teams can actually run.",
+          "Own deployment and delivery, taking products from plan through launch.",
       },
       {
         title:
@@ -353,12 +353,9 @@ const portfolioExperience: PortfolioExperienceItem[] = [
     Date: "January 2024 - Present",
     title: "Web Developer",
     results: [
-      { title: "Clients Worldwide" },
-      { title: "UI/UX Design (Figma)" },
-      { title: "SEO" },
-      { title: "Automations (Zapier, n8n, etc.)" },
-      { title: "Funnels (Landing Pages, Sales Pages, etc.)" },
-      { title: "Content Creation (Blog Posts, Articles, etc.)" },
+      { title: "Designed and built responsive, SEO-optimized websites for clients in the UAE, US, and Philippines." },
+      { title: "Developed custom websites and web apps, including payment integrations with PayMongo and Stripe." },
+      { title: "Set up marketing automations with n8n, Zapier, or Make to fit each client's workflow." },
     ],
     image: freelanceImage,
     link: "#web",
@@ -466,7 +463,7 @@ export const ExperienceSection = () => {
         <SectionHeader
           eyebrow="Eldriv's"
           title="Professional History"
-          description="A look at the work I've done—designing systems, graphics design, writing code, and collaborating with teams to build useful and scalable solutions."
+          description="Product engineering, software development, and client work across the Philippines, UAE, and US."
         />
         <ScrollReveal className="mt-12 sm:mt-16 md:mt-20" delay={0.08}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">

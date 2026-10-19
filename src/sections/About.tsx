@@ -343,8 +343,8 @@ return (
     <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px"}}>
       <SectionHeader
         eyebrow="About Me"
-        title="More about Eldriv's"
-        description="Learn more about my technical proficiencies, my side-projects, and what inspires me as a Software Engineer and Web Developer."
+        title="Beyond the work"
+        description="A little more about the tools, ideas, and projects that keep me curious."
       />
       <ScrollReveal delay={0.08} className="mt-12 sm:mt-16 md:mt-20 flex flex-col gap-6 sm:gap-8">
         <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
