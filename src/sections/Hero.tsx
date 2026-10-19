@@ -16,7 +16,7 @@ export function HeroSection() {
           <p className="mt-6 max-w-2xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
             I build useful web products, client websites, and connected systems—from
             product direction and architecture through integrations and launch.
-            Currently building BehindCourt and OnCourt at Behind Digitals.
+            Creator of BehindCourt and OnCourt at Behind Digitals.
           </p>
           <p className="mt-3 text-sm text-white/50">
             Based in the Philippines · Working with teams worldwide
