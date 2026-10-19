@@ -17,7 +17,7 @@ export type ClientLocation = "US" | "UAE" | "PH";
 export interface Website {
   title: string;
   description: string;
-  image: StaticImageData | string;
+  image?: StaticImageData | string;
   liveUrl?: string;
   githubUrl?: string;
   technologies: string[];
@@ -127,7 +127,9 @@ export const WebsiteCard = ({
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-300/10 to-[#FD8128]/10">
-              <span className="text-6xl opacity-20">🌐</span>
+              <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-black/10 text-xl font-semibold tracking-wide text-white/70">
+                {website.title.slice(0, 2).toUpperCase()}
+              </span>
             </div>
           )}
           {/* Glassy hover effect - slides from left to right */}
@@ -249,4 +251,3 @@ export const WebsiteCard = ({
     </motion.div>
   );
 };
-

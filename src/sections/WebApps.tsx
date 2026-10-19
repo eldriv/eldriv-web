@@ -12,8 +12,15 @@ const webApps: Website[] = [
     description:
       "Venue ops for pickleball clubs—run sessions, queues, courts, and scoring from the admin desk while players check in from their phones. Includes calendar rentals, game formats, leaderboards, lobby board view, and Reclub roster import, all on venue Wi-Fi.",
     image: BehindCourtImage,
-    liveUrl: "https://behindcourt.netlify.app/",
+    liveUrl: "https://court.behinddigitals.com/behindcourt",
     technologies: ["React", "JavaScript", "Netlify"],
+    projectType: "app",
+  },
+  {
+    title: "OnCourt",
+    description: "A court operations product from Behind Digitals.",
+    liveUrl: "https://court.behinddigitals.com/oncourt",
+    technologies: [],
     projectType: "app",
   },
 ];
