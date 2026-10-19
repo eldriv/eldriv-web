@@ -13,13 +13,25 @@ const webApps: Website[] = [
       "Venue ops for pickleball clubs—run sessions, queues, courts, and scoring from the admin desk while players check in from their phones. Includes calendar rentals, game formats, leaderboards, lobby board view, and Reclub roster import, all on venue Wi-Fi.",
     image: BehindCourtImage,
     liveUrl: "https://court.behinddigitals.com/behindcourt",
-    technologies: ["React", "JavaScript", "Netlify"],
+    technologies: [],
     projectType: "app",
   },
   {
     title: "OnCourt",
-    description: "A court operations product from Behind Digitals.",
+    description:
+      "OnCourt records pickleball matches from venue cameras through OnCourt Desktop on a Windows or Mac venue PC. Players start and stop recordings from a court tablet and receive a link to watch or download their clip by email—no player account or app required.",
+    image: "/assets/images/oncourt-thumbnail.svg",
     liveUrl: "https://court.behinddigitals.com/oncourt",
+    technologies: [],
+    projectType: "app",
+  },
+  {
+    title: "Vielo Dashiel & Khali",
+    description:
+      "Built a staycation booking app where guests can explore three branches, view stay details and reviews, choose dates, and reserve with a small downpayment before settling the balance on arrival.",
+    image:
+      "https://staycation-booking.perlaycaro.workers.dev/uploads/landing/landing-hero-mobile-1790412625701.png",
+    liveUrl: "https://staycation-booking.perlaycaro.workers.dev/",
     technologies: [],
     projectType: "app",
   },

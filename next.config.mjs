@@ -59,8 +59,13 @@ const nextConfig = {
   // Optimize images
   images: {
     formats: ['image/webp', 'image/avif'],
-    // Add domains if you're loading external images
-    // domains: ['example.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'staycation-booking.perlaycaro.workers.dev',
+        pathname: '/uploads/landing/**',
+      },
+    ],
   },
   
   // Bundle analyzer (optional - for development only)

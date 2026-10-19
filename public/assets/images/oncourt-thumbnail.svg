@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="30" x2="1120" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17251E"/>
+      <stop offset="1" stop-color="#09110D"/>
+    </linearGradient>
+    <linearGradient id="court" x1="664" y1="188" x2="1108" y2="514" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#244A38"/>
+      <stop offset="1" stop-color="#14291F"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="772" y1="484" x2="1091" y2="484" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5DDBA1"/>
+      <stop offset="1" stop-color="#B9F75D"/>
+    </linearGradient>
+    <filter id="shadow" x="622" y="166" width="536" height="414" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1200v675H0z"/>
+  <circle cx="987" cy="218" r="222" fill="#43C987" fill-opacity=".1"/>
+  <path d="M0 567h1200v108H0z" fill="#080E0B" fill-opacity=".48"/>
+  <path d="M66 65h34" stroke="#7AF0B9" stroke-width="4" stroke-linecap="round"/>
+  <text x="114" y="72" fill="#A8B7AE" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" letter-spacing="4">BEHIND DIGITALS</text>
+  <text x="66" y="210" fill="#F4F7F4" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" letter-spacing="-3">OnCourt</text>
+  <text x="69" y="259" fill="#77E5AF" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="3">COURT CAMERA RECORDING</text>
+  <text x="69" y="320" fill="#D0D9D2" font-family="Arial, Helvetica, sans-serif" font-size="26">Every match recorded.</text>
+  <text x="69" y="359" fill="#D0D9D2" font-family="Arial, Helvetica, sans-serif" font-size="26">Every player gets the clip.</text>
+  <g fill="#A8B7AE" font-family="Arial, Helvetica, sans-serif" font-size="19">
+    <text x="69" y="432">Court camera</text>
+    <text x="226" y="432">Court tablet</text>
+    <text x="369" y="432">Email link</text>
+  </g>
+  <g stroke="#496155" stroke-width="2">
+    <path d="M69 451h86"/>
+    <path d="M226 451h86"/>
+    <path d="M369 451h86"/>
+  </g>
+  <g fill="#73E4AE">
+    <circle cx="77" cy="478" r="5"/>
+    <circle cx="234" cy="478" r="5"/>
+    <circle cx="377" cy="478" r="5"/>
+  </g>
+  <text x="69" y="525" fill="#718279" font-family="Arial, Helvetica, sans-serif" font-size="17">No player account. No app to install.</text>
+  <ellipse cx="895" cy="505" rx="229" ry="38" fill="#000" fill-opacity=".65" filter="url(#shadow)"/>
+  <rect x="663" y="177" width="464" height="345" rx="24" fill="#0B120E" stroke="#6D8C79" stroke-opacity=".48" stroke-width="2"/>
+  <path d="M687 204h416" stroke="#2C3D33" stroke-width="2"/>
+  <circle cx="692" cy="192" r="4" fill="#73E4AE"/>
+  <circle cx="706" cy="192" r="4" fill="#718279"/>
+  <text x="726" y="198" fill="#9DAFA3" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2">COURT 04 · MATCH RECORDING</text>
+  <rect x="697" y="228" width="396" height="214" rx="14" fill="url(#court)" stroke="#53715D" stroke-opacity=".7"/>
+  <path d="M895 229v212M698 335h394M793 229v106m204 0v106" stroke="#9CC5A5" stroke-opacity=".62" stroke-width="2"/>
+  <path d="M843 229v52a52 52 0 0 0 104 0v-52m-104 213v-52a52 52 0 0 1 104 0v52" stroke="#9CC5A5" stroke-opacity=".62" stroke-width="2"/>
+  <path d="M865 265v41" stroke="#D1E4CF" stroke-width="5" stroke-linecap="round"/>
+  <path d="m865 266 16 9-16 9" stroke="#D1E4CF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M935 374v41" stroke="#D1E4CF" stroke-width="5" stroke-linecap="round"/>
+  <path d="m935 415-16-9 16-9" stroke="#D1E4CF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="721" y="461" width="416" height="39" rx="11" fill="#17241C" stroke="#34483A"/>
+  <circle cx="740" cy="480" r="5" fill="#70E4AD"/>
+  <text x="755" y="485" fill="#DCE7DE" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600">CLIP READY TO SHARE</text>
+  <path d="M917 480h151" stroke="#34483A" stroke-width="3" stroke-linecap="round"/>
+  <path d="M917 480h97" stroke="url(#accent)" stroke-width="3" stroke-linecap="round"/>
+  <rect x="1066" y="470" width="3" height="20" rx="1.5" fill="#D9FCE5"/>
+  <path d="M1041 295h36v27h-36z" fill="#101A14" stroke="#84D8A7" stroke-width="2" rx="4"/>
+  <path d="m1077 302 15-8v29l-15-8" fill="#101A14" stroke="#84D8A7" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="1059" cy="308" r="3" fill="#84D8A7"/>
+</svg>
