@@ -17,20 +17,9 @@ import {
 } from "@/components/TestimonialModal";
 
 import angelicaMaeviAvatar from "@/assets/images/angelica-maevi.png";
-import evaHooftAvatar from "@/assets/images/eva-hooft-profile.png";
 import cassandraDaherAvatar from "@/assets/images/cassandra-profile.png";
 
 export const seedTestimonials: Testimonial[] = [
-  {
-    quote:
-      "He really listened to what I wanted. The site feels like me, and working with him was smooth and easy to trust.",
-    name: "Eva Hooft",
-    title: "CEO · Evahooft",
-    imageUrl: evaHooftAvatar.src,
-    projectTitle: "Eva Hooft",
-    projectHref: "#web",
-    source: "seed",
-  },
   {
     quote:
       "Working with Eldriv was straightforward and professional. He delivered a polished site that matches our brand and events work.",

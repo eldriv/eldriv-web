@@ -12,7 +12,6 @@ import { WebsiteCard, type Website } from "@/components/WebsiteCard";
 import CrownImage from "@/assets/images/crown.png";
 import MaeviImage from "@/assets/images/maevi.png";
 import Cr8Image from "@/assets/images/cr8.png";
-import EvaImage from "@/assets/images/eva-hooft.png";
 import CassandraImage from "@/assets/images/cassandra-hero.png";
 import ProservImage from "@/assets/images/proserv.png";
 import MaravillaTaosImage from "@/assets/images/maravilla-taos.png";
@@ -113,15 +112,6 @@ const websites: Website[] = [
     liveUrl: "https://cr8-agency.netlify.app/",
     technologies: ["GSAP", "Tailwind CSS", "ReactJS"],
     clientLocation: "PH",
-  },
-  {
-    title: "Eva Hooft",
-    description:
-      "A holistic health and detox coaching website that combines functional detox with emotional release and spiritual guidance. Features programs for physical detoxification, quantum healing, and nervous system support.",
-    image: EvaImage,
-    liveUrl: "https://evahooft.com",
-    technologies: ["Wix Studio", "Velo", "HTML", "CSS"],
-    clientLocation: "US",
   },
   {
     title: "CassandraDaher",
