@@ -26,6 +26,7 @@ export interface Website {
   clientLocation?: ClientLocation;
   projectType?: "client" | "app" | "mock";
   screenshots?: Screenshot[];
+  comingSoon?: boolean;
 }
 
 const badgeColors = "bg-[#0c0c0f]/80 text-zinc-200 border-white/15";
@@ -126,10 +127,13 @@ export const WebsiteCard = ({
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/5">
+            <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-white/10 to-white/5">
               <span className="glass-pill flex h-16 w-16 items-center justify-center rounded-2xl text-xl font-semibold tracking-wide text-white/80">
                 {website.title.slice(0, 2).toUpperCase()}
               </span>
+              {website.comingSoon && (
+                <span className="type-meta text-white/50">Launching soon</span>
+              )}
             </div>
           )}
           {/* Glassy hover effect - slides from left to right */}
@@ -145,7 +149,15 @@ export const WebsiteCard = ({
 
           {/* Project badge */}
           <div className="absolute top-2 left-2 md:top-3 md:left-3 z-10">
-            {website.projectType === "app" ? (
+            {website.comingSoon ? (
+              <span className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-0.5 md:py-1 type-meta rounded-full border backdrop-blur-md bg-[#0c0c0f]/80 text-accent border-accent/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <span className="relative flex size-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 motion-safe:animate-ping" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
+                </span>
+                <span>COMING SOON</span>
+              </span>
+            ) : website.projectType === "app" ? (
               <span className="flex items-center gap-1 md:gap-1.5 px-2 md:px-3 py-0.5 md:py-1 type-meta rounded-full border backdrop-blur-md bg-[#0c0c0f]/80 text-zinc-200 border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                 <span className="text-xs md:text-sm">⚡</span>
                 <span>WEB APP</span>

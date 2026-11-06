@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 
@@ -20,6 +21,9 @@ import LeadingLsImage from "@/assets/images/leading-ls.png";
 import CasaNorthImage from "@/assets/images/casa-north.png";
 import GenerationSmileImage from "@/assets/images/generation-smile-dental-clinic.png";
 import CredibleImage from "@/assets/images/credible.jpg";
+import PowerhouseImage from "@/assets/images/powerhouse.jpg";
+import BehindDigitalsImage from "@/assets/images/behind-digitals.png";
+import BehindCourtSiteImage from "@/assets/images/behindcourt-site.jpg";
 
 const websites: Website[] = [
   {
@@ -157,11 +161,51 @@ const websites: Website[] = [
     ],
     clientLocation: "PH",
   },
+  {
+    title: "Powerhouse Ice Tube Machine",
+    description:
+      "Site for a Batangas-based supplier of premium tube-ice machines in the Philippines. A cinematic, scroll-driven story walks buyers through the machines, the production process, and a complete ice business package, with quote requests and consultation booking.",
+    image: PowerhouseImage,
+    liveUrl: "https://powerhouse-alpha.vercel.app/",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Three.js",
+      "GSAP",
+      "Framer Motion",
+      "Tailwind CSS",
+    ],
+    clientLocation: "PH",
+  },
+  {
+    title: "Behind Digitals",
+    description:
+      "The agency site for Behind Digitals—who we are, what we build, the team, case studies, and client testimonials—presenting the websites, automations, and custom systems the studio ships for businesses.",
+    image: BehindDigitalsImage,
+    liveUrl: "https://behinddigitals.com",
+    technologies: ["Next.js", "React", "TypeScript", "GSAP", "Tailwind CSS"],
+  },
+  {
+    title: "BehindCourt Website",
+    description:
+      "Marketing site for BehindCourt and OnCourt, the venue software for pickleball clubs. An interactive before-and-after slider compares desk ops with court recording, alongside product tours, a venue map, FAQs, and demo booking.",
+    image: BehindCourtSiteImage,
+    liveUrl: "https://court.behinddigitals.com",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Leaflet"],
+  },
+  {
+    title: "Thryve Organics",
+    description:
+      "A custom Shopify theme for Thryve Organics, a single-origin Philippine cacao brand—mood-boosting blends, ingredient storytelling, and farmer-first sourcing—paired with a separate dashboard for managing product reviews.",
+    technologies: ["Shopify", "Liquid", "JavaScript", "CSS", "Prisma"],
+    comingSoon: true,
+  },
 ];
 
 export const WebsitesSection = () => {
   // Embla Carousel setup with continuous auto-scroll
-  const [emblaRef] = useEmblaCarousel(
+  const [emblaRef, emblaApi] = useEmblaCarousel(
     { 
       loop: true,
       align: "start",
@@ -173,6 +217,17 @@ export const WebsitesSection = () => {
       stopOnInteraction: false,
       stopOnMouseEnter: true,
     })]
+  );
+
+  // Arrow clicks pause auto-scroll and let it resume after its start delay.
+  const scrollBy = useCallback(
+    (direction: "prev" | "next") => {
+      if (!emblaApi) return;
+      emblaApi.plugins().autoScroll?.reset();
+      if (direction === "prev") emblaApi.scrollPrev();
+      else emblaApi.scrollNext();
+    },
+    [emblaApi]
   );
 
   return (
@@ -220,6 +275,32 @@ export const WebsitesSection = () => {
                     ))}
                 </div>
               </div>
+
+              {(["prev", "next"] as const).map((direction) => (
+                <button
+                  key={direction}
+                  type="button"
+                  onClick={() => scrollBy(direction)}
+                  aria-label={direction === "prev" ? "Previous websites" : "Next websites"}
+                  className={`group/arrow absolute top-1/2 z-20 -translate-y-1/2 ${
+                    direction === "prev" ? "left-0 lg:-left-3" : "right-0 lg:-right-3"
+                  } flex size-12 items-center justify-center rounded-full border border-white/15 bg-[#0c0c0f]/70 text-zinc-200 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_12px_30px_-12px_rgba(0,0,0,0.8)] transition-all duration-300 ease-out hover:scale-105 hover:border-accent/60 hover:bg-accent hover:text-black hover:shadow-[0_0_0_6px_rgba(253,129,40,0.15),0_16px_40px_-12px_rgba(253,129,40,0.55)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70`}
+                >
+                  <svg
+                    className={`size-5 transition-transform duration-300 ease-out ${
+                      direction === "prev"
+                        ? "group-hover/arrow:-translate-x-0.5"
+                        : "rotate-180 group-hover/arrow:translate-x-0.5"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+              ))}
             </div>
 
             {/* Hover hint with icons - Only show on desktop */}
