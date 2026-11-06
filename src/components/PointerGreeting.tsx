@@ -21,8 +21,9 @@ const STOPS: Stop[] = [
   { target: "name", ax: 0.85, ay: 0.55, message: "Product & Software Engineer from the Philippines" },
   { target: "nav-home", ax: 0.5, ay: 0.7, message: "Up here is my navigation. Home brings you back to the top" },
   { target: "nav-experience", ax: 0.5, ay: 0.7, message: "Experience: my roles, projects, and what I've shipped" },
+  { target: "nav-stack", ax: 0.5, ay: 0.7, message: "Stack: the languages, frameworks, and tools I build with" },
   { target: "nav-blogs", ax: 0.5, ay: 0.7, message: "Blogs: articles I've written about building for the web" },
-  { target: "nav-about", ax: 0.5, ay: 0.7, message: "About: my story, my toolbox, and what drives me" },
+  { target: "nav-about", ax: 0.5, ay: 0.7, message: "About: my story, my reading list, and what drives me" },
   { target: "nav-testimonials", ax: 0.5, ay: 0.7, message: "Testimonials: kind words from clients and teammates" },
   { target: "nav-contact", ax: 0.5, ay: 0.7, message: "Contact: send me a message, I'd love to hear from you" },
   {
@@ -31,7 +32,7 @@ const STOPS: Stop[] = [
     // instead of covering it.
     ax: 0.28,
     ay: 0.85,
-    message: "Open this menu to jump to my Experience, Blogs, About, Testimonials & Contact",
+    message: "Open this menu to jump to my Experience, Stack, Blogs, About, Testimonials & Contact",
   },
   { target: "social-github", ax: 0.5, ay: 0.6, message: "Here are my social links! First, my GitHub" },
   { target: "social-linkedin", ax: 0.5, ay: 0.6, message: "Connect with me on LinkedIn" },
