@@ -39,7 +39,9 @@ const toolDescriptions: Record<string, string> = {
   "CLOG": "Common Lisp web framework for building modern web applications",
   "FlameGraph": "Performance profiling tool for visualizing CPU usage and bottlenecks",
   "n8n": "Open-source workflow automation platform for connecting APIs and services",
-  "Zapier": "Cloud-based automation platform for integrating web applications and automating workflows"
+  "Zapier": "Cloud-based automation platform for integrating web applications and automating workflows",
+  "Wix Studio": "Professional website builder for agencies and freelancers designing responsive client sites",
+  "Makefile": "Classic build automation tool for defining and running project tasks and builds"
 };
 
 export const ToolboxItems = ({
@@ -142,7 +144,7 @@ export const ToolboxItems = ({
               {enhancedTools.map((item, itemIndex) => (
                 <motion.div
                   key={item.title}
-                  className="inline-flex items-center gap-2 md:gap-4 py-1.5 md:py-2 px-2 md:px-3 outline outline-2 outline-white/10 rounded-lg text-sm md:text-base"
+                  className="inline-flex items-center gap-2 md:gap-4 py-1.5 md:py-2 px-2 md:px-3 rounded-xl text-sm md:text-base bg-white/[0.05] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                   animate={{ y: [0, -2, 0, 2, 0] }}
                   transition={{
                     duration: 4,
@@ -170,7 +172,7 @@ export const ToolboxItems = ({
         whileTap={{ scale: 0.95 }}
         aria-label="View all tools"
       >
-        <div className="bg-gradient-to-r from-emerald-400 to-[#FD8128] p-1.5 md:p-2 rounded-full shadow-lg hover:shadow-emerald-400/25 transition-all duration-300">
+        <div className="bg-gradient-to-r from-white/10 to-white/5 p-1.5 md:p-2 rounded-full border border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_24px_-8px_rgba(0,0,0,0.6)] transition-all duration-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -198,7 +200,7 @@ export const ToolboxItems = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-2 md:p-4"
+              className="fixed inset-0 bg-[#05060b]/60 backdrop-blur-md flex items-center justify-center p-2 md:p-4"
               style={{ 
                 pointerEvents: 'auto',
                 zIndex: 2147483647
@@ -210,19 +212,19 @@ export const ToolboxItems = ({
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.8, opacity: 0, y: 20 }}
                 transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="bg-gray-800/95 backdrop-blur-md rounded-xl md:rounded-2xl border border-emerald-400/20 p-4 md:p-8 max-w-4xl w-full max-h-[90vh] md:max-h-[80vh] overflow-y-auto"
+                className="glass-strong rounded-2xl md:rounded-3xl p-4 md:p-8 max-w-4xl w-full max-h-[90vh] md:max-h-[80vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between mb-6 md:mb-8">
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                    <h2 className="font-pixel text-2xl md:text-3xl text-zinc-100">
                       Complete Toolbox
                     </h2>
                     <p className="text-gray-400 mt-1 md:mt-2 text-sm md:text-base">My technical arsenal and expertise, tap to see each descriptions.</p>
                   </div>
                   <motion.button
                     onClick={() => setShowModal(false)}
-                    className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full touch-manipulation"
+                    className="glass-pill text-gray-300 hover:text-white transition-colors p-2 hover:bg-white/15 rounded-full touch-manipulation"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
@@ -244,14 +246,14 @@ export const ToolboxItems = ({
                       onMouseLeave={handleToolLeave}
                       onClick={() => isMobile && handleToolInteraction(tool.title)}
                     >
-                      <div className="bg-gray-700/50 hover:bg-gray-600/50 border border-gray-600/50 hover:border-emerald-400/50 rounded-lg md:rounded-xl p-3 md:p-4 transition-all duration-300 cursor-pointer group-hover:shadow-lg group-hover:shadow-emerald-400/10 touch-manipulation">
+                      <div className="bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] rounded-xl md:rounded-2xl p-3 md:p-4 transition-all duration-300 cursor-pointer group-hover:shadow-lg group-hover:shadow-black/40 touch-manipulation">
                         <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                          <div className="p-1.5 md:p-2 bg-gray-600/50 rounded-md md:rounded-lg group-hover:bg-emerald-400/20 transition-colors">
+                          <div className="p-1.5 md:p-2 bg-white/[0.06] ring-1 ring-white/10 rounded-md md:rounded-lg group-hover:bg-white/[0.06] transition-colors">
                             <div className="scale-75 md:scale-100">
                               <TechIcon component={tool.iconType} />
                             </div>
                           </div>
-                          <h3 className="font-semibold text-white group-hover:text-emerald-400 transition-colors text-sm md:text-base">
+                          <h3 className="font-semibold text-white group-hover:text-zinc-200 transition-colors text-sm md:text-base">
                             {tool.title}
                           </h3>
                         </div>
@@ -266,7 +268,7 @@ export const ToolboxItems = ({
                               transition={{ duration: 0.2 }}
                               className="overflow-hidden"
                             >
-                              <p className="text-xs md:text-sm text-gray-300 leading-relaxed pt-2 border-t border-gray-600/50">
+                              <p className="text-xs md:text-sm text-gray-300 leading-relaxed pt-2 border-t border-white/10">
                                 {tool.description}
                               </p>
                             </motion.div>

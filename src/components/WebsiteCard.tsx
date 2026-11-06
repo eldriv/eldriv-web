@@ -7,6 +7,7 @@ import { scrollViewport } from "@/components/scroll-reveal";
 
 // Components
 import { Card } from "@/components/card";
+import { ScreenshotGallery, type Screenshot } from "@/components/ScreenshotGallery";
 
 // SVG Icons
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
@@ -24,20 +25,10 @@ export interface Website {
   featured?: boolean;
   clientLocation?: ClientLocation;
   projectType?: "client" | "app" | "mock";
+  screenshots?: Screenshot[];
 }
 
-const getLocationBadgeColors = (location: ClientLocation) => {
-  switch (location) {
-    case "US":
-      return "bg-blue-500/20 text-blue-300 border-blue-400/30";
-    case "UAE":
-      return "bg-amber-500/20 text-amber-300 border-amber-400/30";
-    case "PH":
-      return "bg-red-500/20 text-red-300 border-red-400/30";
-    default:
-      return "bg-gray-500/20 text-gray-300 border-gray-400/30";
-  }
-};
+const badgeColors = "bg-[#0c0c0f]/80 text-zinc-200 border-white/15";
 
 const getLocationFlag = (location: ClientLocation) => {
   switch (location) {
@@ -62,6 +53,9 @@ export const WebsiteCard = ({
   index,
 }: WebsiteCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const hasGallery = (website.screenshots?.length ?? 0) > 0;
+  const isClickable = hasGallery || Boolean(website.liveUrl);
   const maxLength = 120; // Character limit for truncated description
   const needsTruncation = website.description.length > maxLength;
   const hasHiddenContent = needsTruncation || website.technologies.length > 0 || website.liveUrl || website.githubUrl;
@@ -70,7 +64,9 @@ export const WebsiteCard = ({
     : `${website.description.substring(0, maxLength)}...`;
 
   const handleCardClick = () => {
-    if (website.liveUrl) {
+    if (hasGallery) {
+      setIsGalleryOpen(true);
+    } else if (website.liveUrl) {
       window.open(website.liveUrl, '_blank', 'noopener,noreferrer');
     }
   };
@@ -93,16 +89,16 @@ export const WebsiteCard = ({
       className="h-full"
     >
       <Card
-        className={`min-h-[400px] sm:min-h-[360px] md:min-h-[380px] ${!isExpanded ? 'sm:h-[360px] md:h-[380px]' : ''} p-0 flex flex-col group transition-all duration-300 ease-in-out touch-manipulation ${
-          website.liveUrl ? 'cursor-pointer' : ''
+        className={`min-h-[400px] sm:min-h-[360px] md:min-h-[380px] ${!isExpanded ? 'sm:h-[360px] md:h-[380px]' : ''} p-0 flex flex-col group transition-all duration-300 ease-out touch-manipulation motion-safe:hover:-translate-y-1 hover:border-accent/40 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_60px_-30px_rgba(253,129,40,0.35)] ${
+          isClickable ? 'cursor-pointer' : ''
         } ${
           website.featured ? "md:col-span-2 lg:col-span-2" : ""
         }`}
-        onClick={website.liveUrl ? handleCardClick : undefined}
-        role={website.liveUrl ? 'link' : undefined}
-        tabIndex={website.liveUrl ? 0 : undefined}
+        onClick={isClickable ? handleCardClick : undefined}
+        role={hasGallery ? 'button' : website.liveUrl ? 'link' : undefined}
+        tabIndex={isClickable ? 0 : undefined}
         onKeyDown={
-          website.liveUrl
+          isClickable
             ? (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
@@ -112,46 +108,56 @@ export const WebsiteCard = ({
             : undefined
         }
         aria-label={
-          website.liveUrl ? `Open ${website.title} in a new tab` : undefined
+          hasGallery
+            ? `View ${website.title} screenshots`
+            : website.liveUrl
+              ? `Open ${website.title} in a new tab`
+              : undefined
         }
       >
         {/* Project Image */}
-        <div className="relative h-40 sm:h-40 md:h-44 overflow-hidden rounded-t-2xl sm:rounded-t-3xl bg-gradient-to-br from-emerald-300/20 to-[#FD8128]/20 flex-shrink-0">
+        <div className="relative m-2 sm:m-2.5 h-40 sm:h-40 md:h-44 overflow-hidden rounded-2xl ring-1 ring-white/10 bg-gradient-to-br from-white/10 to-white/5 flex-shrink-0">
           {website.image ? (
             <Image
               src={website.image}
               alt={website.title}
               fill
-              className="object-cover object-center"
+              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-300/10 to-[#FD8128]/10">
-              <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-black/10 text-xl font-semibold tracking-wide text-white/70">
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/5">
+              <span className="glass-pill flex h-16 w-16 items-center justify-center rounded-2xl text-xl font-semibold tracking-wide text-white/80">
                 {website.title.slice(0, 2).toUpperCase()}
               </span>
             </div>
           )}
           {/* Glassy hover effect - slides from left to right */}
-          <div className="absolute inset-0 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
+          <div className="absolute inset-0 overflow-hidden rounded-2xl">
             <div className="absolute inset-y-0 left-0 w-[200%] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </div>
           
+          {hasGallery && (
+            <span className="glass-strong absolute bottom-2.5 right-2.5 z-10 rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-200 sm:bottom-3 sm:right-3">
+              {website.screenshots!.length} screenshots ↗
+            </span>
+          )}
+
           {/* Project badge */}
           <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
             {website.projectType === "app" ? (
-              <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm bg-violet-500/20 text-violet-200 border-violet-400/30">
+              <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider rounded-full border backdrop-blur-md bg-[#0c0c0f]/80 text-zinc-200 border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                 <span className="text-sm">⚡</span>
                 <span>WEB APP</span>
               </span>
             ) : website.projectType === "mock" ? (
-              <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm bg-amber-500/20 text-amber-200 border-amber-400/30">
+              <span className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider rounded-full border backdrop-blur-md bg-[#0c0c0f]/80 text-zinc-200 border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                 <span className="text-sm">✦</span>
                 <span className="hidden sm:inline">MOCK DESIGN PORTFOLIO</span>
                 <span className="sm:hidden">MOCK DESIGN</span>
               </span>
             ) : website.clientLocation ? (
-              <span className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1 text-[11px] sm:text-xs font-semibold rounded-full border backdrop-blur-sm ${getLocationBadgeColors(website.clientLocation)}`}>
+              <span className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider rounded-full border backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] ${badgeColors}`}>
                 <span className="text-base sm:text-base">{getLocationFlag(website.clientLocation)}</span>
                 <span className="hidden sm:inline">{website.clientLocation} CLIENT</span>
                 <span className="sm:hidden">{website.clientLocation}</span>
@@ -161,9 +167,9 @@ export const WebsiteCard = ({
         </div>
 
         {/* Project Content */}
-        <div className="flex flex-col p-4 sm:p-5 md:p-6 min-h-0">
+        <div className="flex flex-col px-4 pb-4 pt-2 sm:px-5 sm:pb-5 md:px-6 md:pb-6 min-h-0">
           <div className="flex items-start justify-between mb-3 sm:mb-3 gap-3 flex-shrink-0">
-            <h3 className="font-bold text-lg sm:text-lg md:text-xl text-white group-hover:text-emerald-300 transition-colors flex-1 min-w-0 leading-tight">
+            <h3 className="font-pixel text-lg md:text-xl text-zinc-100 group-hover:text-accent transition-colors flex-1 min-w-0 leading-tight">
               {website.title}
             </h3>
             <AnimatePresence>
@@ -180,10 +186,10 @@ export const WebsiteCard = ({
                       href={website.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 sm:p-2 rounded-full bg-gray-800 hover:bg-emerald-300/20 active:bg-emerald-300/30 transition-colors group/link touch-manipulation"
+                      className="p-2.5 sm:p-2 rounded-full glass-pill hover:bg-white/[0.06] active:bg-white/[0.06] transition-colors group/link touch-manipulation"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <ArrowUpRightIcon className="w-4 h-4 sm:w-4 sm:h-4 text-emerald-300 group-hover/link:text-white" />
+                      <ArrowUpRightIcon className="w-4 h-4 sm:w-4 sm:h-4 text-zinc-200 group-hover/link:text-white" />
                     </a>
                   )}
                   {website.githubUrl && (
@@ -191,10 +197,10 @@ export const WebsiteCard = ({
                       href={website.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 sm:p-2 rounded-full bg-gray-800 hover:bg-emerald-300/20 active:bg-emerald-300/30 transition-colors group/github touch-manipulation"
+                      className="p-2.5 sm:p-2 rounded-full glass-pill hover:bg-white/[0.06] active:bg-white/[0.06] transition-colors group/github touch-manipulation"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <GithubIcon className="w-4 h-4 sm:w-4 sm:h-4 text-emerald-300 group-hover/github:text-white" />
+                      <GithubIcon className="w-4 h-4 sm:w-4 sm:h-4 text-zinc-200 group-hover/github:text-white" />
                     </a>
                   )}
                 </motion.div>
@@ -215,7 +221,7 @@ export const WebsiteCard = ({
             {hasHiddenContent && (
               <button
                 onClick={handleReadMoreClick}
-                className="mt-2 text-emerald-300 hover:text-emerald-200 text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="mt-2 text-accent hover:text-accent-soft text-xs sm:text-sm font-medium transition-colors touch-manipulation"
               >
                 {isExpanded ? 'Read less' : 'Read more'}
               </button>
@@ -238,7 +244,7 @@ export const WebsiteCard = ({
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.2, delay: techIndex * 0.05 }}
-                    className="px-2.5 sm:px-3 py-1 sm:py-1 text-[11px] sm:text-xs rounded-full bg-gradient-to-r from-emerald-300/20 to-[#FD8128]/20 text-emerald-300 border border-emerald-300/20"
+                    className="px-2.5 sm:px-3 py-1 sm:py-1 text-[11px] sm:text-xs rounded-full bg-gradient-to-r from-white/10 to-white/5 text-zinc-200 border border-white/15"
                   >
                     {tech}
                   </motion.span>
@@ -248,6 +254,14 @@ export const WebsiteCard = ({
           </AnimatePresence>
         </div>
       </Card>
+      {hasGallery && (
+        <ScreenshotGallery
+          title={website.title}
+          screenshots={website.screenshots!}
+          isOpen={isGalleryOpen}
+          onClose={() => setIsGalleryOpen(false)}
+        />
+      )}
     </motion.div>
   );
 };

@@ -50,7 +50,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="relative group">
-      <Card className={`relative ${isTextarea ? 'h-auto' : 'h-16'} transition-all duration-300 ${
+      <Card className={`relative rounded-2xl ${isTextarea ? 'h-auto' : 'h-16'} transition-all duration-300 hover:border-white/20 focus-within:border-accent/60 focus-within:shadow-[0_0_0_4px_rgba(253,129,40,0.12)] ${
         hasError ? 'border-red-400/50' : ''
       }`}>
         {/* Icon */}
@@ -212,7 +212,7 @@ function UltraModernContactForm() {
           <ScrollReveal>
           {/* Status indicator */}
           <div className="flex items-center justify-center mb-8">
-            <Card className="px-6 py-3 border-green-400/30">
+            <Card className="px-6 py-3 rounded-full border-green-400/30">
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-green-400 text-sm font-medium">Connected & Ready</span>
@@ -224,7 +224,7 @@ function UltraModernContactForm() {
           <ScrollReveal delay={0.1}>
           {/* Header */}
           <div className="text-center mb-8 sm:mb-12 px-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+            <h1 className="font-pixel text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 sm:mb-6 leading-tight text-zinc-100">
               Get In Touch
             </h1>
             <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
@@ -235,18 +235,18 @@ function UltraModernContactForm() {
 
           <ScrollReveal delay={0.15} variant="scaleUp">
           {/* Form Container */}
-          <Card className="p-5 sm:p-6 md:p-8 lg:p-12 shadow-2xl">
+          <Card className="p-5 sm:p-6 md:p-8 lg:p-12">
             {isSubmitted ? (
               <div className="text-center py-16 animate-in zoom-in-95 duration-500">
-                <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
-                  <CheckCircle className="w-12 h-12 text-white" />
+                <div className="bg-zinc-100 text-[#0c0c0f] w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
+                  <CheckCircle className="w-12 h-12" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">Message Sent!</h2>
+                <h2 className="font-pixel text-2xl sm:text-3xl md:text-4xl text-zinc-100 mb-4 sm:mb-6">Message Sent!</h2>
                 <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto px-4">
                   Thanks for reaching out! I'll get back to you within 24 hours.
                 </p>
                 <div className="mt-8 flex justify-center">
-                  <Card className="px-6 py-3">
+                  <Card className="px-6 py-3 rounded-full">
                     <span className="text-white/80 text-sm">Redirecting in a few seconds...</span>
                   </Card>
                 </div>
@@ -316,13 +316,12 @@ function UltraModernContactForm() {
                   <button
                       onClick={handleSubmit}
                       disabled={isLoading}
-                      className="relative group w-full sm:w-auto"
+                      className="relative group w-full sm:w-auto disabled:opacity-70"
                   >
-                      <div className="absolute -inset-1 bg-orange-500 rounded-2xl transition-opacity duration-300" />
-                      <div className="relative text-white font-bold py-3 px-8 rounded-2xl transition-all duration-300 flex justify-center hover:bg-orange-600">
+                      <div className="btn-ink relative py-3 px-8 transition-all duration-300 group-hover:-translate-y-0.5">
                       {isLoading ? (
                           <div className="flex items-center space-x-3">
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" />
                           <span>Sending...</span>
                           </div>
                       ) : (

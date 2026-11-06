@@ -5,6 +5,10 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { WebsiteCard, type Website } from "@/components/WebsiteCard";
 
 import BehindCourtImage from "@/assets/images/behind-court.png";
+import MarketingAgentsImage from "@/assets/images/marketing-agents.jpg";
+import MarketingAgentsTrackerImage from "@/assets/images/marketing-agents-tracker.jpg";
+import MarketingAgentsCompletedImage from "@/assets/images/marketing-agents-completed.jpg";
+import MarketingAgentsInfographicsImage from "@/assets/images/marketing-agents-infographics.jpg";
 
 const webApps: Website[] = [
   {
@@ -26,6 +30,32 @@ const webApps: Website[] = [
     projectType: "app",
   },
   {
+    title: "Marketing Agents",
+    description:
+      "An AI marketing agency for BehindCourt that runs in a living 3D office. A Marketing Director takes your brief and delegates tasks to specialist agents, who claim desks, work through a queued pipeline with client approvals and retries, and deliver marketing plans, daily social post drafts, and downloadable documents tracked on a Kanban work tracker.",
+    image: MarketingAgentsImage,
+    screenshots: [
+      {
+        src: MarketingAgentsImage,
+        caption: "3D office — the Marketing Director is ready for a briefing while specialist agents work at their desks.",
+      },
+      {
+        src: MarketingAgentsTrackerImage,
+        caption: "Work tracker — project tasks move across Blocked, Scheduled, On hold, In progress, Done, and Failed.",
+      },
+      {
+        src: MarketingAgentsCompletedImage,
+        caption: "Completed — finished marketing plans and social posts with their downloadable deliverables.",
+      },
+      {
+        src: MarketingAgentsInfographicsImage,
+        caption: "Completed deliverable — a Facebook infographics batch, viewable full size and downloadable with a ready-to-copy caption.",
+      },
+    ],
+    technologies: [],
+    projectType: "app",
+  },
+  {
     title: "Vielo Dashiel & Khali",
     description:
       "Built a staycation booking app where guests can explore three branches, view stay details and reviews, choose dates, and reserve with a small downpayment before settling the balance on arrival.",
@@ -43,6 +73,7 @@ export const WebAppsSection = () => {
       <div className="py-12 sm:py-16 lg:py-24 relative">
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
           <SectionHeader
+            index={2}
             eyebrow="Web Applications"
             title="Selected products"
             description="Purpose-built software for real operational workflows."

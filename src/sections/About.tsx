@@ -36,6 +36,8 @@ import ClogIcon from "@/assets/icons/clog.svg"
 import FlameGraphIcon from "@/assets/icons/flamegraph.svg"
 import n8nIcon from "@/assets/icons/n8n.svg"
 import zapierIcon from "@/assets/icons/zapier.svg"
+import WixStudioIcon from "@/assets/icons/wix-studio.svg"
+import MakefileIcon from "@/assets/icons/makefile.svg"
 
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg"
 import StarIcon from "@/assets/icons/star.svg"
@@ -46,7 +48,7 @@ import { motion } from 'framer-motion'
 
 // Shared hover treatment so every About card feels alive and on-brand.
 const cardHoverClass =
-  "transition-all duration-300 ease-out will-change-transform motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6),_0_0_0_1px_rgba(253,129,40,0.18)] hover:border-[#fd8128]/40";
+  "transition-all duration-300 ease-out will-change-transform motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_30px_60px_-30px_rgba(0,0,0,0.35)] hover:border-white/15";
 
 
 const tool = [
@@ -161,6 +163,14 @@ const tool = [
   {
     title: "Zapier",
     iconType: zapierIcon,
+  },
+  {
+    title: "Wix Studio",
+    iconType: WixStudioIcon,
+  },
+  {
+    title: "Makefile",
+    iconType: MakefileIcon,
   },
 ];
 
@@ -342,6 +352,7 @@ return (
   <div className="py-12 sm:py-16 lg:py-24 relative">
     <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px"}}>
       <SectionHeader
+        index={5}
         eyebrow="About Me"
         title="Beyond the work"
         description="A little more about the tools, ideas, and projects that keep me curious."
@@ -361,16 +372,16 @@ return (
                 <span
                   className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] flex-shrink-0 ${
                     displayedBook.status === "reading"
-                      ? "bg-[#fd8128]/15 ring-1 ring-[#fd8128]/30 text-[#fd8128]"
+                      ? "bg-white/5 ring-1 ring-white/15 text-zinc-300"
                       : displayedBook.status === "next"
-                      ? "bg-emerald-300/15 ring-1 ring-emerald-300/30 text-emerald-300"
+                      ? "bg-white/[0.06] ring-1 ring-white/15 text-zinc-200"
                       : "bg-white/5 ring-1 ring-white/15 text-white/60"
                   }`}
                 >
                   {displayedBook.status === "reading" && (
                     <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-[#fd8128] opacity-75 animate-ping" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#fd8128]" />
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-zinc-300 opacity-75 animate-ping" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-zinc-300" />
                     </span>
                   )}
                   {displayedBook.status === "reading"
@@ -403,7 +414,7 @@ return (
                       onFocus={() => setHoveredBookIdx(idx)}
                       onBlur={() => setHoveredBookIdx(null)}
                       aria-label={`${book.title} by ${book.author}`}
-                      className={`relative h-[130px] sm:h-[145px] md:h-[160px] w-8 sm:w-10 md:w-11 rounded-sm bg-gradient-to-b ${book.spine} cursor-pointer flex-shrink-0 shadow-[0_6px_14px_-4px_rgba(0,0,0,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800`}
+                      className={`relative h-[130px] sm:h-[145px] md:h-[160px] w-8 sm:w-10 md:w-11 rounded-sm bg-gradient-to-b ${book.spine} cursor-pointer flex-shrink-0 shadow-[0_6px_14px_-4px_rgba(0,0,0,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent`}
                       animate={{ y: [0, -1.5, 0, 1.5, 0] }}
                       transition={{
                         duration: 5,
@@ -440,8 +451,8 @@ return (
                       {/* Status pin — pulse for currently reading, soft for up next. */}
                       {isReading && (
                         <span className="absolute -top-1 left-1/2 -translate-x-1/2 flex h-2 w-2">
-                          <span className="absolute inline-flex h-full w-full rounded-full bg-[#fd8128] opacity-75 animate-ping" />
-                          <span className="relative inline-flex h-2 w-2 rounded-full bg-[#fd8128] ring-2 ring-gray-800" />
+                          <span className="absolute inline-flex h-full w-full rounded-full bg-zinc-300 opacity-75 animate-ping" />
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-zinc-300 ring-2 ring-gray-800" />
                         </span>
                       )}
                       {isUpNext && (
@@ -502,7 +513,7 @@ return (
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => handleContributionClick(contribution, e)}
-                    className={`inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 md:px-6 bg-gradient-to-r from-emerald-300 to-[#FD8128] rounded-full py-1 sm:py-1 md:py-1.5 cursor-pointer text-[11px] sm:text-xs md:text-sm shadow-[0_6px_16px_-6px_rgba(253,129,40,0.5)] ${
+                    className={`inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 md:px-6 bg-gradient-to-r from-white/10 to-white/5 rounded-full py-1 sm:py-1 md:py-1.5 cursor-pointer text-[11px] sm:text-xs md:text-sm shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)] ${
                       isMobile ? "relative" : "absolute"
                     }`}
                     style={isMobile ? undefined : { left: contribution.left, top: contribution.top }}
@@ -530,23 +541,23 @@ return (
               })}
 
               {showOpenSourceOptions && (
-                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-3 sm:p-4 rounded-lg shadow-lg z-10 max-w-[90%] sm:max-w-none">
+                <div className="glass-strong absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-2xl z-10 max-w-[90%] sm:max-w-none">
                   <div className="flex flex-col gap-1.5 sm:gap-2 mb-16 sm:mb-20">
-                    <h4 className="text-emerald-300 font-medium text-sm sm:text-base">Select a Project</h4>
+                    <h4 className="text-zinc-200 font-medium text-sm sm:text-base">Select a Project</h4>
                     {openSourceProjects.map((project) => (
                       <a
                         key={project.name}
                         href={project.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors text-sm sm:text-base"
+                        className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 rounded-xl transition-colors text-sm sm:text-base"
                         onClick={(e) => {
                           // Don't close the popup when clicking a project link
                           e.stopPropagation();
                         }}
                       >
                         <span>{project.name}</span>
-                        <ArrowUpRightIcon className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" />
+                        <ArrowUpRightIcon className="w-3 h-3 sm:w-4 sm:h-4 text-zinc-200" />
                       </a>
                     ))}
                   </div>
@@ -560,7 +571,7 @@ return (
               <svg
                 aria-hidden="true"
                 viewBox="0 0 120 60"
-                className="pointer-events-none absolute right-3 top-3 w-24 sm:w-28 h-12 sm:h-14 text-[#fd8128]/20 group-hover/research:text-[#fd8128]/35 transition-colors duration-500"
+                className="pointer-events-none absolute right-3 top-3 w-24 sm:w-28 h-12 sm:h-14 text-zinc-300 group-hover/research:text-zinc-300 transition-colors duration-500"
               >
                 <defs>
                   <linearGradient id="researchLine" x1="0" x2="1" y1="0" y2="0">
@@ -583,7 +594,7 @@ return (
                 />
               </svg>
 
-              <span className="inline-flex items-center self-start gap-1.5 px-2 py-0.5 rounded-full bg-emerald-300/10 ring-1 ring-emerald-300/25 text-emerald-300 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-3">
+              <span className="inline-flex items-center self-start gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] ring-1 ring-white/15 text-zinc-200 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-3">
                 <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
@@ -594,11 +605,11 @@ return (
               </span>
 
               <div className="inline-flex items-center gap-2 mb-2">
-                <StarIcon className="size-7 sm:size-8 text-emerald-300" />
+                <StarIcon className="size-7 sm:size-8 text-zinc-200" />
                 <h3 className="font-sans text-2xl sm:text-3xl text-white">Research</h3>
               </div>
 
-              <h4 className="text-sm sm:text-base font-semibold text-[#fd8128] leading-snug mb-3 border-l-2 border-[#fd8128]/60 pl-3">
+              <h4 className="text-sm sm:text-base font-semibold text-zinc-300 leading-snug mb-3 border-l-2 border-white/15 pl-3">
                 Evaluating the Efficacy of ARIMA in Forecasting Rootcrops Prices in NCR.
               </h4>
 
@@ -610,17 +621,17 @@ return (
                 href="https://docs.google.com/document/d/1uKjc8QfxJVrcqyIhEklHguA3H9d2d6mcAyxkeH1gdC4/edit?tab=t.0"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center self-start gap-1.5 px-3 py-1.5 rounded-full bg-emerald-300/10 hover:bg-[#fd8128]/15 ring-1 ring-emerald-300/30 hover:ring-[#fd8128]/50 text-emerald-300 hover:text-[#fd8128] text-xs sm:text-sm font-medium transition-all"
+                className="mt-4 inline-flex items-center self-start gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/5 ring-1 ring-white/15 hover:ring-white/15 text-zinc-200 hover:text-zinc-300 text-xs sm:text-sm font-medium transition-all"
               >
                 View Research
                 <ArrowUpRightIcon className="w-3.5 h-3.5 transition-transform group-hover/research:translate-x-0.5 group-hover/research:-translate-y-0.5" />
               </Link>
             </div>
           </Card>
-          <Card className={`h-[320px] sm:h-[340px] md:h-[320px] p-0 relative md:col-span-1 lg:col-span-1 bg-gradient-to-br from-black/80 via-slate-900 to-slate-900 ${cardHoverClass}`}>
+          <Card className={`h-[320px] sm:h-[340px] md:h-[320px] p-0 relative md:col-span-1 lg:col-span-1 bg-gradient-to-br from-white/10 via-white/[0.03] to-white/5 ${cardHoverClass}`}>
             <div className="relative h-full p-4 sm:p-6 flex flex-col">
               {/* Live "available" status — small but punchy. */}
-              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-400/10 ring-1 ring-emerald-400/30 text-emerald-300 text-[10px] sm:text-xs font-semibold">
+              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] ring-1 ring-white/15 text-zinc-200 text-[10px] sm:text-xs font-semibold">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -629,7 +640,7 @@ return (
               </span>
 
               <div className="inline-flex items-center gap-2 mb-2 pr-24">
-                <StarIcon className="size-7 sm:size-8 text-emerald-300" />
+                <StarIcon className="size-7 sm:size-8 text-zinc-200" />
                 <h3 className="font-sans text-2xl sm:text-3xl text-white">Contact</h3>
               </div>
 
@@ -642,21 +653,21 @@ return (
 
               <a
                 href="mailto:eldriv@proton.me"
-                className="group/email flex items-center justify-between gap-3 px-3 py-2 rounded-xl bg-white/5 hover:bg-[#fd8128]/10 ring-1 ring-white/10 hover:ring-[#fd8128]/40 transition-all"
+                className="group/email flex items-center justify-between gap-3 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/5 ring-1 ring-white/10 hover:ring-white/15 transition-all"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-400/15 ring-1 ring-emerald-400/30 grid place-items-center">
-                    <svg className="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white/[0.06] ring-1 ring-white/15 grid place-items-center">
+                    <svg className="w-3.5 h-3.5 text-zinc-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                       <polyline points="22,6 12,13 2,6" />
                     </svg>
                   </div>
                   <div className="min-w-0">
                     <div className="text-[10px] text-white/50 uppercase tracking-wider leading-tight">Email</div>
-                    <div className="text-xs sm:text-sm text-white truncate group-hover/email:text-[#fd8128] transition-colors">eldriv@proton.me</div>
+                    <div className="text-xs sm:text-sm text-white truncate group-hover/email:text-zinc-300 transition-colors">eldriv@proton.me</div>
                   </div>
                 </div>
-                <ArrowUpRightIcon className="w-4 h-4 text-white/50 group-hover/email:text-[#fd8128] flex-shrink-0 transition-colors" />
+                <ArrowUpRightIcon className="w-4 h-4 text-white/50 group-hover/email:text-zinc-300 flex-shrink-0 transition-colors" />
               </a>
 
               <div className="flex items-center gap-2 mt-3">
@@ -665,20 +676,20 @@ return (
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#fd8128]/15 ring-1 ring-white/10 hover:ring-[#fd8128]/40 grid place-items-center transition-all hover:-translate-y-0.5"
+                  className="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/5 ring-1 ring-white/10 hover:ring-white/15 grid place-items-center transition-all hover:-translate-y-0.5"
                 >
-                  <GithubIcon className="w-4 h-4 text-emerald-300" />
+                  <GithubIcon className="w-4 h-4 text-zinc-200" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/michael-adrian-villareal-9a344634a/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#fd8128]/15 ring-1 ring-white/10 hover:ring-[#fd8128]/40 grid place-items-center transition-all hover:-translate-y-0.5"
+                  className="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/5 ring-1 ring-white/10 hover:ring-white/15 grid place-items-center transition-all hover:-translate-y-0.5"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 text-emerald-300"
+                    className="w-4 h-4 text-zinc-200"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     aria-hidden="true"

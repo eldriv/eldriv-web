@@ -7,19 +7,19 @@ const headerStagger = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.14,
+      staggerChildren: 0.1,
       delayChildren: 0.04,
     },
   },
 };
 
 const headerItem = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -29,10 +29,12 @@ export function SectionHeader({
   title,
   eyebrow,
   description,
+  index,
 }: {
   title: string;
   eyebrow: string;
   description: string;
+  index?: number;
 }) {
   return (
     <motion.div
@@ -41,20 +43,25 @@ export function SectionHeader({
       viewport={scrollViewport}
       variants={headerStagger}
     >
-      <motion.div variants={headerItem} className="flex justify-center">
-        <p className="uppercase md:text-10xl text-3xl font-semibold tracking-widest bg-gradient-to-r from-white to-[#fd8128] text-center text-transparent bg-clip-text">
+      <motion.div
+        variants={headerItem}
+        className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-4"
+      >
+        <p className="font-pixel text-sm text-zinc-500 lowercase">
+          {index !== undefined && <span className="text-accent">{String(index).padStart(2, "0")} — </span>}
           {eyebrow}
         </p>
+        <span aria-hidden="true" className="halftone mask-fade-x hidden h-3 w-24 opacity-20 sm:block" />
       </motion.div>
       <motion.h2
         variants={headerItem}
-        className="font-sans md:text-5xl text-3xl text-center mt-6 sm:mt-8"
+        className="mt-8 font-pixel text-3xl leading-tight text-zinc-100 sm:text-4xl md:text-[2.6rem]"
       >
         {title}
       </motion.h2>
       <motion.p
         variants={headerItem}
-        className="text-center md:text-lg text-white/90 mt-6 sm:mt-8 lg:mt-10 lg:text-xl max-w-2xl mx-auto sm:text-lg"
+        className="mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400 sm:text-base"
       >
         {description}
       </motion.p>

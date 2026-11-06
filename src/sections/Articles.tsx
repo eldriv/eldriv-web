@@ -216,14 +216,10 @@ export const ArticlesSection = () => {
 
   return (
     <div className="py-12 sm:py-16 lg:py-24 relative" id="blogs">
-      {/* Soft ambient glows — dark, branded, very subtle. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-32 left-[15%] h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-emerald-500/[0.06] blur-3xl" />
-        <div className="absolute -bottom-32 right-[10%] h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-[#fd8128]/[0.06] blur-3xl" />
-      </div>
 
       <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
         <SectionHeader
+          index={4}
           eyebrow="Eldriv's"
           title="Life and Tech Blogs"
           description="A personal journey through life and technology — written to inspire others to explore their own paths and the profound possibilities that lie beyond."
@@ -241,8 +237,8 @@ export const ArticlesSection = () => {
                   onClick={() => setActiveTopic(topic)}
                   className={`relative px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-gradient-to-r from-emerald-300 to-[#fd8128] text-gray-950 shadow-[0_6px_16px_-6px_rgba(253,129,40,0.5)]"
-                      : "bg-white/5 text-white/70 ring-1 ring-white/10 hover:bg-white/10 hover:text-white hover:ring-white/20"
+                      ? "bg-gradient-to-r from-white/10 to-white/5 text-gray-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_20px_-8px_rgba(0,0,0,0.6)]"
+                      : "glass-pill text-white/70 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   {topic}
@@ -251,8 +247,8 @@ export const ArticlesSection = () => {
             })}
           </div>
 
-          <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-300/70" />
+          <div className="glass-pill self-start sm:self-auto rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50 flex items-center gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/[0.06]" />
             {filtered.length.toString().padStart(2, "0")} entries
           </div>
         </div>
@@ -289,19 +285,19 @@ export const ArticlesSection = () => {
                         isFeatured
                           ? "min-h-[220px] lg:min-h-[320px]"
                           : "min-h-[150px]"
-                      } flex flex-col transition-all duration-300 will-change-transform motion-safe:hover:-translate-y-1 hover:border-[#fd8128]/40 hover:shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6),_0_0_0_1px_rgba(253,129,40,0.18)]`}
+                      } flex flex-col transition-all duration-300 will-change-transform motion-safe:hover:-translate-y-1 hover:border-accent/40 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_60px_-30px_rgba(253,129,40,0.35)]`}
                     >
                       {/* Top-right ornament: Featured pulse on featured, mono index on others. */}
                       {isFeatured ? (
-                        <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#fd8128]/15 ring-1 ring-[#fd8128]/30 text-[#fd8128] text-[10px] font-mono uppercase tracking-[0.2em]">
+                        <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent/10 ring-1 ring-accent/40 text-accent text-[10px] font-mono uppercase tracking-[0.2em]">
                           <span className="relative flex h-1.5 w-1.5">
-                            <span className="absolute inline-flex h-full w-full rounded-full bg-[#fd8128] opacity-75 animate-ping" />
-                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#fd8128]" />
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
                           </span>
                           Featured
                         </span>
                       ) : (
-                        <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 group-hover/post:text-[#fd8128]/70 transition-colors">
+                        <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 group-hover/post:text-zinc-300 transition-colors">
                           {indexLabel}
                         </span>
                       )}
@@ -310,7 +306,7 @@ export const ArticlesSection = () => {
                         <div
                           className={`${
                             isFeatured ? "size-10 sm:size-12" : "size-9"
-                          } rounded-lg bg-white/5 ring-1 ring-white/10 grid place-items-center overflow-hidden flex-shrink-0`}
+                          } rounded-xl bg-white/[0.07] ring-1 ring-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] grid place-items-center overflow-hidden flex-shrink-0`}
                         >
                           <Image
                             src={article.avatar}
@@ -321,7 +317,7 @@ export const ArticlesSection = () => {
                           />
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-emerald-300">
+                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-zinc-200">
                             {article.topic}
                           </span>
                           {isFeatured && (
@@ -337,7 +333,7 @@ export const ArticlesSection = () => {
                           isFeatured
                             ? "text-lg sm:text-xl md:text-2xl"
                             : "text-sm sm:text-base"
-                        } font-semibold text-white group-hover/post:text-[#fd8128] transition-colors leading-snug ${
+                        } font-semibold text-white group-hover/post:text-accent transition-colors leading-snug ${
                           isFeatured ? "mb-2" : "mb-1.5"
                         }`}
                       >
@@ -356,12 +352,12 @@ export const ArticlesSection = () => {
 
                       {/* Featured-only extras: terminal-style code preview + tags. */}
                       {isFeatured && article.preview && (
-                        <div className="mt-2.5 sm:mt-3 rounded-lg bg-gray-900/70 ring-1 ring-white/10 overflow-hidden">
+                        <div className="mt-2.5 sm:mt-3 rounded-xl bg-black/30 ring-1 ring-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden">
                           <div className="flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 border-b border-white/5 bg-white/[0.02]">
                             <span className="flex gap-1">
                               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-rose-400/60" />
                               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400/60" />
-                              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400/60" />
+                              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/[0.06]" />
                             </span>
                             <span className="font-mono text-[9px] sm:text-[10px] text-white/40 truncate">
                               {article.preview.filename}
@@ -393,7 +389,7 @@ export const ArticlesSection = () => {
                         </div>
                       )}
 
-                      <div className="mt-auto pt-3 inline-flex items-center gap-1.5 self-start text-emerald-300 group-hover/post:text-[#fd8128] transition-colors text-xs sm:text-sm font-medium">
+                      <div className="mt-auto pt-3 inline-flex items-center gap-1.5 self-start text-accent group-hover/post:text-accent-soft transition-colors text-xs sm:text-sm font-medium">
                         Read article
                         <ArrowUpRightIcon className="w-3.5 h-3.5 transition-transform group-hover/post:translate-x-0.5 group-hover/post:-translate-y-0.5" />
                       </div>
@@ -418,9 +414,9 @@ export const ArticlesSection = () => {
             href="https://eldriv-blogs.netlify.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="group/cta inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-[#fd8128]/15 ring-1 ring-white/10 hover:ring-[#fd8128]/40 text-white hover:text-[#fd8128] transition-all text-sm font-medium"
+            className="glass-pill group/cta inline-flex items-center gap-2 px-5 py-2.5 rounded-full hover:bg-white/5 hover:border-white/15 text-white hover:text-zinc-300 transition-all text-sm font-medium"
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-300 group-hover/cta:text-[#fd8128] transition-colors">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-200 group-hover/cta:text-zinc-300 transition-colors">
               {">"}_
             </span>
             View all posts on the blog

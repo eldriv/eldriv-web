@@ -20,8 +20,16 @@ const config: Config = {
       },
     },
     extend: {
+      colors: {
+        accent: {
+          DEFAULT: "#fd8128",
+          soft: "#ffa868",
+        },
+      },
       fontFamily: {
-        sans: 'var(--font-sans)',
+        sans: ['var(--font-geist-sans)', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+        pixel: ['var(--font-geist-pixel-square)', 'var(--font-geist-mono)', 'monospace'],
         serif: 'var(--font-serif)',
       },
       animation: {

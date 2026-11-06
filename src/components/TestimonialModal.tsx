@@ -211,7 +211,7 @@ export const TestimonialModal = ({
             type="button"
             aria-label="Close dialog"
             onClick={onClose}
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-default"
+            className="absolute inset-0 bg-[#05060b]/60 backdrop-blur-md cursor-default"
           />
 
           {/* Dialog */}
@@ -224,17 +224,9 @@ export const TestimonialModal = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative w-full max-w-lg rounded-3xl bg-gray-900/95 border border-white/15 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] overflow-hidden"
+            className="glass-strong relative w-full max-w-lg rounded-3xl overflow-hidden"
           >
             {/* Subtle brand glow */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-[#fd8128]/20 blur-3xl"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-emerald-400/10 blur-3xl"
-            />
 
             <div className="relative p-6 sm:p-7">
               <div className="flex items-start justify-between gap-4">
@@ -254,7 +246,7 @@ export const TestimonialModal = ({
                   type="button"
                   onClick={onClose}
                   aria-label="Close"
-                  className="shrink-0 h-9 w-9 rounded-full border border-[#fd8128]/40 text-white/80 hover:text-white hover:bg-[#fd8128]/15 transition-colors flex items-center justify-center"
+                  className="shrink-0 h-9 w-9 rounded-full border border-white/15 text-white/80 hover:text-white hover:bg-white/5 transition-colors flex items-center justify-center"
                 >
                   <CloseIcon className="w-4 h-4" />
                 </button>
@@ -284,7 +276,7 @@ export const TestimonialModal = ({
                     htmlFor="t-name"
                     className="block text-sm font-medium text-white"
                   >
-                    Your name <span className="text-[#fd8128]">*</span>
+                    Your name <span className="text-zinc-300">*</span>
                   </label>
                   <input
                     id="t-name"
@@ -295,7 +287,7 @@ export const TestimonialModal = ({
                     autoComplete="name"
                     maxLength={80}
                     required
-                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#fd8128]/60 focus:bg-white/[0.06] transition-colors"
+                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors"
                   />
                 </div>
 
@@ -315,7 +307,7 @@ export const TestimonialModal = ({
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Founder · Acme Co."
                     maxLength={100}
-                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#fd8128]/60 focus:bg-white/[0.06] transition-colors"
+                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors"
                   />
                 </div>
 
@@ -325,7 +317,7 @@ export const TestimonialModal = ({
                     htmlFor="t-quote"
                     className="block text-sm font-medium text-white"
                   >
-                    Your testimonial <span className="text-[#fd8128]">*</span>
+                    Your testimonial <span className="text-zinc-300">*</span>
                   </label>
                   <textarea
                     id="t-quote"
@@ -336,7 +328,7 @@ export const TestimonialModal = ({
                     placeholder="Working with Eldriv was..."
                     rows={4}
                     required
-                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#fd8128]/60 focus:bg-white/[0.06] transition-colors resize-y min-h-[110px]"
+                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors resize-y min-h-[110px]"
                   />
                   <div className="mt-1.5 flex justify-end text-xs text-white/50">
                     {quote.length}/{MAX_QUOTE_LENGTH}
@@ -375,7 +367,7 @@ export const TestimonialModal = ({
                           <button
                             type="button"
                             onClick={removePhoto}
-                            className="text-xs text-white/60 hover:text-[#fd8128] transition-colors"
+                            className="text-xs text-white/60 hover:text-zinc-300 transition-colors"
                           >
                             Remove
                           </button>
@@ -417,7 +409,7 @@ export const TestimonialModal = ({
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="rounded-xl bg-[#fd8128] hover:bg-[#ff9033] text-white text-sm font-semibold px-5 h-11 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="rounded-xl bg-zinc-300 hover:bg-[#ff9033] text-white text-sm font-semibold px-5 h-11 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {submitting ? "Submitting…" : "Submit testimonial"}
                   </button>

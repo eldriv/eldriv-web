@@ -19,8 +19,18 @@ import CheerFunderImage from "@/assets/images/cheerfunder.png";
 import LeadingLsImage from "@/assets/images/leading-ls.png";
 import CasaNorthImage from "@/assets/images/casa-north.png";
 import GenerationSmileImage from "@/assets/images/generation-smile-dental-clinic.png";
+import CredibleImage from "@/assets/images/credible.jpg";
 
 const websites: Website[] = [
+  {
+    title: "Credible Skin Evidence",
+    description:
+      "Shopify storefront for Credible, a dermatologist-developed skincare brand founded by facial plastic surgeon Dr. Prem Tripathi. A custom theme brings clinical results, before-and-after comparisons, key ingredients, FAQs, and reviews to the product page, alongside Recharge subscribe-and-save, a skin quiz, and an Evidence Library blog with article search and categories.",
+    image: CredibleImage,
+    liveUrl: "https://csevidence.com",
+    technologies: ["Shopify", "Liquid", "JavaScript", "CSS", "Recharge"],
+    clientLocation: "US",
+  },
   {
     title: "Crown Catering",
     description:
@@ -171,6 +181,7 @@ export const WebsitesSection = () => {
       <div className="py-12 sm:py-16 lg:py-24 relative">
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
           <SectionHeader
+            index={3}
             eyebrow="Web Design & Development"
             title="Eldriv's Website Portfolio"
             description="Here are some of the websites I've built from the ground up, showcasing modern technologies, responsive design, and SEO-optimized. Each project reflects my commitment to clean architecture, accessibility, and user-centric interfaces."
@@ -192,14 +203,8 @@ export const WebsitesSection = () => {
 
             {/* Desktop: Embla Carousel - Continuous Scroll */}
             <div className="hidden sm:block relative">
-              {/* Left Gradient Overlay - Desktop only */}
-              <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 lg:w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-              
-              {/* Right Gradient Overlay - Desktop only */}
-              <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 lg:w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
-              
-              <div className="overflow-hidden" ref={emblaRef}>
-                <div className="flex">
+              <div className="overflow-hidden edge-fade-x" ref={emblaRef}>
+                <div className="flex py-3">
                   {/* Duplicate websites array for seamless loop */}
                   {[...websites, ...websites]
                     .filter((website) => !website.featured)
@@ -219,7 +224,7 @@ export const WebsitesSection = () => {
             </div>
 
             {/* Hover hint with icons - Only show on desktop */}
-            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 text-white/50 text-xs sm:text-sm px-4">
+            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 text-white/55 text-xs sm:text-sm px-4 py-2 w-fit mx-auto rounded-full glass-pill">
               <span className="flex items-center gap-1.5">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

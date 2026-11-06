@@ -10,6 +10,16 @@
             overflow-x: hidden;
         }
 
+        ::selection {
+            background: #fd8128;
+            color: #0c0c0f;
+        }
+
+        :focus-visible {
+            outline: 2px solid #fd8128;
+            outline-offset: 2px;
+        }
+
         /* Honor the system "reduce motion" setting — kill non-essential
            framer-motion / keyframe animations for users who request it. */
         @media (prefers-reduced-motion: no-preference) {
@@ -32,9 +42,100 @@
         }
     }
 
+    @layer components {
+        /* Flat panel used by cards: hairline border on a slightly lifted
+           ink surface, no blur or glow. */
+        .glass {
+            background-color: #111115;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Overlays (nav, menus, modals) that sit above scrolling content. */
+        .glass-strong {
+            background-color: rgba(14, 14, 18, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Outlined chips: tags, icon buttons, secondary CTAs. */
+        .glass-pill {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Selected / primary state: an accent-tinted chip. */
+        .glass-accent {
+            background-color: rgba(253, 129, 40, 0.12);
+            border: 1px solid rgba(253, 129, 40, 0.45);
+            color: #ffa868;
+        }
+
+        /* Solid accent button for the main call to action. */
+        .btn-ink {
+            @apply inline-flex items-center justify-center rounded-full bg-accent font-medium text-[#0c0c0f] shadow-[0_0_24px_-6px_rgba(253,129,40,0.55)] transition-colors hover:bg-accent-soft;
+        }
+
+        .text-accent-gradient {
+            @apply bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent;
+        }
+
+        /* Fades the edges of horizontal carousels into the background. */
+        .edge-fade-x {
+            -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0,
+                black 8%,
+                black 92%,
+                transparent 100%
+            );
+            mask-image: linear-gradient(
+                to right,
+                transparent 0,
+                black 8%,
+                black 92%,
+                transparent 100%
+            );
+        }
+
+        .text-gradient-brand {
+            @apply text-zinc-100;
+        }
+
+        /* Halftone dot texture used as quiet decoration. */
+        .halftone {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.9) 1px, transparent 1.4px);
+            background-size: 7px 7px;
+        }
+
+        .mask-fade-x {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+        }
+
+        .mask-circle {
+            -webkit-mask-image: radial-gradient(circle, black 0%, transparent 70%);
+            mask-image: radial-gradient(circle, black 0%, transparent 70%);
+        }
+
+        .mask-corner-tr {
+            -webkit-mask-image: radial-gradient(ellipse at top right, black 0%, transparent 65%);
+            mask-image: radial-gradient(ellipse at top right, black 0%, transparent 65%);
+        }
+
+        .mask-corner-bl {
+            -webkit-mask-image: radial-gradient(ellipse at bottom left, black 0%, transparent 65%);
+            mask-image: radial-gradient(ellipse at bottom left, black 0%, transparent 65%);
+        }
+
+        /* Small mono caption used for section numbers and meta labels. */
+        .label-mono {
+            @apply font-mono text-[11px] uppercase tracking-wider text-zinc-500;
+        }
+    }
+
     @layer utilities {
         .container {
             @apply lg:max-w-5xl;
         }
     }
-    

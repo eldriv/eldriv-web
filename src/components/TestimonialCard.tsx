@@ -93,23 +93,23 @@ export const TestimonialCard = ({
       }}
       className="h-full"
     >
-      <Card className="h-full min-h-[300px] sm:min-h-[320px] p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-all duration-300 hover:border-[#fd8128]/40 hover:shadow-[0_0_0_1px_rgba(253,129,40,0.15)]">
+      <Card className="h-full min-h-[300px] sm:min-h-[320px] p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-white/15 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_30px_60px_-30px_rgba(0,0,0,0.35)]">
         {/* Top row: quote glyph + source badge */}
         <div className="flex items-start justify-between mb-5 gap-3">
           <div className="relative">
             <div
               aria-hidden="true"
-              className="absolute -inset-3 rounded-full bg-[#fd8128]/15 blur-md"
+              className="absolute -inset-3 rounded-full bg-white/5 blur-md"
             />
-            <QuoteMark className="relative w-8 h-8 sm:w-9 sm:h-9 text-[#fd8128]" />
+            <QuoteMark className="relative w-8 h-8 sm:w-9 sm:h-9 text-zinc-300" />
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
             <span
               className={`text-[10px] sm:text-xs font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full border backdrop-blur-sm ${
                 isUser
-                  ? "bg-emerald-300/15 text-emerald-300 border-emerald-300/30"
-                  : "bg-[#fd8128]/15 text-[#fd8128] border-[#fd8128]/30"
+                  ? "bg-white/[0.06] text-zinc-200 border-white/15"
+                  : "bg-white/5 text-zinc-300 border-white/15"
               }`}
             >
               {isUser ? "Client" : "Featured"}
@@ -134,7 +134,7 @@ export const TestimonialCard = ({
         </blockquote>
 
         {/* Divider */}
-        <div className="mt-6 h-px w-full bg-gradient-to-r from-[#fd8128]/60 via-white/15 to-transparent" />
+        <div className="mt-6 h-px w-full bg-gradient-to-r from-white/10 via-white/15 to-transparent" />
 
         {/* Author + project link */}
         <div className="mt-5 flex items-center gap-3">
@@ -146,7 +146,7 @@ export const TestimonialCard = ({
               className="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-white/10"
             />
           ) : (
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#fd8128] to-emerald-400 text-white font-semibold flex items-center justify-center ring-2 ring-white/10 text-sm">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-white/10 to-white/5 text-white font-semibold flex items-center justify-center ring-2 ring-white/10 text-sm">
               {getInitials(testimonial.name)}
             </div>
           )}
@@ -221,7 +221,7 @@ const ProjectLink = ({ href, label }: ProjectLinkProps) => {
       rel={isAnchor ? undefined : "noopener noreferrer"}
       title={label ? `View ${label}` : "View project"}
       aria-label={label ? `View ${label}` : "View project"}
-      className="group/link flex-shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] hover:border-[#fd8128]/50 hover:bg-[#fd8128]/10 hover:text-white text-white/70 text-[11px] sm:text-xs font-medium px-2.5 py-1.5 transition-colors"
+      className="glass-pill group/link flex-shrink-0 inline-flex items-center gap-1.5 rounded-full hover:border-white/15 hover:bg-white/5 hover:text-white text-white/70 text-[11px] sm:text-xs font-medium px-2.5 py-1.5 transition-colors"
     >
       <span className="hidden md:inline">View project</span>
       <span className="md:hidden">View</span>

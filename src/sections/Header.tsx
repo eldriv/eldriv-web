@@ -77,48 +77,62 @@ export const Header = () => {
 
   return (
     <>
-      {/* Desktop Navigation */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:block">
-        <nav className="relative flex gap-1 p-0.5 border border-white/15 rounded-full bg-white/10 backdrop-blur-md shadow-lg">
-          {/* Sliding Highlight */}
-          <span
-            className="absolute top-0 bottom-0 bg-[#fd8128] rounded-full transition-all duration-500 ease-in-out z-0"
-            style={{
-              left: `${indicatorStyle.left}px`,
-              width: `${indicatorStyle.width}px`,
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[#0c0c0f]/80 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-4 sm:px-6 md:px-8">
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('Home');
             }}
-          />
-          {/* Navigation Links */}
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              ref={(el) => {
-                navRefs.current[link] = el;
+            className="font-pixel text-[15px] text-zinc-100"
+          >
+            Eldriv<span aria-hidden="true" className="text-accent">.</span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="relative hidden items-center gap-1 md:flex">
+            <span
+              className="absolute -bottom-[17px] h-[2px] bg-accent shadow-[0_0_10px_rgba(253,129,40,0.7)] transition-all duration-500 ease-in-out"
+              style={{
+                left: `${indicatorStyle.left}px`,
+                width: `${indicatorStyle.width}px`,
               }}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(link);
-              }}
-              className={`
-                relative z-10 px-4 py-1.5 rounded-full text-sm font-medium
-                transition-colors duration-300
-                ${activeLink === link ? 'text-white' : 'text-white/70 hover:text-white'}
-              `}
-            >
-              {link}
-            </a>
-          ))}
-        </nav>
-      </div>
+            />
+            {navLinks.map((link) => (
+              <a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                data-pointer={`nav-${link.toLowerCase()}`}
+                ref={(el) => {
+                  navRefs.current[link] = el;
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link);
+                }}
+                className={`
+                  relative rounded-full px-3 py-1.5 font-mono text-[12px] lowercase
+                  transition-colors duration-300
+                  data-[pointer-active]:bg-accent/10 data-[pointer-active]:text-accent
+                  ${activeLink === link ? 'text-zinc-100' : 'text-zinc-500 hover:text-zinc-200'}
+                `}
+              >
+                {link}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
 
       {/* Mobile Navigation */}
-      <div className="mobile-nav-container fixed top-4 right-4 z-50 md:hidden">
+      <div className="mobile-nav-container fixed top-1 right-3 z-50 md:hidden">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="flex items-center justify-center w-12 h-12 border border-white/15 rounded-full bg-white/10 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-white/20"
+          className="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 hover:bg-white/10 data-[pointer-active]:bg-accent/15 data-[pointer-active]:ring-1 data-[pointer-active]:ring-accent/50"
           aria-label="Toggle menu"
+          data-pointer="nav-menu"
         >
           <div className="relative w-5 h-5">
             {/* Hamburger Icon */}
@@ -142,7 +156,7 @@ export const Header = () => {
 
         {/* Mobile Menu Overlay */}
         <div
-          className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 z-40 ${
+          className={`fixed inset-0 bg-[#0c0c0f]/60 backdrop-blur-sm transition-opacity duration-300 z-40 ${
             isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
           style={{ top: 0, left: 0, right: 0, bottom: 0 }}
@@ -150,7 +164,7 @@ export const Header = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`absolute top-14 right-0 w-44 border border-white/15 rounded-xl bg-white/10 backdrop-blur-md shadow-lg transition-all duration-300 z-50 ${
+          className={`glass-strong absolute top-14 right-0 w-48 rounded-2xl transition-all duration-300 z-50 ${
             isMobileMenuOpen 
               ? 'opacity-100 translate-y-0 scale-100' 
               : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
@@ -166,10 +180,10 @@ export const Header = () => {
                   scrollToSection(link);
                 }}
                 className={`
-                  block px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200
+                  block px-3 py-2 rounded-xl font-mono text-[13px] lowercase transition-all duration-200
                   ${activeLink === link 
-                    ? 'text-white bg-[#fd8128]' 
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    ? 'text-accent bg-accent/10' 
+                    : 'text-zinc-500 hover:text-zinc-100 hover:bg-white/[0.05]'
                   }
                 `}
                 style={{

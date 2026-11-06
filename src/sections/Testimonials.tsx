@@ -173,6 +173,7 @@ export const TestimonialsSection = () => {
       <div className="py-12 sm:py-16 lg:py-24 relative">
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
           <SectionHeader
+            index={6}
             eyebrow="Testimonials"
             title="What clients say about working with me."
             description="A handful of kind words from the people I've collaborated with — and an open invitation for clients to add their own."
@@ -187,9 +188,9 @@ export const TestimonialsSection = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
-              className="group inline-flex items-center gap-2.5 rounded-full border-2 border-[#fd8128] bg-[#fd8128]/[0.06] hover:bg-[#fd8128]/15 text-white px-5 sm:px-6 h-11 sm:h-12 text-sm sm:text-base font-semibold transition-colors backdrop-blur-sm"
+              className="glass-pill group inline-flex items-center gap-2.5 rounded-full !border-white/15 bg-white/5 hover:bg-white/5 text-white px-5 sm:px-6 h-11 sm:h-12 text-sm sm:text-base font-semibold transition-colors shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_30px_-12px_rgba(0,0,0,0.5)]"
             >
-              <ChatPlusIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#fd8128] group-hover:text-white transition-colors" />
+              <ChatPlusIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-zinc-300 group-hover:text-white transition-colors" />
               <span>Share yours</span>
             </motion.button>
 
@@ -201,7 +202,7 @@ export const TestimonialsSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.25 }}
-                  className="text-sm text-emerald-300 max-w-md text-center"
+                  className="text-sm text-zinc-200 max-w-md text-center"
                   role="status"
                 >
                   Thanks for sharing! Your testimonial is in for review and
@@ -225,11 +226,8 @@ export const TestimonialsSection = () => {
 
             {/* Desktop: continuous auto-scroll carousel */}
             <div className="hidden sm:block relative">
-              <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 lg:w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-32 lg:w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
-
-              <div className="overflow-hidden" ref={emblaRef}>
-                <div className="flex">
+              <div className="overflow-hidden edge-fade-x" ref={emblaRef}>
+                <div className="flex py-3">
                   {[...allTestimonials, ...allTestimonials].map(
                     (testimonial, index) => (
                       <div
@@ -248,7 +246,7 @@ export const TestimonialsSection = () => {
             </div>
 
             {/* Carousel hint — matches Web.tsx styling */}
-            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 text-white/50 text-xs sm:text-sm px-4">
+            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 text-white/55 text-xs sm:text-sm px-4 py-2 w-fit mx-auto rounded-full glass-pill">
               <span className="flex items-center gap-1.5">
                 <svg
                   className="w-4 h-4"

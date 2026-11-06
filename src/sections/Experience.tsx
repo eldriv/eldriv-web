@@ -23,7 +23,6 @@ import BehindDigitalsImage from "@/assets/images/behind-digitals.png";
 import certificateImage from "@/assets/images/coc.png";
 import freelanceImage from "@/assets/images/figma.png";
 import Image, { StaticImageData } from "next/image"; 
-import { Card } from '@/components/card';
 
 // Define types for portfolio items
 interface PortfolioImage {
@@ -186,7 +185,7 @@ const Lightbox = ({
   
   return (
     <motion.div 
-      className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-[#0c0c0f]/85 backdrop-blur-sm flex items-center justify-center p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -195,7 +194,7 @@ const Lightbox = ({
       <div className="absolute top-6 right-6">
         <button 
           onClick={onClose}
-          className="text-white h-10 w-10 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/50 transition-colors"
+          className="text-white h-10 w-10 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors"
         >
           <CloseIcon className="w-5 h-5" />
         </button>
@@ -238,7 +237,7 @@ const Lightbox = ({
               
               <button 
                 onClick={onPrev}
-                className="absolute left-2 top-1/2 -translate-y-1/2 text-white h-12 w-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/50 transition-colors"
+                className="absolute left-2 top-1/2 -translate-y-1/2 text-white h-12 w-12 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors"
                 aria-label="Previous image"
               >
                 <LeftArrowIcon className="w-6 h-6" />
@@ -246,7 +245,7 @@ const Lightbox = ({
               
               <button 
                 onClick={onNext}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-white h-12 w-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/50 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-white h-12 w-12 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors"
                 aria-label="Next image"
               >
                 <RightArrowIcon className="w-6 h-6" />
@@ -261,7 +260,7 @@ const Lightbox = ({
               {portfolioImages.map((image, index) => (
                 <motion.div 
                   key={image.id} 
-                  className={`w-16 h-16 flex-shrink-0 cursor-pointer ${index === currentIndex ? 'ring-2 ring-[#fd8128]' : ''}`}
+                  className={`w-16 h-16 flex-shrink-0 cursor-pointer ${index === currentIndex ? 'ring-2 ring-white/15' : ''}`}
                   onClick={() => onThumbnailClick(index)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -285,7 +284,7 @@ const portfolioExperience: PortfolioExperienceItem[] = [
   {
     company: "Behind Digitals",
     Date: "January 2026–Present",
-    title: "Product & Software Engineer",
+    title: "Founder & Technical Lead",
     results: [
       {
         title:
@@ -377,28 +376,8 @@ const portfolioExperience: PortfolioExperienceItem[] = [
   },
 ];
 
-const imageVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { 
-      duration: 0.5,
-      ease: "easeOut"
-    } 
-  },
-  hover: {
-    scale: 1.03,
-    boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
-    transition: { 
-      duration: 0.3,
-      ease: "easeInOut"
-    }
-  }
-};
-
 export const ExperienceSection = () => {
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [lightboxState, setLightboxState] = useState<LightboxState>({
     isOpen: false,
     type: null,
@@ -455,150 +434,141 @@ export const ExperienceSection = () => {
       currentIndex: index
     });
   };
-  const selectedProject = portfolioExperience[selectedProjectIndex];
-
   return (
     <section className="py-12 sm:py-16 lg:py-24" id="experience">
       <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
         <SectionHeader
+          index={1}
           eyebrow="Eldriv's"
           title="Professional History"
           description="Product engineering, software development, and client work across the Philippines, UAE, and US."
         />
-        <ScrollReveal className="mt-12 sm:mt-16 md:mt-20" delay={0.08}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-            {/* Tabs */}
-            <div className="lg:col-span-3 xl:col-span-3">
-              <Card className="p-2.5 sm:p-3 bg-gray-800/95 border border-white/15">
-                <div className="text-xs uppercase tracking-widest text-white/50 px-2 pb-2">Experience</div>
-                <div className="space-y-2">
-                  {portfolioExperience.map((project, index) => {
-                    const isActive = selectedProjectIndex === index;
-                    return (
-                      <motion.button
-                        key={project.company}
-                        onClick={() => setSelectedProjectIndex(index)}
-                        className={`w-full text-left rounded-xl px-3 py-3 border transition-all ${
-                          isActive
-                            ? 'bg-white/10 border-[#fd8128]/50 shadow-[0_0_0_1px_rgba(253,129,40,0.25)]'
-                            : 'bg-white/[0.03] border-white/10 hover:bg-white/[0.07]'
+        <ScrollReveal className="mt-10 sm:mt-14" delay={0.08}>
+          <ol className="border-t border-white/10">
+            {portfolioExperience.map((project, index) => {
+              const isOpen = openIndex === index;
+              const isCurrent = /present/i.test(project.Date);
+              const panelId = `experience-panel-${index}`;
+              return (
+                <li key={project.company} className="border-b border-white/10">
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    className="group grid w-full grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 py-5 text-left sm:grid-cols-[13rem_1fr_auto] sm:gap-x-8 sm:py-6"
+                  >
+                    <span
+                      className={`col-span-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-colors sm:col-span-1 sm:text-xs ${
+                        isOpen ? "text-accent" : "text-zinc-500"
+                      }`}
+                    >
+                      <span
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                          isCurrent ? "bg-accent shadow-[0_0_8px_rgba(253,129,40,0.8)]" : "bg-zinc-700"
                         }`}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: 'tween', duration: 0.2 }}
+                      />
+                      {project.Date}
+                    </span>
+                    <span className="min-w-0">
+                      <span
+                        className={`block font-pixel text-lg leading-tight transition-colors sm:text-xl ${
+                          isOpen ? "text-white" : "text-zinc-200 group-hover:text-white"
+                        }`}
                       >
-                        <p className="text-[14px] font-semibold text-white">{project.company}</p>
-                        <p className="text-[14px] text-white/60 mt-1">{project.title}</p>
-                        <p className="text-[14px] text-[#fd8128] mt-1">{project.Date}</p>
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </Card>
-            </div>
+                        {project.title}
+                      </span>
+                      <span className="mt-1 block text-sm text-zinc-500">{project.company}</span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border font-mono text-sm transition-all duration-300 ${
+                        isOpen
+                          ? "rotate-45 border-accent/60 bg-accent/15 text-accent"
+                          : "border-white/10 text-zinc-500 group-hover:border-accent/40 group-hover:text-accent"
+                      }`}
+                    >
+                      +
+                    </span>
+                  </button>
 
-            {/* Active tab panel */}
-            <div className="lg:col-span-9 xl:col-span-9">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedProjectIndex}
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                <Card className="px-4 sm:px-6 md:px-8 pt-6 pb-6 md:pt-8 bg-gray-800/95 border border-white/15">
-                  <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-stretch">
-                    <div className="lg:col-span-6 flex flex-col h-full">
-                      <div className="inline-flex items-start sm:items-center gap-2 rounded-2xl sm:rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] max-w-full">
-                        <span className="h-2 w-2 mt-1 sm:mt-0 rounded-full bg-[#fd8128] flex-shrink-0" />
-                        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 inline-flex flex-wrap gap-x-2 gap-y-0.5 font-bold uppercase tracking-[0.16em] text-transparent bg-clip-text">
-                          <span>{selectedProject.company}</span>
-                          <span className="text-white/50 hidden sm:inline">&bull;</span>
-                          <span>{selectedProject.Date}</span>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={panelId}
+                        key="panel"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="grid gap-6 pb-8 sm:grid-cols-[13rem_1fr] sm:gap-x-8">
+                          <div className="hidden sm:block" />
+                          <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-8">
+                            <div className="flex flex-col">
+                              <ul className="flex flex-col gap-3">
+                                {project.results.map((result, resultIndex) => (
+                                  <motion.li
+                                    key={`${project.title}-${result.title}`}
+                                    className="flex gap-3 text-sm leading-relaxed text-zinc-300 md:text-[15px]"
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.05 + resultIndex * 0.04 }}
+                                  >
+                                    <CheckIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent/80" />
+                                    <span>{result.title}</span>
+                                  </motion.li>
+                                ))}
+                              </ul>
+
+                              {project.buttonType === "link" && project.link ? (
+                                <a
+                                  href={project.link}
+                                  target={project.target ?? "_blank"}
+                                  rel="noreferrer"
+                                  className="btn-ink mt-6 inline-flex h-10 items-center justify-center gap-2 self-start rounded-full px-5 text-sm transition-[filter] hover:brightness-110"
+                                >
+                                  <span>{project.buttonText}</span>
+                                  <ArrowUprightIcon className="size-4" />
+                                </a>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (project.buttonType === "certificate" && project.certificateImage) {
+                                      openLightbox("certificate", project.certificateImage);
+                                    } else if (project.buttonType === "gallery") {
+                                      openLightbox("gallery", portfolioImages[0], 0);
+                                    }
+                                  }}
+                                  className="btn-ink mt-6 inline-flex h-10 items-center justify-center gap-2 self-start rounded-full px-5 text-sm transition-[filter] hover:brightness-110"
+                                >
+                                  <span>{project.buttonText}</span>
+                                  <ArrowUprightIcon className="size-4" />
+                                </button>
+                              )}
+                            </div>
+
+                            <div className="group/img relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+                              <Image
+                                src={project.image}
+                                alt={project.title}
+                                fill
+                                sizes="(min-width: 1024px) 352px, 100vw"
+                                className="object-cover object-left-top transition-transform duration-700 ease-out group-hover/img:scale-[1.03]"
+                                priority={index === 0}
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-
-                      <h3 className="font-sans text-2xl sm:text-3xl mt-4">{selectedProject.title}</h3>
-                      <div className="mt-4 h-px w-full bg-gradient-to-r from-[#fd8128]/80 via-white/20 to-transparent" />
-
-                      <div className="mt-4 min-h-0 overflow-y-auto pr-1 max-h-[190px] sm:max-h-[220px] scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-                        <ul className="flex flex-col gap-4">
-                          {selectedProject.results.map((result, resultIndex) => (
-                              <motion.li
-                                key={`${selectedProject.title}-${result.title}`}
-                                className="flex gap-2 text-sm text-white/100 md:text-base"
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: resultIndex * 0.06 }}
-                              >
-                                <CheckIcon className="w-5 h-5 flex-shrink-0" />
-                                <span>{result.title}</span>
-                              </motion.li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {selectedProject.buttonType === 'link' && selectedProject.link ? (
-                        <a href={selectedProject.link} target={selectedProject.target ?? "_blank"} rel="noreferrer">
-                          <motion.button
-                            className="bg-[#fd8128] text-white h-11 sm:h-12 w-full md:w-auto px-5 sm:px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-6 text-sm sm:text-base"
-                            whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <span>{selectedProject.buttonText}</span>
-                            <ArrowUprightIcon className="size-4" />
-                          </motion.button>
-                        </a>
-                      ) : (
-                        <motion.button
-                          onClick={() => {
-                            if (selectedProject.buttonType === 'certificate' && selectedProject.certificateImage) {
-                              openLightbox('certificate', selectedProject.certificateImage);
-                            } else if (selectedProject.buttonType === 'gallery') {
-                              openLightbox('gallery', portfolioImages[0], 0);
-                            }
-                          }}
-                          className="bg-[#fd8128] text-white h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-6"
-                          whileHover={{ scale: 1.05, backgroundColor: "#ff9033" }}
-                          whileTap={{ scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <span>{selectedProject.buttonText}</span>
-                          <ArrowUprightIcon className="size-4" />
-                        </motion.button>
-                      )}
-                    </div>
-
-                    <div className="lg:col-span-6 mt-6 lg:mt-0">
-                      <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-2 sm:p-3">
-                        <div className="relative w-full h-[360px] sm:h-[420px] lg:h-full min-h-[360px] rounded-xl overflow-hidden">
-                          <motion.div
-                            variants={imageVariants}
-                            initial="hidden"
-                            animate="visible"
-                            whileHover="hover"
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src={selectedProject.image}
-                              alt={selectedProject.title}
-                              fill
-                              sizes="(min-width: 1024px) 50vw, 100vw"
-                              className="object-cover object-left"
-                              priority={selectedProjectIndex < 2}
-                            />
-                          </motion.div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            })}
+          </ol>
         </ScrollReveal>
       </div>
       
