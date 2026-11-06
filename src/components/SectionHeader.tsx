@@ -45,23 +45,23 @@ export function SectionHeader({
     >
       <motion.div
         variants={headerItem}
-        className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-4"
+        className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-3 md:pb-4"
       >
-        <p className="font-pixel text-sm text-zinc-500 lowercase">
+        <p className="font-pixel text-xs text-zinc-500 lowercase md:text-sm">
           {index !== undefined && <span className="text-accent">{String(index).padStart(2, "0")} — </span>}
           {eyebrow}
         </p>
-        <span aria-hidden="true" className="halftone mask-fade-x hidden h-3 w-24 opacity-20 sm:block" />
+        <span aria-hidden="true" className="halftone mask-fade-x hidden h-3 w-24 opacity-20 md:block" />
       </motion.div>
       <motion.h2
         variants={headerItem}
-        className="mt-8 font-pixel text-3xl leading-tight text-zinc-100 sm:text-4xl md:text-[2.6rem]"
+        className="type-section-title mt-5 text-zinc-100 md:mt-8"
       >
         {title}
       </motion.h2>
       <motion.p
         variants={headerItem}
-        className="mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400 sm:text-base"
+        className="type-lead mt-3 max-w-2xl text-zinc-400 md:mt-4"
       >
         {description}
       </motion.p>

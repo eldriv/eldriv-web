@@ -9,6 +9,7 @@ import MarketingAgentsImage from "@/assets/images/marketing-agents.jpg";
 import MarketingAgentsTrackerImage from "@/assets/images/marketing-agents-tracker.jpg";
 import MarketingAgentsCompletedImage from "@/assets/images/marketing-agents-completed.jpg";
 import MarketingAgentsInfographicsImage from "@/assets/images/marketing-agents-infographics.jpg";
+import VieloStaycationImage from "@/assets/images/vielo-staycation.jpg";
 
 const webApps: Website[] = [
   {
@@ -59,8 +60,7 @@ const webApps: Website[] = [
     title: "Vielo Dashiel & Khali",
     description:
       "Built a staycation booking app where guests can explore three branches, view stay details and reviews, choose dates, and reserve with a small downpayment before settling the balance on arrival.",
-    image:
-      "https://staycation-booking.perlaycaro.workers.dev/uploads/landing/landing-hero-mobile-1790412625701.png",
+    image: VieloStaycationImage,
     liveUrl: "https://staycation-booking.perlaycaro.workers.dev/",
     technologies: [],
     projectType: "app",
@@ -70,17 +70,17 @@ const webApps: Website[] = [
 export const WebAppsSection = () => {
   return (
     <section id="web-apps">
-      <div className="py-12 sm:py-16 lg:py-24 relative">
-        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="py-10 md:py-16 lg:py-24 relative">
+        <div className="w-full max-w-[1280px] mx-auto px-5 md:px-8">
           <SectionHeader
-            index={2}
+            index={3}
             eyebrow="Web Applications"
             title="Selected products"
             description="Purpose-built software for real operational workflows."
           />
 
-          <ScrollReveal className="mt-12 sm:mt-16 md:mt-20" delay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+          <ScrollReveal className="mt-8 md:mt-16 lg:mt-20" delay={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 lg:gap-6">
               {webApps.map((app, index) => (
                 <WebsiteCard key={app.title} website={app} index={index} />
               ))}

@@ -233,7 +233,7 @@ export const TestimonialModal = ({
                 <div>
                   <h3
                     id="testimonial-modal-title"
-                    className="font-sans text-xl sm:text-2xl text-white"
+                    className="font-pixel text-xl md:text-2xl text-white"
                   >
                     Share your experience
                   </h3>
@@ -287,7 +287,7 @@ export const TestimonialModal = ({
                     autoComplete="name"
                     maxLength={80}
                     required
-                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors"
+                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-base focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors"
                   />
                 </div>
 
@@ -307,7 +307,7 @@ export const TestimonialModal = ({
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Founder · Acme Co."
                     maxLength={100}
-                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors"
+                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-base focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors"
                   />
                 </div>
 
@@ -328,7 +328,7 @@ export const TestimonialModal = ({
                     placeholder="Working with Eldriv was..."
                     rows={4}
                     required
-                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-sm focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors resize-y min-h-[110px]"
+                    className="mt-2 w-full rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/40 px-3.5 py-2.5 text-base focus:outline-none focus:border-white/15 focus:bg-white/[0.06] transition-colors resize-y min-h-[110px]"
                   />
                   <div className="mt-1.5 flex justify-end text-xs text-white/50">
                     {quote.length}/{MAX_QUOTE_LENGTH}
@@ -359,7 +359,7 @@ export const TestimonialModal = ({
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
-                          className="rounded-lg border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs sm:text-sm px-3 py-1.5 transition-colors"
+                          className="rounded-lg border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] text-white text-sm px-3 py-1.5 transition-colors"
                         >
                           {photoUrl ? "Change photo" : "Choose photo"}
                         </button>
@@ -373,7 +373,7 @@ export const TestimonialModal = ({
                           </button>
                         )}
                       </div>
-                      <p className="text-[11px] text-white/50">
+                      <p className="text-xs text-white/50">
                         {photoName
                           ? photoName
                           : "JPG, PNG, WebP, or GIF · max 2 MB"}

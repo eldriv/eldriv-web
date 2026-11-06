@@ -6,7 +6,7 @@ export const Header = () => {
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
-  const navLinks = ['Home', 'Experience', 'Blogs', 'About', 'Testimonials', 'Contact'];
+  const navLinks = ['Home', 'Experience', 'Stack', 'Blogs', 'About', 'Testimonials', 'Contact'];
 
   // Improved animation effect with proper timing
   useEffect(() => {
@@ -78,7 +78,7 @@ export const Header = () => {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[#0c0c0f]/80 backdrop-blur-md">
-        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-4 sm:px-6 md:px-8">
+        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-5 sm:px-6 md:px-8">
           <a
             href="#home"
             onClick={(e) => {

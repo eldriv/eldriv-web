@@ -106,7 +106,7 @@ export const TestimonialCard = ({
 
           <div className="flex items-center gap-2 flex-shrink-0">
             <span
-              className={`text-[10px] sm:text-xs font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full border backdrop-blur-sm ${
+              className={`type-meta px-2.5 py-1 rounded-full border backdrop-blur-sm ${
                 isUser
                   ? "bg-white/[0.06] text-zinc-200 border-white/15"
                   : "bg-white/5 text-zinc-300 border-white/15"
@@ -129,7 +129,7 @@ export const TestimonialCard = ({
         </div>
 
         {/* Quote */}
-        <blockquote className="text-white/90 text-[15px] sm:text-base leading-relaxed font-serif italic flex-1">
+        <blockquote className="type-lead text-white/90 font-serif italic flex-1">
           &ldquo;{testimonial.quote}&rdquo;
         </blockquote>
 
@@ -151,11 +151,11 @@ export const TestimonialCard = ({
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <p className="text-white font-semibold text-sm sm:text-base truncate">
+            <p className="text-white font-semibold text-sm truncate">
               {testimonial.name}
             </p>
             {testimonial.title && (
-              <p className="text-white/60 text-xs sm:text-[13px] truncate">
+              <p className="text-white/60 text-xs truncate">
                 {testimonial.title}
               </p>
             )}
@@ -221,7 +221,7 @@ const ProjectLink = ({ href, label }: ProjectLinkProps) => {
       rel={isAnchor ? undefined : "noopener noreferrer"}
       title={label ? `View ${label}` : "View project"}
       aria-label={label ? `View ${label}` : "View project"}
-      className="glass-pill group/link flex-shrink-0 inline-flex items-center gap-1.5 rounded-full hover:border-white/15 hover:bg-white/5 hover:text-white text-white/70 text-[11px] sm:text-xs font-medium px-2.5 py-1.5 transition-colors"
+      className="glass-pill group/link flex-shrink-0 inline-flex items-center gap-1.5 rounded-full hover:border-white/15 hover:bg-white/5 hover:text-white text-white/70 text-xs font-medium px-2.5 py-1.5 transition-colors"
     >
       <span className="hidden md:inline">View project</span>
       <span className="md:hidden">View</span>

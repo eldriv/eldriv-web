@@ -217,9 +217,9 @@ export const ArticlesSection = () => {
   return (
     <div className="py-12 sm:py-16 lg:py-24 relative" id="blogs">
 
-      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
+      <div className="container px-5 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
         <SectionHeader
-          index={4}
+          index={5}
           eyebrow="Eldriv's"
           title="Life and Tech Blogs"
           description="A personal journey through life and technology — written to inspire others to explore their own paths and the profound possibilities that lie beyond."
@@ -235,7 +235,7 @@ export const ArticlesSection = () => {
                 <button
                   key={topic}
                   onClick={() => setActiveTopic(topic)}
-                  className={`relative px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
+                  className={`relative px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                     isActive
                       ? "bg-gradient-to-r from-white/10 to-white/5 text-gray-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_20px_-8px_rgba(0,0,0,0.6)]"
                       : "glass-pill text-white/70 hover:bg-white/10 hover:text-white"
@@ -247,7 +247,7 @@ export const ArticlesSection = () => {
             })}
           </div>
 
-          <div className="glass-pill self-start sm:self-auto rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50 flex items-center gap-2">
+          <div className="glass-pill self-start sm:self-auto rounded-full px-3 py-1.5 type-meta tracking-[0.2em] text-white/50 flex items-center gap-2">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/[0.06]" />
             {filtered.length.toString().padStart(2, "0")} entries
           </div>
@@ -256,7 +256,7 @@ export const ArticlesSection = () => {
         {/* Bento grid */}
         <motion.div
           layout
-          className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+          className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((article, idx) => {
@@ -272,7 +272,7 @@ export const ArticlesSection = () => {
                   exit={{ opacity: 0, y: -8, scale: 0.97 }}
                   transition={{ duration: 0.3, delay: idx * 0.04 }}
                   className={
-                    isFeatured ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
+                    isFeatured ? "md:col-span-2 lg:row-span-2" : ""
                   }
                 >
                   <Link
@@ -289,7 +289,7 @@ export const ArticlesSection = () => {
                     >
                       {/* Top-right ornament: Featured pulse on featured, mono index on others. */}
                       {isFeatured ? (
-                        <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent/10 ring-1 ring-accent/40 text-accent text-[10px] font-mono uppercase tracking-[0.2em]">
+                        <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent/10 ring-1 ring-accent/40 text-accent type-meta tracking-[0.2em]">
                           <span className="relative flex h-1.5 w-1.5">
                             <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
                             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -297,7 +297,7 @@ export const ArticlesSection = () => {
                           Featured
                         </span>
                       ) : (
-                        <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 group-hover/post:text-zinc-300 transition-colors">
+                        <span className="absolute top-3 right-3 type-meta tracking-[0.2em] text-white/30 group-hover/post:text-zinc-300 transition-colors">
                           {indexLabel}
                         </span>
                       )}
@@ -317,11 +317,11 @@ export const ArticlesSection = () => {
                           />
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-zinc-200">
+                          <span className="type-meta tracking-[0.2em] text-zinc-200">
                             {article.topic}
                           </span>
                           {isFeatured && (
-                            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
+                            <span className="type-meta tracking-[0.2em] text-white/40">
                               {indexLabel} · Latest
                             </span>
                           )}
@@ -329,24 +329,14 @@ export const ArticlesSection = () => {
                       </div>
 
                       <h3
-                        className={`${
-                          isFeatured
-                            ? "text-lg sm:text-xl md:text-2xl"
-                            : "text-sm sm:text-base"
-                        } font-semibold text-white group-hover/post:text-accent transition-colors leading-snug ${
-                          isFeatured ? "mb-2" : "mb-1.5"
+                        className={`type-card-title text-white group-hover/post:text-accent transition-colors ${
+                          isFeatured ? "mb-2 lg:text-2xl" : "mb-1.5"
                         }`}
                       >
                         {article.name}
                       </h3>
 
-                      <p
-                        className={`${
-                          isFeatured ? "text-xs sm:text-sm" : "text-xs"
-                        } text-white/70 leading-relaxed ${
-                          isFeatured ? "line-clamp-2" : "line-clamp-2"
-                        }`}
-                      >
+                      <p className="type-body text-white/70 line-clamp-2">
                         {article.text}
                       </p>
 
@@ -359,17 +349,17 @@ export const ArticlesSection = () => {
                               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400/60" />
                               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/[0.06]" />
                             </span>
-                            <span className="font-mono text-[9px] sm:text-[10px] text-white/40 truncate">
+                            <span className="font-mono text-[11px] text-white/40 truncate">
                               {article.preview.filename}
                             </span>
                           </div>
-                          <div className="px-2.5 sm:px-3 py-1.5 sm:py-2 font-mono text-[9px] sm:text-[10px] md:text-[11px] leading-relaxed overflow-x-auto">
+                          <div className="px-2.5 sm:px-3 py-1.5 sm:py-2 font-mono text-[11px] leading-relaxed md:overflow-x-auto">
                             {article.preview.lines.map((line, i) => (
-                              <div key={i} className="flex gap-2 sm:gap-3 whitespace-pre">
+                              <div key={i} className="flex gap-2 sm:gap-3 whitespace-pre-wrap break-words md:whitespace-pre">
                                 <span className="text-white/25 select-none flex-shrink-0">
                                   {String(i + 1).padStart(2, "0")}
                                 </span>
-                                <span className="text-white/80">{line}</span>
+                                <span className="min-w-0 text-white/80">{line}</span>
                               </div>
                             ))}
                           </div>
@@ -381,7 +371,7 @@ export const ArticlesSection = () => {
                           {article.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-1.5 sm:px-2 py-0.5 rounded-full bg-white/5 ring-1 ring-white/10 text-[9px] sm:text-[10px] font-mono text-white/60 group-hover/post:text-white/80 transition-colors"
+                              className="px-1.5 sm:px-2 py-0.5 rounded-full bg-white/5 ring-1 ring-white/10 text-[11px] font-mono text-white/60 group-hover/post:text-white/80 transition-colors"
                             >
                               #{tag}
                             </span>
@@ -389,7 +379,7 @@ export const ArticlesSection = () => {
                         </div>
                       )}
 
-                      <div className="mt-auto pt-3 inline-flex items-center gap-1.5 self-start text-accent group-hover/post:text-accent-soft transition-colors text-xs sm:text-sm font-medium">
+                      <div className="mt-auto pt-3 inline-flex items-center gap-1.5 self-start text-accent group-hover/post:text-accent-soft transition-colors text-sm font-medium">
                         Read article
                         <ArrowUpRightIcon className="w-3.5 h-3.5 transition-transform group-hover/post:translate-x-0.5 group-hover/post:-translate-y-0.5" />
                       </div>
@@ -416,7 +406,7 @@ export const ArticlesSection = () => {
             rel="noopener noreferrer"
             className="glass-pill group/cta inline-flex items-center gap-2 px-5 py-2.5 rounded-full hover:bg-white/5 hover:border-white/15 text-white hover:text-zinc-300 transition-all text-sm font-medium"
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-200 group-hover/cta:text-zinc-300 transition-colors">
+            <span className="type-meta tracking-[0.2em] text-zinc-200 group-hover/cta:text-zinc-300 transition-colors">
               {">"}_
             </span>
             View all posts on the blog

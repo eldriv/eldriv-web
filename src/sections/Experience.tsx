@@ -185,18 +185,18 @@ const Lightbox = ({
   
   return (
     <motion.div 
-      className="fixed inset-0 z-50 bg-[#0c0c0f]/85 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-[#0c0c0f]/85 backdrop-blur-sm flex items-center justify-center p-3 md:p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="absolute top-6 right-6">
+      <div className="absolute top-4 right-4 z-10 md:top-6 md:right-6">
         <button 
           onClick={onClose}
-          className="text-white h-10 w-10 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors"
+          className="text-white h-9 w-9 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors md:h-10 md:w-10"
         >
-          <CloseIcon className="w-5 h-5" />
+          <CloseIcon className="w-4 h-4 md:w-5 md:h-5" />
         </button>
       </div>
       
@@ -237,30 +237,30 @@ const Lightbox = ({
               
               <button 
                 onClick={onPrev}
-                className="absolute left-2 top-1/2 -translate-y-1/2 text-white h-12 w-12 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors"
+                className="absolute left-2 top-1/2 -translate-y-1/2 text-white h-9 w-9 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors md:h-12 md:w-12"
                 aria-label="Previous image"
               >
-                <LeftArrowIcon className="w-6 h-6" />
+                <LeftArrowIcon className="w-4 h-4 md:w-6 md:h-6" />
               </button>
               
               <button 
                 onClick={onNext}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-white h-12 w-12 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-white h-9 w-9 flex items-center justify-center rounded-full glass-pill hover:bg-white/15 transition-colors md:h-12 md:w-12"
                 aria-label="Next image"
               >
-                <RightArrowIcon className="w-6 h-6" />
+                <RightArrowIcon className="w-4 h-4 md:w-6 md:h-6" />
               </button>
             </motion.div>
-            <div className="mt-4 text-white text-sm">
+            <div className="type-small mt-3 text-white md:mt-4">
               {currentIndex + 1} / {totalImages}
             </div>
             
             {/* Thumbnail strip */}
-            <div className="mt-4 flex gap-2 overflow-x-auto max-w-full pb-2">
+            <div className="mt-3 flex gap-2 overflow-x-auto max-w-full pb-2 md:mt-4">
               {portfolioImages.map((image, index) => (
                 <motion.div 
                   key={image.id} 
-                  className={`w-16 h-16 flex-shrink-0 cursor-pointer ${index === currentIndex ? 'ring-2 ring-white/15' : ''}`}
+                  className={`w-12 h-12 flex-shrink-0 cursor-pointer md:w-16 md:h-16 ${index === currentIndex ? 'ring-2 ring-white/15' : ''}`}
                   onClick={() => onThumbnailClick(index)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -435,15 +435,15 @@ export const ExperienceSection = () => {
     });
   };
   return (
-    <section className="py-12 sm:py-16 lg:py-24" id="experience">
-      <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px" }}>
+    <section className="pb-10 pt-6 md:py-16 lg:py-24" id="experience">
+      <div className="container px-5 md:px-8" style={{ maxWidth: "1280px" }}>
         <SectionHeader
           index={1}
           eyebrow="Eldriv's"
           title="Professional History"
           description="Product engineering, software development, and client work across the Philippines, UAE, and US."
         />
-        <ScrollReveal className="mt-10 sm:mt-14" delay={0.08}>
+        <ScrollReveal className="mt-8 md:mt-14" delay={0.08}>
           <ol className="border-t border-white/10">
             {portfolioExperience.map((project, index) => {
               const isOpen = openIndex === index;
@@ -456,10 +456,10 @@ export const ExperienceSection = () => {
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    className="group grid w-full grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 py-5 text-left sm:grid-cols-[13rem_1fr_auto] sm:gap-x-8 sm:py-6"
+                    className="group grid w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 py-4 text-left md:grid-cols-[13rem_1fr_auto] md:gap-x-8 md:py-6"
                   >
                     <span
-                      className={`col-span-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-colors sm:col-span-1 sm:text-xs ${
+                      className={`type-meta col-span-2 flex items-center gap-2 transition-colors md:col-span-1 ${
                         isOpen ? "text-accent" : "text-zinc-500"
                       }`}
                     >
@@ -472,17 +472,17 @@ export const ExperienceSection = () => {
                     </span>
                     <span className="min-w-0">
                       <span
-                        className={`block font-pixel text-lg leading-tight transition-colors sm:text-xl ${
+                        className={`type-card-title block transition-colors ${
                           isOpen ? "text-white" : "text-zinc-200 group-hover:text-white"
                         }`}
                       >
                         {project.title}
                       </span>
-                      <span className="mt-1 block text-sm text-zinc-500">{project.company}</span>
+                      <span className="type-small mt-0.5 block text-zinc-500 md:mt-1">{project.company}</span>
                     </span>
                     <span
                       aria-hidden="true"
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border font-mono text-sm transition-all duration-300 ${
+                      className={`flex h-7 w-7 items-center justify-center rounded-full border font-mono text-sm transition-all duration-300 md:h-8 md:w-8 ${
                         isOpen
                           ? "rotate-45 border-accent/60 bg-accent/15 text-accent"
                           : "border-white/10 text-zinc-500 group-hover:border-accent/40 group-hover:text-accent"
@@ -503,20 +503,20 @@ export const ExperienceSection = () => {
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="grid gap-6 pb-8 sm:grid-cols-[13rem_1fr] sm:gap-x-8">
-                          <div className="hidden sm:block" />
-                          <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-8">
+                        <div className="grid gap-5 pb-6 md:grid-cols-[13rem_1fr] md:gap-x-8 md:pb-8">
+                          <div className="hidden md:block" />
+                          <div className="grid min-w-0 gap-5 md:gap-6 lg:grid-cols-[1fr_minmax(0,22rem)] lg:gap-8">
                             <div className="flex flex-col">
-                              <ul className="flex flex-col gap-3">
+                              <ul className="flex flex-col gap-2.5 md:gap-3">
                                 {project.results.map((result, resultIndex) => (
                                   <motion.li
                                     key={`${project.title}-${result.title}`}
-                                    className="flex gap-3 text-sm leading-relaxed text-zinc-300 md:text-[15px]"
+                                    className="type-body flex gap-2.5 text-zinc-300 md:gap-3"
                                     initial={{ opacity: 0, x: -8 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.05 + resultIndex * 0.04 }}
                                   >
-                                    <CheckIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent/80" />
+                                    <CheckIcon className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-accent/80 md:h-4 md:w-4" />
                                     <span>{result.title}</span>
                                   </motion.li>
                                 ))}
@@ -527,10 +527,10 @@ export const ExperienceSection = () => {
                                   href={project.link}
                                   target={project.target ?? "_blank"}
                                   rel="noreferrer"
-                                  className="btn-ink mt-6 inline-flex h-10 items-center justify-center gap-2 self-start rounded-full px-5 text-sm transition-[filter] hover:brightness-110"
+                                  className="btn-ink mt-5 inline-flex h-9 items-center justify-center gap-2 self-start rounded-full px-4 text-sm transition-[filter] hover:brightness-110 md:mt-6 md:h-10 md:px-5"
                                 >
                                   <span>{project.buttonText}</span>
-                                  <ArrowUprightIcon className="size-4" />
+                                  <ArrowUprightIcon className="size-3.5 md:size-4" />
                                 </a>
                               ) : (
                                 <button
@@ -542,10 +542,10 @@ export const ExperienceSection = () => {
                                       openLightbox("gallery", portfolioImages[0], 0);
                                     }
                                   }}
-                                  className="btn-ink mt-6 inline-flex h-10 items-center justify-center gap-2 self-start rounded-full px-5 text-sm transition-[filter] hover:brightness-110"
+                                  className="btn-ink mt-5 inline-flex h-9 items-center justify-center gap-2 self-start rounded-full px-4 text-sm transition-[filter] hover:brightness-110 md:mt-6 md:h-10 md:px-5"
                                 >
                                   <span>{project.buttonText}</span>
-                                  <ArrowUprightIcon className="size-4" />
+                                  <ArrowUprightIcon className="size-3.5 md:size-4" />
                                 </button>
                               )}
                             </div>

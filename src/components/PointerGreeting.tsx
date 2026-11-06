@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Stop = {
@@ -27,8 +27,10 @@ const STOPS: Stop[] = [
   { target: "nav-contact", ax: 0.5, ay: 0.7, message: "Contact: send me a message, I'd love to hear from you" },
   {
     target: "nav-menu",
-    ax: 0.5,
-    ay: 0.65,
+    // Lower-left of the button, so the mirrored arrow sits beside the icon
+    // instead of covering it.
+    ax: 0.28,
+    ay: 0.85,
     message: "Open this menu to jump to my Experience, Blogs, About, Testimonials & Contact",
   },
   { target: "social-github", ax: 0.5, ay: 0.6, message: "Here are my social links! First, my GitHub" },
@@ -135,6 +137,79 @@ function TypeText({ text, delayS }: { text: string; delayS: number }) {
   );
 }
 
+type Placement = "right" | "left" | "above";
+
+const EDGE_PX = 12;
+
+/**
+ * Speech bubble anchored to the pointer tip. It opens on the preferred side,
+ * then slides horizontally as needed to stay fully inside the viewport.
+ */
+function Bubble({
+  tipX,
+  viewportWidth,
+  placement,
+  delayS,
+  name,
+  message,
+}: {
+  tipX: number;
+  viewportWidth: number;
+  placement: Placement;
+  delayS: number;
+  name: string;
+  message: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [left, setLeft] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const width = el.offsetWidth;
+    const preferred = placement === "above" ? -width / 2 : placement === "left" ? -width + 10 : 10;
+    const min = EDGE_PX - tipX;
+    const max = Math.max(min, viewportWidth - EDGE_PX - tipX - width);
+    setLeft(Math.min(Math.max(preferred, min), max));
+  }, [tipX, viewportWidth, placement]);
+
+  // Grow out of the point nearest the tip.
+  const tipOffset = left === null ? 0 : -left;
+
+  return (
+    <div
+      ref={ref}
+      className={`absolute ${placement === "above" ? "bottom-14" : "top-7"}`}
+      style={{ left: left ?? 0, visibility: left === null ? "hidden" : undefined }}
+    >
+      <motion.div
+        className="relative w-max max-w-[min(11.5rem,calc(100vw-1.5rem))] overflow-hidden rounded-xl border border-white/15 bg-white/[0.07] px-2.5 py-1.5 text-center shadow-[0_12px_40px_-12px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.14)] backdrop-blur-xl backdrop-saturate-150 sm:max-w-[min(13rem,calc(100vw-1.5rem))] sm:px-3 sm:py-2"
+        style={{ transformOrigin: `${tipOffset}px ${placement === "above" ? "100%" : "0"}` }}
+        initial={{ opacity: 0, scale: 0.85, y: -4 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          transition: { delay: delayS, type: "spring", stiffness: 320, damping: 24 },
+        }}
+        exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.15 } }}
+      >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.12] via-transparent to-accent/[0.08]"
+        />
+        <span className="relative flex items-center justify-center gap-1 type-meta tracking-[0.18em] text-zinc-400">
+          <span className="h-1 w-1 rounded-full bg-accent shadow-[0_0_6px_rgba(253,129,40,0.9)]" />
+          <span className="-mr-[0.18em]">{name}</span>
+        </span>
+        <span className="relative mt-0.5 block text-xs font-medium leading-snug text-zinc-100">
+          <TypeText text={message} delayS={delayS + 0.15} />
+        </span>
+      </motion.div>
+    </div>
+  );
+}
+
 export function PointerGreeting({
   name = "Adi",
   onFinish,
@@ -151,7 +226,7 @@ export function PointerGreeting({
   const [started, setStarted] = useState(false);
   const [phase, setPhase] = useState<Phase>("tour");
   const [points, setPoints] = useState<(Point | null)[] | null>(null);
-  const [viewport, setViewport] = useState({ width: 0, entryY: 0 });
+  const [viewport, setViewport] = useState({ width: 0, entryY: 0, height: 0 });
 
   const findTarget = useCallback(
     (target: string) => document.querySelector<HTMLElement>(`[data-pointer="${target}"]`),
@@ -165,7 +240,12 @@ export function PointerGreeting({
     if (!anchor) return;
     const width = document.documentElement.clientWidth;
     const hero = anchor.getBoundingClientRect();
-    setViewport({ width, entryY: hero.top + window.scrollY + Math.min(hero.height, window.innerHeight) });
+    const section = (anchor.closest("section") ?? anchor).getBoundingClientRect();
+    setViewport({
+      width,
+      entryY: hero.top + window.scrollY + Math.min(hero.height, window.innerHeight),
+      height: section.bottom + window.scrollY + 24,
+    });
     setPoints(
       STOPS.map(({ target, ax, ay }) => {
         // Inline text can wrap, so aim at its last line rather than the
@@ -260,6 +340,35 @@ export function PointerGreeting({
     };
   }, [stop, started, phase, findTarget, arriveS]);
 
+  // On short screens (mostly phones) the next stop can be off-screen, so
+  // follow the tour until the visitor scrolls on their own.
+  const visitorScrolledRef = useRef(false);
+  useEffect(() => {
+    const takeOver = () => {
+      visitorScrolledRef.current = true;
+    };
+    const events = ["wheel", "touchmove", "keydown"] as const;
+    events.forEach((type) => window.addEventListener(type, takeOver, { passive: true }));
+    return () => events.forEach((type) => window.removeEventListener(type, takeOver));
+  }, []);
+
+  useEffect(() => {
+    if (!started || phase !== "tour" || reduceMotion || visitorScrolledRef.current) return;
+    const el = findTarget(stop.target);
+    if (!el || el.closest("header, .mobile-nav-container")) return;
+    const rect = el.getBoundingClientRect();
+    const headerHeight = document.querySelector("header")?.offsetHeight ?? 0;
+    const bubbleRoom = stop.target === "next" ? 40 : 140;
+    const topRoom = stop.target === "next" ? 140 : 16;
+    const fits =
+      rect.top >= headerHeight + topRoom && rect.bottom + bubbleRoom <= window.innerHeight;
+    if (fits) return;
+    window.scrollTo({
+      top: window.scrollY + rect.top - Math.max(headerHeight + topRoom, window.innerHeight * 0.3),
+      behavior: "smooth",
+    });
+  }, [stop, started, phase, reduceMotion, findTarget]);
+
   const anchor = (
     <span ref={anchorRef} aria-hidden="true" className="pointer-events-none absolute inset-0" />
   );
@@ -274,15 +383,16 @@ export function PointerGreeting({
   const tilt = Math.max(-18, Math.min(18, (point.x - prevPoint.x) * 0.05));
   const rotate = isLast ? 225 : flipped ? -tilt : tilt;
 
-  const bubblePosition = isLast
-    ? "bottom-14 left-0 -translate-x-1/2"
-    : flipped
-      ? "right-3 top-7"
-      : "left-3 top-7";
-  const bubbleOrigin = isLast ? "50% 100%" : flipped ? "100% 0" : "0 0";
+  const placement: Placement = isLast ? "above" : flipped ? "left" : "right";
 
   const overlay = (
-    <div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-[60] h-0 w-full">
+    // Clipped so the off-screen entry point and edge bubbles can never widen
+    // the page, which mobile browsers do even with overflow-x hidden on body.
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute left-0 top-0 z-[60] w-full overflow-hidden"
+      style={{ height: viewport.height }}
+    >
       <motion.div
         className="absolute left-0 top-0"
         initial={{ x: entry.x, y: entry.y, opacity: 0, scale: 1 }}
@@ -322,32 +432,15 @@ export function PointerGreeting({
 
         <AnimatePresence>
           {started && phase === "tour" && (
-            <div key={index} className={`absolute ${bubblePosition}`}>
-              <motion.div
-                className="relative w-max max-w-[15rem] overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] px-4 py-3 text-center shadow-[0_12px_40px_-12px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.14)] backdrop-blur-xl backdrop-saturate-150"
-                style={{ transformOrigin: bubbleOrigin }}
-                initial={{ opacity: 0, scale: 0.85, y: -4 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  transition: { delay: arriveS * 0.8, type: "spring", stiffness: 320, damping: 24 },
-                }}
-                exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.15 } }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.12] via-transparent to-accent/[0.08]"
-                />
-                <span className="relative flex items-center justify-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(253,129,40,0.9)]" />
-                  <span className="-mr-[0.18em]">{name}</span>
-                </span>
-                <span className="relative mt-1.5 block text-[13px] font-medium leading-relaxed text-zinc-100">
-                  <TypeText text={stop.message} delayS={arriveS * 0.8 + 0.15} />
-                </span>
-              </motion.div>
-            </div>
+            <Bubble
+              key={index}
+              tipX={point.x}
+              viewportWidth={viewport.width}
+              placement={placement}
+              delayS={arriveS * 0.8}
+              name={name}
+              message={stop.message}
+            />
           )}
         </AnimatePresence>
       </motion.div>

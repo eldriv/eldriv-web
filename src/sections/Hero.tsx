@@ -37,13 +37,21 @@ const socials: Social[] = [
 const marquee = [
   "Web Apps",
   "Client Websites",
-  "Shopify",
+  "TypeScript",
   "Next.js",
   "React",
-  "Integrations",
+  "Node.js",
+  "Supabase",
+  "PostgreSQL",
+  "Cloudflare Workers",
+  "Electron",
+  "Capacitor",
+  "AI Agents",
+  "Stripe",
+  "Shopify",
   "Wix Studio",
   "WordPress",
-  "TypeScript",
+  "Python",
   "Automation",
 ];
 
@@ -67,7 +75,7 @@ export function HeroSection() {
   const revealNext = useCallback(() => setShowNext(true), []);
 
   return (
-    <section id="home" className="relative isolate px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-36">
+    <section id="home" className="relative isolate px-5 pb-4 pt-28 sm:px-6 sm:pt-36 md:pb-16">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]"
@@ -108,14 +116,14 @@ export function HeroSection() {
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0c0c0f]/80 to-transparent"
                 />
-                <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#0c0c0f]/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-200 backdrop-blur">
+                <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#0c0c0f]/70 px-2.5 py-1 type-meta text-zinc-200 backdrop-blur">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                   </span>
                   Available
                 </span>
-                <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-white/15 bg-[#0c0c0f]/70 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-zinc-300 backdrop-blur">
+                <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-white/15 bg-[#0c0c0f]/70 px-2 py-1 type-meta text-zinc-300 backdrop-blur">
                   <MapPin className="h-3 w-3 text-accent" />
                   PH
                 </span>
@@ -151,13 +159,13 @@ export function HeroSection() {
             </motion.h1>
             <motion.p
               variants={item}
-              className="mt-6 max-w-xl text-[15px] leading-7 text-zinc-400 sm:text-base sm:leading-8"
+              className="type-lead mt-6 max-w-xl text-zinc-400"
             >
               I build useful web products, client websites, and connected systems—from
               product direction and architecture through integrations and launch.
               Creator of BehindCourt and OnCourt at Behind Digitals.
             </motion.p>
-            <motion.p variants={item} className="mt-4 font-mono text-[12px] text-zinc-500">
+            <motion.p variants={item} className="mt-4 font-mono text-xs text-zinc-500">
               Based in the Philippines · Working with teams worldwide
             </motion.p>
             <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
@@ -192,7 +200,7 @@ export function HeroSection() {
                       target={href.startsWith("mailto:") ? undefined : "_blank"}
                       rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                       data-pointer={`social-${label}`}
-                      className="group/social inline-flex min-h-9 items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-3 font-mono text-[12px] text-zinc-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-accent/10 hover:text-accent data-[pointer-active]:-translate-y-0.5 data-[pointer-active]:border-accent/50 data-[pointer-active]:bg-accent/10 data-[pointer-active]:text-accent"
+                      className="group/social inline-flex min-h-9 items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-3 font-mono text-xs text-zinc-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-accent/10 hover:text-accent data-[pointer-active]:-translate-y-0.5 data-[pointer-active]:border-accent/50 data-[pointer-active]:bg-accent/10 data-[pointer-active]:text-accent"
                     >
                       <Icon className="h-3.5 w-3.5" />
                       {label}
@@ -216,13 +224,13 @@ export function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9, duration: 0.8 }}
         aria-hidden="true"
-        className="mask-fade-x relative mx-auto mt-14 max-w-5xl overflow-hidden border-y border-white/10 py-3"
+        className="mask-fade-x relative mx-auto mt-10 max-w-5xl overflow-hidden border-y border-white/10 py-3 md:mt-14"
       >
-        <div className="flex w-max animate-move-left [animation-duration:40s]">
+        <div className="flex w-max animate-move-left [animation-duration:70s]">
           {[...marquee, ...marquee].map((word, i) => (
             <span
               key={`${word}-${i}`}
-              className="inline-flex items-center gap-8 pr-8 font-mono text-[12px] uppercase tracking-[0.2em] text-zinc-500"
+              className="type-meta inline-flex items-center gap-8 pr-8 tracking-[0.2em] text-zinc-500"
             >
               {word}
               <span className="text-accent">✦</span>
@@ -255,8 +263,8 @@ function ScrollNext({ visible }: { visible: boolean }) {
   };
 
   return (
-    <div className="mt-10 flex justify-center">
-      <div data-pointer="next" className="flex h-20 w-32 justify-center">
+    <div className="mt-5 flex justify-center md:mt-10">
+      <div data-pointer="next" className="flex h-[4.75rem] w-32 justify-center md:h-20">
         <AnimatePresence>
           {visible && (
             <motion.button
@@ -300,7 +308,7 @@ function ScrollNext({ visible }: { visible: boolean }) {
                   </motion.span>
                 </span>
               </span>
-              <span className="-mr-[0.2em] whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.2em]">
+              <span className="type-meta -mr-[0.2em] whitespace-nowrap tracking-[0.2em]">
                 next · experience
               </span>
             </motion.button>

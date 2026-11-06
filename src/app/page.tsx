@@ -1,6 +1,7 @@
 import { Header } from "@/sections/Header";
 import { HeroSection } from "@/sections/Hero";
 import { ExperienceSection } from "@/sections/Experience";
+import { TechStackSection } from "@/sections/TechStack";
 import { ArticlesSection } from "@/sections/Articles";
 import { AboutSection } from "@/sections/About";
 import { ContactSection } from "@/sections/Contact";
@@ -11,10 +12,11 @@ import { Footer } from "@/sections/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative w-full overflow-x-hidden supports-[overflow:clip]:overflow-x-clip">
       <Header />
       <HeroSection />
       <ExperienceSection />
+      <TechStackSection />
       <WebAppsSection />
       <WebsitesSection />
       <ArticlesSection />

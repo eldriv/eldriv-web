@@ -171,9 +171,9 @@ export const TestimonialsSection = () => {
   return (
     <section id="testimonials" className="relative">
       <div className="py-12 sm:py-16 lg:py-24 relative">
-        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-6 md:px-8">
           <SectionHeader
-            index={6}
+            index={7}
             eyebrow="Testimonials"
             title="What clients say about working with me."
             description="A handful of kind words from the people I've collaborated with — and an open invitation for clients to add their own."
@@ -188,7 +188,7 @@ export const TestimonialsSection = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
-              className="glass-pill group inline-flex items-center gap-2.5 rounded-full !border-white/15 bg-white/5 hover:bg-white/5 text-white px-5 sm:px-6 h-11 sm:h-12 text-sm sm:text-base font-semibold transition-colors shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_30px_-12px_rgba(0,0,0,0.5)]"
+              className="glass-pill group inline-flex items-center gap-2.5 rounded-full !border-white/15 bg-white/5 hover:bg-white/5 text-white px-5 sm:px-6 h-11 sm:h-12 text-sm font-semibold transition-colors shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_30px_-12px_rgba(0,0,0,0.5)]"
             >
               <ChatPlusIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-zinc-300 group-hover:text-white transition-colors" />
               <span>Share yours</span>

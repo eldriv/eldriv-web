@@ -138,7 +138,7 @@ const websites: Website[] = [
       "Cinematic real estate media for agents and brokerages—listing films, social reels, photo, and drone built to stop the scroll. Packages cover MLS photography, twilight shoots, branded reels, and custom listing micro-sites with strategy and scripts included.",
     image: CasaNorthImage,
     liveUrl: "https://casa-north.netlify.app",
-    technologies: ["React", "JavaScript", "Netlify", "Tailwind CSS"],
+    technologies: ["React", "JavaScript", "Tailwind CSS"],
     projectType: "mock",
   },
   {
@@ -154,7 +154,6 @@ const websites: Website[] = [
       "Lucide",
       "Google Maps",
       "Google Calendar",
-      "Netlify",
     ],
     clientLocation: "PH",
   },
@@ -178,18 +177,18 @@ export const WebsitesSection = () => {
 
   return (
     <section id="web">
-      <div className="py-12 sm:py-16 lg:py-24 relative">
-        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="py-10 md:py-16 lg:py-24 relative">
+        <div className="w-full max-w-[1280px] mx-auto px-5 md:px-8">
           <SectionHeader
-            index={3}
+            index={4}
             eyebrow="Web Design & Development"
             title="Eldriv's Website Portfolio"
             description="Here are some of the websites I've built from the ground up, showcasing modern technologies, responsive design, and SEO-optimized. Each project reflects my commitment to clean architecture, accessibility, and user-centric interfaces."
           />
 
-          <ScrollReveal className="mt-12 sm:mt-16 md:mt-20 relative" delay={0.1}>
+          <ScrollReveal className="mt-8 md:mt-16 lg:mt-20 relative" delay={0.1}>
             {/* Mobile: Vertical Stack */}
-            <div className="block sm:hidden space-y-4">
+            <div className="block md:hidden space-y-3">
               {websites
                 .filter((website) => !website.featured)
                 .map((website, index) => (
@@ -202,7 +201,7 @@ export const WebsitesSection = () => {
             </div>
 
             {/* Desktop: Embla Carousel - Continuous Scroll */}
-            <div className="hidden sm:block relative">
+            <div className="hidden md:block relative">
               <div className="overflow-hidden edge-fade-x" ref={emblaRef}>
                 <div className="flex py-3">
                   {/* Duplicate websites array for seamless loop */}
@@ -211,7 +210,7 @@ export const WebsitesSection = () => {
                     .map((website, index) => (
                       <div
                         key={`${website.title}-${index}`}
-                        className="flex-[0_0_85%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3 md:px-4 lg:px-5"
+                        className="flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-4 lg:px-5"
                       >
                         <WebsiteCard 
                           website={website} 
@@ -224,7 +223,7 @@ export const WebsitesSection = () => {
             </div>
 
             {/* Hover hint with icons - Only show on desktop */}
-            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 text-white/55 text-xs sm:text-sm px-4 py-2 w-fit mx-auto rounded-full glass-pill">
+            <div className="hidden md:flex flex-row items-center justify-center gap-3 mt-8 text-white/55 text-sm px-4 py-2 w-fit mx-auto rounded-full glass-pill">
               <span className="flex items-center gap-1.5">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

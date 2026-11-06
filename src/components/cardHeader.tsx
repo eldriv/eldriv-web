@@ -21,29 +21,29 @@ export const CardHeader = ({
   return (
     <div className={twMerge("flex flex-col p-3", className)}>
       <div className="inline-flex items-center gap-2">
-        <StarIcon className="size-9 text-zinc-200" />
+        <StarIcon className="size-6 md:size-7 text-zinc-200" />
         {href ? (
           <Link
             href={href}
-            className="font-sans text-3xl text-white hover:text-zinc-200 transition-colors"
+            className="type-card-title text-white hover:text-zinc-200 transition-colors"
           >
             {title}
           </Link>
         ) : (
-          <h3 className="font-sans text-3xl text-white">{title}</h3>
+          <h3 className="type-card-title text-white">{title}</h3>
         )}
       </div>
       {subtitle && (
-        <h3 className="font-sans lg:text-lg font-semibold pt-2 text-zinc-300">
+        <h3 className="text-sm font-semibold pt-2 text-zinc-300">
           {subtitle}
         </h3>
       )}
-      <p className="text-sm sm:pt-5 leading-relaxed flex-grow lg:mt-2 lg:text-lg gap-3 md:text-lg sm:text-lg text-white">
+      <p className="type-body mt-2 flex-grow text-white/70">
         {description}
         {researchLink && (
           <Link 
             href={researchLink}
-            className=" lg:mt-1 sm:pt-5 text-zinc-200 hover:text-zinc-300 transition-colors inline-flex items-center"
+            className="ml-1 text-zinc-200 hover:text-zinc-300 transition-colors inline-flex items-center"
           >
             View Research
             <ArrowUpRightIcon className="ml-1 w-4 h-4" />

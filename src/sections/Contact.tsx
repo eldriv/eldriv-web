@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Send, CheckCircle, Mail, User, MessageSquare, Hash } from 'lucide-react';
 import { Card } from '@/components/card';
 import { ScrollReveal } from '@/components/scroll-reveal';
+import { SectionHeader } from '@/components/SectionHeader';
 
 interface FormData {
   name: string;
@@ -68,7 +69,7 @@ const InputField: React.FC<InputFieldProps> = ({
             onChange={onChange}
             rows={rows}
             placeholder={placeholder}
-            className="relative w-full bg-transparent border-0 outline-none text-white placeholder-gray-400 pl-14 pr-5 pt-5 pb-5 resize-none z-10 text-lg font-medium"
+            className="relative w-full bg-transparent border-0 outline-none text-white placeholder-zinc-500 pl-14 pr-5 pt-5 pb-5 resize-none z-10 text-base leading-relaxed md:text-sm"
           />
         ) : (
           <input
@@ -77,13 +78,13 @@ const InputField: React.FC<InputFieldProps> = ({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className="relative w-full bg-transparent border-0 outline-none text-white placeholder-gray-400 pl-14 pr-5 py-4 h-16 z-10 text-lg font-medium"
+            className="relative w-full bg-transparent border-0 outline-none text-white placeholder-zinc-500 pl-14 pr-5 py-4 h-16 z-10 text-base md:text-sm"
           />
         )}
 
         {/* Floating label */}
         {hasValue && (
-          <label className="absolute left-14 top-2 text-xs text-orange-500 font-medium z-5 transition-all duration-300">
+          <label className="absolute left-14 top-2 type-meta text-accent z-5 transition-all duration-300">
             {label}
           </label>
         )}
@@ -91,7 +92,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
       {/* Error message */}
       {hasError && (
-        <div className="mt-2 text-red-400 text-sm flex items-center animate-in slide-in-from-left-2">
+        <div className="mt-2 type-small text-red-400 flex items-center animate-in slide-in-from-left-2">
           <div className="w-1 h-1 bg-red-400 rounded-full mr-2" />
           {hasError}
         </div>
@@ -207,29 +208,22 @@ function UltraModernContactForm() {
 
   return (
     <div className="w-full py-12 sm:py-16 lg:py-24" id="contact">
-      <div className="relative z-10 flex justify-center px-4 sm:px-6 md:px-8">
+      <div className="relative z-10 flex justify-center px-5 sm:px-6 md:px-8">
         <div className="w-full max-w-[1280px]">
-          <ScrollReveal>
-          {/* Status indicator */}
-          <div className="flex items-center justify-center mb-8">
-            <Card className="px-6 py-3 rounded-full border-green-400/30">
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-green-400 text-sm font-medium">Connected & Ready</span>
-              </div>
-            </Card>
-          </div>
-          </ScrollReveal>
+          <SectionHeader
+            index={7}
+            eyebrow="Contact"
+            title="Get In Touch"
+            description="Ready to bring your ideas to life? Let's start a conversation."
+          />
 
           <ScrollReveal delay={0.1}>
-          {/* Header */}
-          <div className="text-center mb-8 sm:mb-12 px-4">
-            <h1 className="font-pixel text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 sm:mb-6 leading-tight text-zinc-100">
-              Get In Touch
-            </h1>
-            <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Ready to bring your ideas to life? Let's start a conversation.
-            </p>
+          {/* Status indicator */}
+          <div className="mt-12 sm:mt-16 lg:mt-20 mb-6 sm:mb-8 flex">
+            <span className="glass-pill inline-flex items-center gap-2 rounded-full px-3 py-1.5 type-meta tracking-[0.2em] text-green-400">
+              <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+              Connected & Ready
+            </span>
           </div>
           </ScrollReveal>
 
@@ -241,14 +235,14 @@ function UltraModernContactForm() {
                 <div className="bg-zinc-100 text-[#0c0c0f] w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
                   <CheckCircle className="w-12 h-12" />
                 </div>
-                <h2 className="font-pixel text-2xl sm:text-3xl md:text-4xl text-zinc-100 mb-4 sm:mb-6">Message Sent!</h2>
-                <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto px-4">
+                <h2 className="type-section-title text-zinc-100 mb-4 md:mb-6">Message Sent!</h2>
+                <p className="type-lead text-zinc-400 max-w-md mx-auto px-4">
                   Thanks for reaching out! I'll get back to you within 24 hours.
                 </p>
                 <div className="mt-8 flex justify-center">
-                  <Card className="px-6 py-3 rounded-full">
-                    <span className="text-white/80 text-sm">Redirecting in a few seconds...</span>
-                  </Card>
+                  <span className="glass-pill rounded-full px-3 py-1.5 type-meta tracking-[0.2em] text-white/60">
+                    Redirecting in a few seconds...
+                  </span>
                 </div>
               </div>
             ) : (
@@ -301,7 +295,7 @@ function UltraModernContactForm() {
                 {/* Submit Error */}
                 {errors.submit && (
                   <Card className="p-4 border-red-400/30 bg-red-500/10 animate-in slide-in-from-left-2">
-                    <p className="text-red-300 text-sm flex items-center">
+                    <p className="type-body text-red-300 flex items-center">
                       <div className="w-2 h-2 bg-red-400 rounded-full mr-3" />
                       {errors.submit}
                     </p>
@@ -309,7 +303,7 @@ function UltraModernContactForm() {
                 )}     
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div className="flex items-center text-gray-400 text-sm space-x-2">
+                  <div className="flex items-center type-body text-zinc-400 space-x-2">
                       <MessageSquare className="w-4 h-4 flex-shrink-0" />
                       <span className="truncate">eldriv@proton.me</span>
                   </div>
@@ -318,7 +312,7 @@ function UltraModernContactForm() {
                       disabled={isLoading}
                       className="relative group w-full sm:w-auto disabled:opacity-70"
                   >
-                      <div className="btn-ink relative py-3 px-8 transition-all duration-300 group-hover:-translate-y-0.5">
+                      <div className="btn-ink relative py-3 px-8 text-sm transition-all duration-300 group-hover:-translate-y-0.5">
                       {isLoading ? (
                           <div className="flex items-center space-x-3">
                           <div className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" />

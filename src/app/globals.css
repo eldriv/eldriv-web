@@ -132,6 +132,37 @@
         .label-mono {
             @apply font-mono text-[11px] uppercase tracking-wider text-zinc-500;
         }
+
+        /* Type scale: one size per role so text stays consistent across
+           sections. Only step up at md: — the sm: breakpoint is 375px, so
+           sm: sizes land on most phones. */
+        .type-section-title {
+            @apply font-pixel text-2xl leading-tight md:text-4xl lg:text-[2.6rem];
+        }
+
+        .type-card-title {
+            @apply font-pixel text-base leading-tight md:text-xl;
+        }
+
+        /* Section intros and quotes. */
+        .type-lead {
+            @apply text-sm leading-relaxed md:text-base;
+        }
+
+        /* Card descriptions, bullet lists, captions. */
+        .type-body {
+            @apply text-sm leading-relaxed;
+        }
+
+        /* Secondary lines under a title (company, role, counters). */
+        .type-small {
+            @apply text-xs md:text-sm;
+        }
+
+        /* Badges, dates, status pills, tags. */
+        .type-meta {
+            @apply font-mono text-[11px] uppercase tracking-wider;
+        }
     }
 
     @layer utilities {

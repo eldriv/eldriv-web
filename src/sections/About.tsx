@@ -5,40 +5,10 @@ import { SectionHeader } from "@/components/SectionHeader"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { Card } from "@/components/card"
 import { CardHeader } from "@/components/cardHeader"
-import { ToolboxItems } from "@/components/toolBoxItem"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 // SVG Icons
-import JavaScriptIcon from "@/assets/icons/square-js.svg"
-import HtmlIcon from "@/assets/icons/html5.svg"
-import CssIcon from "@/assets/icons/css3.svg"
-import ReactIcon from "@/assets/icons/react.svg"
 import GithubIcon from "@/assets/icons/github.svg"
-import NixIcon from "@/assets/icons/nixos.svg"
-import CommonLispIcon from "@/assets/icons/clisp.svg"
-import ShellIcon from "@/assets/icons/shell.svg"
-import JavaIcon from "@/assets/icons/java.svg"
-import PythonIcon from "@/assets/icons/python.svg"
-import CSharpIcon from "@/assets/icons/c.svg"
-import VBIcon from "@/assets/icons/vbnet.svg"
-import VSIcon from "@/assets/icons/vscode.svg"
-import EmacsIcon from "@/assets/icons/doom.svg"
-import VimIcon from "@/assets/icons/vim.svg"
-import WPIcon from "@/assets/icons/wordpress.svg"
-import HugoIcon from "@/assets/icons/hugo.svg"
-import DockerIcon from "@/assets/icons/docker.svg"
-import OracleIcon from "@/assets/icons/oracle.svg"
-import LatexIcon from "@/assets/icons/latex.svg"
-import MarkdownIcon from "@/assets/icons/markdown.svg"
-import OrgIcon from "@/assets/icons/org.svg"
-import PandocIcon from "@/assets/icons/pandoc.svg"
-import ClogIcon from "@/assets/icons/clog.svg"
-import FlameGraphIcon from "@/assets/icons/flamegraph.svg"
-import n8nIcon from "@/assets/icons/n8n.svg"
-import zapierIcon from "@/assets/icons/zapier.svg"
-import WixStudioIcon from "@/assets/icons/wix-studio.svg"
-import MakefileIcon from "@/assets/icons/makefile.svg"
-
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg"
 import StarIcon from "@/assets/icons/star.svg"
 import Link from "next/link"
@@ -50,129 +20,6 @@ import { motion } from 'framer-motion'
 const cardHoverClass =
   "transition-all duration-300 ease-out will-change-transform motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_30px_60px_-30px_rgba(0,0,0,0.35)] hover:border-white/15";
 
-
-const tool = [
-  {
-    title: "React",
-    iconType: ReactIcon,
-  },
-  {
-    title: "CSS",
-    iconType: CssIcon,
-  },
-  {
-    title: "HTML",
-    iconType: HtmlIcon,
-  },
-  {
-    title: "GitHub",
-    iconType: GithubIcon,
-  },
-  {
-    title: "JavaScript",
-    iconType: JavaScriptIcon,
-  },
-  {
-    title: "Nix",
-    iconType: NixIcon,
-  },
-  {
-    title: "Common Lisp",
-    iconType: CommonLispIcon,
-  },
-  {
-    title: "Shell",
-    iconType: ShellIcon,
-  },
-  {
-    title: "Java",
-    iconType: JavaIcon,
-  },
-  {
-    title: "Python",
-    iconType: PythonIcon,
-  },
-  {
-    title: "C#",
-    iconType: CSharpIcon,
-  },
-  {
-    title: "VB.net",
-    iconType: VBIcon,
-  },
-  {
-    title: "Parenscript",
-    // No icon provided in original code
-  },
-  {
-    title: "Emacs",
-    iconType: EmacsIcon,
-  },
-  {
-    title: "Vim",
-    iconType: VimIcon,
-  },
-  {
-    title: "VSCode",
-    iconType: VSIcon,
-  },
-  {
-    title: "WordPress",
-    iconType: WPIcon,
-  },
-  {
-    title: "Hugo",
-    iconType: HugoIcon,
-  },
-  {
-    title: "Docker",
-    iconType: DockerIcon,
-  },
-  {
-    title: "Oracle",
-    iconType: OracleIcon,
-  },
-  {
-    title: "LaTeX",
-    iconType: LatexIcon,
-  },
-  {
-    title: "Markdown",
-    iconType: MarkdownIcon,
-  },
-  {
-    title: "Org",
-    iconType: OrgIcon,
-  },
-  {
-    title: "Pandoc",
-    iconType: PandocIcon,
-  },
-  {
-    title: "CLOG",
-    iconType: ClogIcon,
-  },
-  {
-    title: "FlameGraph",
-    iconType: FlameGraphIcon,
-  },
-  {
-    title: "n8n",
-    iconType: n8nIcon,
-  },
-  {
-    title: "Zapier",
-    iconType: zapierIcon,
-  },
-  {
-    title: "Wix Studio",
-    iconType: WixStudioIcon,
-  },
-  {
-    title: "Makefile",
-    iconType: MakefileIcon,
-  },
-];
 
 // Define contribution and project types
 interface Contribution {
@@ -350,16 +197,16 @@ const handleContributionClick = (contribution: Contribution, e: React.MouseEvent
 return (
   <section id="about">
   <div className="py-12 sm:py-16 lg:py-24 relative">
-    <div className="container px-4 sm:px-6 md:px-8" style={{ maxWidth: "1280px"}}>
+    <div className="container px-5 sm:px-6 md:px-8" style={{ maxWidth: "1280px"}}>
       <SectionHeader
-        index={5}
+        index={6}
         eyebrow="About Me"
         title="Beyond the work"
         description="A little more about the tools, ideas, and projects that keep me curious."
       />
       <ScrollReveal delay={0.08} className="mt-12 sm:mt-16 md:mt-20 flex flex-col gap-6 sm:gap-8">
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <Card className={`h-[280px] sm:h-[300px] md:h-[320px] md:col-span-1 lg:col-span-1 overflow-hidden flex flex-col p-0 ${cardHoverClass}`}>
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+          <Card className={`h-[280px] sm:h-[300px] md:h-[320px] overflow-hidden flex flex-col p-0 ${cardHoverClass}`}>
             <CardHeader
               title="Books In Queue"
               description="The books that I'm currently reading."
@@ -370,7 +217,7 @@ return (
                   current "reading" book when nothing is hovered. */}
               <div className="flex items-center gap-2 min-h-[28px] -mt-1">
                 <span
-                  className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] flex-shrink-0 ${
+                  className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full type-meta tracking-[0.2em] flex-shrink-0 ${
                     displayedBook.status === "reading"
                       ? "bg-white/5 ring-1 ring-white/15 text-zinc-300"
                       : displayedBook.status === "next"
@@ -391,10 +238,10 @@ return (
                     : "Queued"}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs sm:text-sm text-white truncate font-medium">
+                  <div className="text-sm text-white truncate font-medium">
                     {displayedBook.short}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] text-white/50 truncate font-mono">
+                  <div className="text-[11px] text-white/50 truncate font-mono">
                     {displayedBook.author}
                   </div>
                 </div>
@@ -464,27 +311,7 @@ return (
               </div>
             </div>
           </Card>
-          <Card className={`h-[280px] sm:h-[300px] md:h-[320px] md:col-span-1 lg:col-span-2 flex flex-col ${cardHoverClass}`}>
-            <CardHeader
-              title="Toolbox"
-              description="Explore the technologies that I am proficient with."
-              className="px-4 sm:px-6"
-            />
-            <div className="flex-1 flex flex-col justify-end pb-6 sm:pb-8 md:pb-10">
-              <ToolboxItems 
-              tools={tool} 
-              className="mt-3" 
-              itemsWrapperClassName="animate-move-left [animation-duration:80s]"/>
-              <ToolboxItems
-                tools={tool}
-                className="mt-6"
-                itemsWrapperClassName="-translate-x-1/2 animate-move-right [animation-duration:80s]"
-              />
-            </div>
-          </Card>
-        </div>
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <Card className={`h-[280px] sm:h-[300px] md:h-[320px] p-0 flex flex-col md:col-span-1 lg:col-span-1 ${cardHoverClass}`}>
+          <Card className={`h-[280px] sm:h-[300px] md:h-[320px] p-0 flex flex-col ${cardHoverClass}`}>
             <CardHeader
               title="Collaborations"
               description="Tap to explore my tech contributions and my side-projects."
@@ -513,7 +340,7 @@ return (
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => handleContributionClick(contribution, e)}
-                    className={`inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 md:px-6 bg-gradient-to-r from-white/10 to-white/5 rounded-full py-1 sm:py-1 md:py-1.5 cursor-pointer text-[11px] sm:text-xs md:text-sm shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)] ${
+                    className={`inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 md:px-6 bg-gradient-to-r from-white/10 to-white/5 rounded-full py-1 md:py-1.5 cursor-pointer text-sm shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)] ${
                       isMobile ? "relative" : "absolute"
                     }`}
                     style={isMobile ? undefined : { left: contribution.left, top: contribution.top }}
@@ -543,14 +370,14 @@ return (
               {showOpenSourceOptions && (
                 <div className="glass-strong absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-2xl z-10 max-w-[90%] sm:max-w-none">
                   <div className="flex flex-col gap-1.5 sm:gap-2 mb-16 sm:mb-20">
-                    <h4 className="text-zinc-200 font-medium text-sm sm:text-base">Select a Project</h4>
+                    <h4 className="text-zinc-200 font-medium text-sm">Select a Project</h4>
                     {openSourceProjects.map((project) => (
                       <a
                         key={project.name}
                         href={project.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 rounded-xl transition-colors text-sm sm:text-base"
+                        className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 rounded-xl transition-colors text-sm"
                         onClick={(e) => {
                           // Don't close the popup when clicking a project link
                           e.stopPropagation();
@@ -565,7 +392,7 @@ return (
               )}
             </div>
           </Card>
-          <Card className={`h-[320px] sm:h-[340px] md:h-[320px] p-0 relative md:col-span-1 lg:col-span-1 group/research ${cardHoverClass}`}>
+          <Card className={`h-[320px] sm:h-[340px] md:h-[320px] p-0 relative group/research ${cardHoverClass}`}>
             <div className="relative h-full p-4 sm:p-6 flex flex-col">
               {/* Decorative chart graphic in the background — hints at "forecasting" without shouting. */}
               <svg
@@ -594,7 +421,7 @@ return (
                 />
               </svg>
 
-              <span className="inline-flex items-center self-start gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] ring-1 ring-white/15 text-zinc-200 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-3">
+              <span className="inline-flex items-center self-start gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] ring-1 ring-white/15 text-zinc-200 type-meta mb-3">
                 <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
@@ -605,15 +432,15 @@ return (
               </span>
 
               <div className="inline-flex items-center gap-2 mb-2">
-                <StarIcon className="size-7 sm:size-8 text-zinc-200" />
-                <h3 className="font-sans text-2xl sm:text-3xl text-white">Research</h3>
+                <StarIcon className="size-6 md:size-7 text-zinc-200" />
+                <h3 className="type-card-title text-white">Research</h3>
               </div>
 
-              <h4 className="text-sm sm:text-base font-semibold text-zinc-300 leading-snug mb-3 border-l-2 border-white/15 pl-3">
+              <h4 className="text-sm font-semibold text-zinc-300 leading-snug mb-3 border-l-2 border-white/15 pl-3">
                 Evaluating the Efficacy of ARIMA in Forecasting Rootcrops Prices in NCR.
               </h4>
 
-              <p className="text-xs sm:text-sm text-white/75 leading-relaxed flex-1">
+              <p className="type-body text-white/70 flex-1">
                 Assessment of ARIMA model effectiveness for forecasting prices of five key root crops in the National Capital Region of the Philippines.
               </p>
 
@@ -621,17 +448,17 @@ return (
                 href="https://docs.google.com/document/d/1uKjc8QfxJVrcqyIhEklHguA3H9d2d6mcAyxkeH1gdC4/edit?tab=t.0"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center self-start gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/5 ring-1 ring-white/15 hover:ring-white/15 text-zinc-200 hover:text-zinc-300 text-xs sm:text-sm font-medium transition-all"
+                className="mt-4 inline-flex items-center self-start gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/5 ring-1 ring-white/15 hover:ring-white/15 text-zinc-200 hover:text-zinc-300 text-sm font-medium transition-all"
               >
                 View Research
                 <ArrowUpRightIcon className="w-3.5 h-3.5 transition-transform group-hover/research:translate-x-0.5 group-hover/research:-translate-y-0.5" />
               </Link>
             </div>
           </Card>
-          <Card className={`h-[320px] sm:h-[340px] md:h-[320px] p-0 relative md:col-span-1 lg:col-span-1 bg-gradient-to-br from-white/10 via-white/[0.03] to-white/5 ${cardHoverClass}`}>
+          <Card className={`h-[320px] sm:h-[340px] md:h-[320px] p-0 relative bg-gradient-to-br from-white/10 via-white/[0.03] to-white/5 ${cardHoverClass}`}>
             <div className="relative h-full p-4 sm:p-6 flex flex-col">
               {/* Live "available" status — small but punchy. */}
-              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] ring-1 ring-white/15 text-zinc-200 text-[10px] sm:text-xs font-semibold">
+              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] ring-1 ring-white/15 text-zinc-200 type-meta">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -640,14 +467,14 @@ return (
               </span>
 
               <div className="inline-flex items-center gap-2 mb-2 pr-24">
-                <StarIcon className="size-7 sm:size-8 text-zinc-200" />
-                <h3 className="font-sans text-2xl sm:text-3xl text-white">Contact</h3>
+                <StarIcon className="size-6 md:size-7 text-zinc-200" />
+                <h3 className="type-card-title text-white">Contact</h3>
               </div>
 
-              <p className="text-sm sm:text-base text-white font-medium mb-2">
+              <p className="text-sm text-white font-medium mb-2">
                 Let&apos;s create something amazing together.
               </p>
-              <p className="text-xs sm:text-sm text-white/70 leading-relaxed mb-4">
+              <p className="type-body text-white/70 mb-4">
                 Passionate about websites, AI, and software engineering? I&apos;d love to connect.
               </p>
 
@@ -663,8 +490,8 @@ return (
                     </svg>
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[10px] text-white/50 uppercase tracking-wider leading-tight">Email</div>
-                    <div className="text-xs sm:text-sm text-white truncate group-hover/email:text-zinc-300 transition-colors">eldriv@proton.me</div>
+                    <div className="type-meta text-white/50 leading-tight">Email</div>
+                    <div className="text-sm text-white truncate group-hover/email:text-zinc-300 transition-colors">eldriv@proton.me</div>
                   </div>
                 </div>
                 <ArrowUpRightIcon className="w-4 h-4 text-white/50 group-hover/email:text-zinc-300 flex-shrink-0 transition-colors" />

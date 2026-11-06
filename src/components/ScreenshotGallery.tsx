@@ -63,7 +63,7 @@ export const ScreenshotGallery = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -81,9 +81,9 @@ export const ScreenshotGallery = ({
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 sm:px-5">
+            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-3.5 py-2.5 md:px-5 md:py-3">
               <div className="min-w-0">
-                <h3 className="truncate font-pixel text-base text-zinc-100 sm:text-lg">{title}</h3>
+                <h3 className="type-card-title truncate text-zinc-100">{title}</h3>
                 <p className="label-mono mt-0.5">
                   {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
                 </p>
@@ -126,25 +126,25 @@ export const ScreenshotGallery = ({
                   <button
                     type="button"
                     onClick={() => go(-1)}
-                    className="glass-strong absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-zinc-300 transition-colors hover:text-white sm:left-3"
+                    className="glass-strong absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-zinc-300 transition-colors hover:text-white md:left-3 md:h-10 md:w-10"
                     aria-label="Previous screenshot"
                   >
-                    <ChevronLeft className="h-5 w-5" />
+                    <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
                   </button>
                   <button
                     type="button"
                     onClick={() => go(1)}
-                    className="glass-strong absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-zinc-300 transition-colors hover:text-white sm:right-3"
+                    className="glass-strong absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-zinc-300 transition-colors hover:text-white md:right-3 md:h-10 md:w-10"
                     aria-label="Next screenshot"
                   >
-                    <ChevronRight className="h-5 w-5" />
+                    <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
                   </button>
                 </>
               )}
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
-              <p className="text-sm text-zinc-400">{current.caption}</p>
+            <div className="flex flex-col gap-2.5 border-t border-white/10 px-3.5 py-2.5 md:flex-row md:items-center md:justify-between md:gap-3 md:px-5 md:py-3">
+              <p className="type-body text-zinc-400">{current.caption}</p>
               {count > 1 && (
                 <div className="flex gap-2">
                   {screenshots.map((shot, i) => (
@@ -152,7 +152,7 @@ export const ScreenshotGallery = ({
                       key={i}
                       type="button"
                       onClick={() => setIndex(i)}
-                      className={`relative h-10 w-16 overflow-hidden rounded-md border transition-all ${
+                      className={`relative h-8 w-12 overflow-hidden rounded-md border transition-all md:h-10 md:w-16 ${
                         i === index
                           ? "border-accent opacity-100"
                           : "border-white/10 opacity-50 hover:opacity-80"

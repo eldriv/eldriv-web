@@ -30,7 +30,7 @@ export const Footer = () => {
       </div>
 
       {/* Content */}
-      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 pb-6 sm:pb-8">
+      <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-6 md:px-8 pb-6 sm:pb-8">
         <ScrollReveal variant="fadeIn" duration={0.5}>
         <div className="glass rounded-3xl md:rounded-full px-6 md:px-8 py-6 md:py-4 text-sm flex flex-col md:flex-row md:justify-between items-center gap-6 md:gap-8">
           <div className="text-white/40">
